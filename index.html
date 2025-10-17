@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="タンパク質摂取量を簡単に計算・管理できるWebアプリ。1日の目標摂取量に合わせた食事プランを作成できます。">
+    <meta name="keywords" content="タンパク質,プロテイン,栄養管理,食事プラン,健康">
+
+    <!-- OGP設定 -->
+    <meta property="og:title" content="プロテイン管理ツール - タンパク質摂取量計算">
+    <meta property="og:description" content="タンパク質摂取量を簡単に計算・管理できるWebアプリ">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://your-domain.github.io/protein-tracker/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <title>プロテイン管理ツール - タンパク質摂取量計算</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232563eb'><path d='M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z'/></svg>">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">ProteinTracker</a>
+                <nav>
+                    <ul>
+                        <li><a href="index.html" class="active">ホーム</a></li>
+                        <li><a href="database.html">食材データベース</a></li>
+                        <li><a href="planner.html">プラン作成</a></li>
+                        <li><a href="recommended.html">おすすめ食材</a></li>
+                        <li><a href="restaurants.html">チェーン店メニュー</a></li>
+                        <li><a href="admin.html">管理画面</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="hero">
+                <h1>ProteinTracker</h1>
+                <p>タンパク質摂取量を簡単に計算・管理して、健康的な体づくりをサポートします。食材データベースから選んで、あなたに最適な1日の食事プランを作成しましょう。</p>
+                <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+                    <a href="planner.html" class="btn">プラン作成を始める</a>
+                    <a href="database.html" class="btn btn-secondary">食材を調べる</a>
+                </div>
+            </section>
+
+            <section style="margin-bottom: 3rem;">
+                <h2 style="text-align: center; margin-bottom: 2rem; color: var(--text-dark);">主な機能</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>豊富な食材データベース</h3>
+                        <p>文部科学省の日本食品標準成分表2020年版に準拠した正確なタンパク質量データを収録。魚介類、肉類、卵類、豆類、乳製品など幅広い食材をカバーしています。</p>
+                        <a href="database.html" class="btn">データベースを見る</a>
+                    </div>
+                    <div class="card">
+                        <h3>1日の摂取プラン作成</h3>
+                        <p>目標タンパク質量を設定して、朝・昼・夕の3食に自動配分。食材を選ぶだけで、リアルタイムで摂取量を計算し、目標達成度を表示します。</p>
+                        <a href="planner.html" class="btn">プラン作成</a>
+                    </div>
+                    <div class="card">
+                        <h3>どこでも使える</h3>
+                        <p>スマートフォン、タブレット、PCに対応したレスポンシブデザイン。外出先でも簡単にタンパク質量をチェックできます。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section style="margin-bottom: 3rem;">
+                <h2 style="text-align: center; margin-bottom: 2rem; color: var(--text-dark);">タンパク質の重要性</h2>
+                <div style="background: var(--bg-light); padding: 2rem; border-radius: 0.75rem; box-shadow: var(--shadow);">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                        <div>
+                            <h3 style="color: var(--primary-dark); margin-bottom: 1rem;">💪 筋肉の維持・増強</h3>
+                            <p style="color: var(--text-light);">タンパク質は筋肉の主要な構成成分です。適切な摂取により、筋肉量の維持や増強が期待できます。</p>
+                        </div>
+                        <div>
+                            <h3 style="color: var(--primary-dark); margin-bottom: 1rem;">🔄 代謝の向上</h3>
+                            <p style="color: var(--text-light);">タンパク質は基礎代謝を高める効果があり、エネルギー消費量の増加に貢献します。</p>
+                        </div>
+                        <div>
+                            <h3 style="color: var(--primary-dark); margin-bottom: 1rem;">🛡️ 免疫機能の強化</h3>
+                            <p style="color: var(--text-light);">抗体や免疫細胞の材料となり、病気に対する抵抗力を高めます。</p>
+                        </div>
+                        <div>
+                            <h3 style="color: var(--primary-dark); margin-bottom: 1rem;">🍽️ 満腹感の持続</h3>
+                            <p style="color: var(--text-light);">タンパク質は満腹感を長時間持続させ、過食の予防に役立ちます。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section style="margin-bottom: 3rem;">
+                <h2 style="text-align: center; margin-bottom: 2rem; color: var(--text-dark);">推奨摂取量の目安</h2>
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>🚶‍♂️ 一般的な成人</h3>
+                        <p><strong>体重1kgあたり0.8〜1.0g</strong></p>
+                        <p style="color: var(--text-light); font-size: 0.875rem;">体重60kgの場合：48〜60g/日</p>
+                    </div>
+                    <div class="card">
+                        <h3>🏃‍♀️ 運動を行う人</h3>
+                        <p><strong>体重1kgあたり1.2〜1.6g</strong></p>
+                        <p style="color: var(--text-light); font-size: 0.875rem;">体重60kgの場合：72〜96g/日</p>
+                    </div>
+                    <div class="card">
+                        <h3>🏋️‍♂️ 筋力トレーニング</h3>
+                        <p><strong>体重1kgあたり1.6〜2.2g</strong></p>
+                        <p style="color: var(--text-light); font-size: 0.875rem;">体重60kgの場合：96〜132g/日</p>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 1.5rem;">
+                    <p style="color: var(--text-light); font-size: 0.875rem;">※個人の体質や目標により必要量は異なります。詳しくは専門家にご相談ください。</p>
+                </div>
+            </section>
+
+            <section style="margin-bottom: 3rem;">
+                <h2 style="text-align: center; margin-bottom: 2rem; color: var(--text-dark);">おすすめの使い方</h2>
+                <div style="background: var(--secondary-color); padding: 2rem; border-radius: 0.75rem; border-left: 4px solid var(--primary-color);">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; margin-bottom: 1rem;">1️⃣</div>
+                            <h3 style="margin-bottom: 0.5rem;">目標設定</h3>
+                            <p style="color: var(--text-light); font-size: 0.875rem;">体重や活動量に応じて1日の目標タンパク質量を設定</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; margin-bottom: 1rem;">2️⃣</div>
+                            <h3 style="margin-bottom: 0.5rem;">食材選択</h3>
+                            <p style="color: var(--text-light); font-size: 0.875rem;">データベースから好みや生活スタイルに合った食材を選択</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; margin-bottom: 1rem;">3️⃣</div>
+                            <h3 style="margin-bottom: 0.5rem;">プラン作成</h3>
+                            <p style="color: var(--text-light); font-size: 0.875rem;">3食に分けて無理のない摂取プランを作成</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; margin-bottom: 1rem;">4️⃣</div>
+                            <h3 style="margin-bottom: 0.5rem;">継続管理</h3>
+                            <p style="color: var(--text-light); font-size: 0.875rem;">作成したプランを保存して日々の食事管理に活用</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 プロテイン管理ツール. All rights reserved.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.875rem; opacity: 0.8;">
+                データ出典: 文部科学省「日本食品標準成分表2020年版(八訂)」
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

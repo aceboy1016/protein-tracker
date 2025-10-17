@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>チェーン店メニュー | プロテイン管理ツール</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/restaurants.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🏪 チェーン店メニュー</h1>
+            <nav>
+                <a href="index.html">🏠 ホーム</a>
+                <a href="database.html">📖 食材データベース</a>
+                <a href="planner.html">📊 プラン作成</a>
+                <a href="recommended.html">🌟 おすすめ食材</a>
+                <a href="restaurants.html" class="active">🏪 チェーン店メニュー</a>
+                <a href="admin.html">🛠️ 管理画面</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="intro-section">
+            <h2>🍽️ チェーン店・レストランの栄養情報</h2>
+            <p>人気チェーン店のメニューのPFCバランス（タンパク質・脂質・炭水化物）と栄養情報を一覧で確認できます。<br>
+            外食時の栄養管理や、健康的なメニュー選びの参考にご活用ください。</p>
+        </section>
+
+        <!-- 検索・フィルターセクション -->
+        <section class="filters-section">
+            <div class="filter-controls">
+                <div class="filter-group">
+                    <label for="searchMenu">🔍 メニュー検索:</label>
+                    <input type="text" id="searchMenu" placeholder="メニュー名を入力..." class="search-input">
+                </div>
+
+                <div class="filter-group">
+                    <label for="restaurantFilter">🏪 チェーン店で絞り込み:</label>
+                    <select id="restaurantFilter" class="filter-select">
+                        <option value="">すべてのチェーン店</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="categoryFilter">🍽️ カテゴリーで絞り込み:</label>
+                    <select id="categoryFilter" class="filter-select">
+                        <option value="">すべてのカテゴリー</option>
+                        <option value="サラダ">サラダ</option>
+                        <option value="サンドイッチ">サンドイッチ</option>
+                        <option value="丼">丼</option>
+                        <option value="ハンバーガー">ハンバーガー</option>
+                        <option value="軽食">軽食</option>
+                        <option value="ボウル">ボウル</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="proteinFilter">💪 タンパク質量で絞り込み:</label>
+                    <select id="proteinFilter" class="filter-select">
+                        <option value="">すべて</option>
+                        <option value="high">高タンパク質 (20g以上)</option>
+                        <option value="medium">中タンパク質 (10-19g)</option>
+                        <option value="low">低タンパク質 (10g未満)</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="calorieFilter">🔥 カロリーで絞り込み:</label>
+                    <select id="calorieFilter" class="filter-select">
+                        <option value="">すべて</option>
+                        <option value="low">低カロリー (300kcal未満)</option>
+                        <option value="medium">中カロリー (300-500kcal)</option>
+                        <option value="high">高カロリー (500kcal以上)</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="dietaryFilter">🌱 食事制限で絞り込み:</label>
+                    <select id="dietaryFilter" class="filter-select">
+                        <option value="">すべて</option>
+                        <option value="vegetarian">ベジタリアン対応</option>
+                        <option value="vegan">ヴィーガン対応</option>
+                        <option value="gluten_free">グルテンフリー</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="sort-controls">
+                <label for="sortBy">📊 並び替え:</label>
+                <select id="sortBy" class="filter-select">
+                    <option value="name">メニュー名順</option>
+                    <option value="protein_desc">タンパク質量（多い順）</option>
+                    <option value="protein_asc">タンパク質量（少ない順）</option>
+                    <option value="calories_desc">カロリー（高い順）</option>
+                    <option value="calories_asc">カロリー（低い順）</option>
+                    <option value="price_desc">価格（高い順）</option>
+                    <option value="price_asc">価格（安い順）</option>
+                    <option value="updated">更新日順</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- 統計情報 -->
+        <section class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>📊 登録店舗数</h3>
+                    <span class="stat-number" id="restaurantCount">-</span>
+                </div>
+                <div class="stat-card">
+                    <h3>🍽️ 総メニュー数</h3>
+                    <span class="stat-number" id="menuCount">-</span>
+                </div>
+                <div class="stat-card">
+                    <h3>💪 平均タンパク質</h3>
+                    <span class="stat-number" id="avgProtein">-</span>
+                </div>
+                <div class="stat-card">
+                    <h3>🔥 平均カロリー</h3>
+                    <span class="stat-number" id="avgCalories">-</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- メニュー一覧 -->
+        <section class="menus-section">
+            <div class="section-header">
+                <h2>🍽️ メニュー一覧</h2>
+                <div class="view-toggle">
+                    <button id="gridView" class="view-btn active">📋 カード表示</button>
+                    <button id="tableView" class="view-btn">📊 テーブル表示</button>
+                </div>
+            </div>
+
+            <!-- カード表示 -->
+            <div id="menusGrid" class="menus-grid">
+                <!-- メニューカードがここに動的に挿入されます -->
+            </div>
+
+            <!-- テーブル表示 -->
+            <div id="menusTable" class="menus-table-container" style="display: none;">
+                <table class="menus-table">
+                    <thead>
+                        <tr>
+                            <th>チェーン店</th>
+                            <th>メニュー名</th>
+                            <th>カテゴリー</th>
+                            <th>価格</th>
+                            <th>カロリー</th>
+                            <th>タンパク質</th>
+                            <th>炭水化物</th>
+                            <th>脂質</th>
+                            <th>食物繊維</th>
+                            <th>対応</th>
+                        </tr>
+                    </thead>
+                    <tbody id="menusTableBody">
+                        <!-- メニューデータがここに動的に挿入されます -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 栄養分析セクション -->
+        <section class="analysis-section">
+            <h2>📈 栄養分析</h2>
+            <div class="chart-container">
+                <canvas id="nutritionChart"></canvas>
+            </div>
+        </section>
+
+        <!-- お気に入り機能 -->
+        <section class="favorites-section" style="display: none;">
+            <h2>⭐ お気に入りメニュー</h2>
+            <div id="favoritesGrid" class="menus-grid">
+                <!-- お気に入りメニューがここに表示されます -->
+            </div>
+        </section>
+    </main>
+
+    <!-- メニュー詳細モーダル -->
+    <div id="menuModal" class="modal">
+        <div class="modal-content-large">
+            <div class="modal-header">
+                <h3 id="menuModalTitle">メニュー詳細</h3>
+                <button class="close-btn" onclick="closeMenuModal()">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="menu-detail-content">
+                    <div class="menu-image-section">
+                        <img id="menuDetailImage" src="" alt="メニュー画像" class="menu-detail-img">
+                        <div class="restaurant-info">
+                            <img id="restaurantLogo" src="" alt="店舗ロゴ" class="restaurant-logo">
+                            <div class="restaurant-details">
+                                <h4 id="restaurantName"></h4>
+                                <p id="restaurantCategory"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-info-section">
+                        <div class="basic-info">
+                            <h4 id="menuDetailName"></h4>
+                            <p id="menuDetailDescription"></p>
+                            <div class="price-size">
+                                <span class="price" id="menuDetailPrice"></span>
+                                <span class="size" id="menuDetailSize"></span>
+                            </div>
+                        </div>
+
+                        <div class="nutrition-detail">
+                            <h5>🧪 栄養成分（1食分）</h5>
+
+                            <!-- メイン栄養素 -->
+                            <div class="main-nutrients">
+                                <div class="nutrient-card calories">
+                                    <div class="nutrient-icon">🔥</div>
+                                    <div class="nutrient-value" id="detailCalories"></div>
+                                    <div class="nutrient-label">カロリー</div>
+                                </div>
+                                <div class="nutrient-card protein">
+                                    <div class="nutrient-icon">💪</div>
+                                    <div class="nutrient-value" id="detailProtein"></div>
+                                    <div class="nutrient-label">タンパク質</div>
+                                </div>
+                                <div class="nutrient-card carbs">
+                                    <div class="nutrient-icon">🌾</div>
+                                    <div class="nutrient-value" id="detailCarbs"></div>
+                                    <div class="nutrient-label">炭水化物</div>
+                                </div>
+                                <div class="nutrient-card fat">
+                                    <div class="nutrient-icon">🥑</div>
+                                    <div class="nutrient-value" id="detailFat"></div>
+                                    <div class="nutrient-label">脂質</div>
+                                </div>
+                            </div>
+
+                            <!-- 詳細栄養素 -->
+                            <div class="detailed-nutrients">
+                                <div class="nutrient-section">
+                                    <h6>📊 詳細成分</h6>
+                                    <div class="nutrition-grid">
+                                        <div class="nutrition-item">
+                                            <span class="label">食物繊維</span>
+                                            <span class="value" id="detailFiber"></span>
+                                        </div>
+                                        <div class="nutrition-item">
+                                            <span class="label">糖質</span>
+                                            <span class="value" id="detailSugar"></span>
+                                        </div>
+                                        <div class="nutrition-item">
+                                            <span class="label">飽和脂肪酸</span>
+                                            <span class="value" id="detailSaturatedFat"></span>
+                                        </div>
+                                        <div class="nutrition-item">
+                                            <span class="label">トランス脂肪酸</span>
+                                            <span class="value" id="detailTransFat"></span>
+                                        </div>
+                                        <div class="nutrition-item">
+                                            <span class="label">コレステロール</span>
+                                            <span class="value" id="detailCholesterol"></span>
+                                        </div>
+                                        <div class="nutrition-item">
+                                            <span class="label">塩分</span>
+                                            <span class="value" id="detailSodium"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="nutrient-section">
+                                    <h6>🧪 ミネラル</h6>
+                                    <div class="nutrition-grid">
+                                        <div class="nutrition-item">
+                                            <span class="label">カルシウム</span>
+                                            <span class="value" id="detailCalcium"></span>
+                                            <div class="daily-value" id="calciumDV"></div>
+                                        </div>
+                                        <div class="nutrition-item">
+                                            <span class="label">鉄</span>
+                                            <span class="value" id="detailIron"></span>
+                                            <div class="daily-value" id="ironDV"></div>
+                                        </div>
+                                        <div class="nutrition-item">
+                                            <span class="label">カリウム</span>
+                                            <span class="value" id="detailPotassium"></span>
+                                            <div class="daily-value" id="potassiumDV"></div>
+                                        </div>
+                                        <div class="nutrition-item">
+                                            <span class="label">リン</span>
+                                            <span class="value" id="detailPhosphorus"></span>
+                                            <div class="daily-value" id="phosphorusDV"></div>
+                                        </div>
+                                        <div class="nutrition-item">
+                                            <span class="label">マグネシウム</span>
+                                            <span class="value" id="detailMagnesium"></span>
+                                            <div class="daily-value" id="magnesiumDV"></div>
+                                        </div>
+                                        <div class="nutrition-item">
+                                            <span class="label">亜鉛</span>
+                                            <span class="value" id="detailZinc"></span>
+                                            <div class="daily-value" id="zincDV"></div>
+                                        </div>
+                                        <div class="nutrition-item">
+                                            <span class="label">セレン</span>
+                                            <span class="value" id="detailSelenium"></span>
+                                            <div class="daily-value" id="seleniumDV"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="nutrient-section">
+                                    <h6>🍊 ビタミン</h6>
+                                    <div class="nutrition-grid">
+                                        <div class="nutrition-item">
+                                            <span class="label">ビタミンA</span>
+                                            <span class="value" id="detailVitaminA"></span>
+                                            <div class="daily-value" id="vitaminADV"></div>
+                                        </div>
+                                        <div class="nutrition-item">
+                                            <span class="label">ビタミンC</span>
+                                            <span class="value" id="detailVitaminC"></span>
+                                            <div class="daily-value" id="vitaminCDV"></div>
+                                        </div>
+                                        <div class="nutrition-item">
+                                            <span class="label">ビタミンD</span>
+                                            <span class="value" id="detailVitaminD"></span>
+                                            <div class="daily-value" id="vitaminDDV"></div>
+                                        </div>
+                                        <div class="nutrition-item">
+                                            <span class="label">ビタミンE</span>
+                                            <span class="value" id="detailVitaminE"></span>
+                                            <div class="daily-value" id="vitaminEDV"></div>
+                                        </div>
+                                        <div class="nutrition-item">
+                                            <span class="label">ビタミンK</span>
+                                            <span class="value" id="detailVitaminK"></span>
+                                            <div class="daily-value" id="vitaminKDV"></div>
+                                        </div>
+                                        <div class="nutrition-item">
+                                            <span class="label">チアミン(B1)</span>
+                                            <span class="value" id="detailThiamin"></span>
+                                            <div class="daily-value" id="thiaminDV"></div>
+                                        </div>
+                                        <div class="nutrition-item">
+                                            <span class="label">リボフラビン(B2)</span>
+                                            <span class="value" id="detailRiboflavin"></span>
+                                            <div class="daily-value" id="riboflavinDV"></div>
+                                        </div>
+                                        <div class="nutrition-item">
+                                            <span class="label">ナイアシン(B3)</span>
+                                            <span class="value" id="detailNiacin"></span>
+                                            <div class="daily-value" id="niacinDV"></div>
+                                        </div>
+                                        <div class="nutrition-item">
+                                            <span class="label">ビタミンB6</span>
+                                            <span class="value" id="detailVitaminB6"></span>
+                                            <div class="daily-value" id="vitaminB6DV"></div>
+                                        </div>
+                                        <div class="nutrition-item">
+                                            <span class="label">葉酸</span>
+                                            <span class="value" id="detailFolate"></span>
+                                            <div class="daily-value" id="folateDV"></div>
+                                        </div>
+                                        <div class="nutrition-item">
+                                            <span class="label">ビタミンB12</span>
+                                            <span class="value" id="detailVitaminB12"></span>
+                                            <div class="daily-value" id="vitaminB12DV"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 栄養成分バランスチャート -->
+                            <div class="nutrition-balance-chart">
+                                <h6>📈 栄養バランス分析</h6>
+                                <canvas id="detailedNutritionChart" width="400" height="300"></canvas>
+                            </div>
+
+                            <!-- 1日の推奨摂取量との比較 -->
+                            <div class="daily-values-comparison">
+                                <h6>📊 1日の推奨摂取量との比較</h6>
+                                <canvas id="dailyValueChart" width="400" height="300"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="dietary-info">
+                            <h5>🌱 食事制限対応</h5>
+                            <div class="dietary-tags" id="dietaryTags">
+                                <!-- 食事制限タグがここに表示されます -->
+                            </div>
+                        </div>
+
+                        <div class="allergen-info">
+                            <h5>⚠️ アレルギー情報</h5>
+                            <div class="allergen-list" id="allergenList">
+                                <!-- アレルギー情報がここに表示されます -->
+                            </div>
+                        </div>
+
+                        <div class="chart-section">
+                            <canvas id="menuNutritionChart" width="300" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeMenuModal()">閉じる</button>
+                <button class="btn-primary" onclick="addToFavorites()">⭐ お気に入り追加</button>
+                <button class="btn-primary" onclick="addToPlan()">📊 プランに追加</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 プロテイン管理ツール - チェーン店栄養情報は各店舗公式サイトに基づいています</p>
+        </div>
+    </footer>
+
+    <script src="js/restaurant-data-embedded.js"></script>
+    <script src="js/restaurants.js"></script>
+</body>
+</html>

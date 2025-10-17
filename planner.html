@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="1日のタンパク質摂取プランを作成。目標量を設定して3食に分けて計画できます。">
+    <title>プラン作成 - プロテイン管理ツール</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232563eb'><path d='M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z'/></svg>">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">ProteinTracker</a>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">ホーム</a></li>
+                        <li><a href="database.html">食材データベース</a></li>
+                        <li><a href="planner.html" class="active">プラン作成</a></li>
+                        <li><a href="recommended.html">おすすめ食材</a></li>
+                        <li><a href="restaurants.html">チェーン店メニュー</a></li>
+                        <li><a href="admin.html">管理画面</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section style="margin-bottom: 2rem;">
+                <h1 style="text-align: center; margin-bottom: 1rem; color: var(--text-dark);">1日のタンパク質摂取プラン</h1>
+                <p style="text-align: center; color: var(--text-light); max-width: 600px; margin: 0 auto;">
+                    目標タンパク質量を設定して、朝・昼・夕の3食に分けて具体的な食事プランを作成しましょう。
+                </p>
+            </section>
+
+            <!-- テンプレート選択セクション -->
+            <section class="card" style="margin-bottom: 2rem;">
+                <h2 style="margin-bottom: 1.5rem; color: var(--text-dark);">テンプレートから始める</h2>
+                <p style="color: var(--text-light); margin-bottom: 2rem;">あなたのライフスタイルに合ったテンプレートを選択して、素早くプランを作成できます。</p>
+
+                <div id="templateCards" class="template-grid">
+                    <!-- テンプレートカードが動的に生成される -->
+                </div>
+            </section>
+
+            <!-- 目標設定セクション -->
+            <section class="card" style="margin-bottom: 2rem;">
+                <h2 style="margin-bottom: 1rem; color: var(--text-dark);">目標設定</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">目標タンパク質量</label>
+                        <select id="targetProtein" style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 0.375rem;">
+                            <option value="50">50g (軽い運動)</option>
+                            <option value="70" selected>70g (一般的)</option>
+                            <option value="100">100g (運動習慣あり)</option>
+                            <option value="120">120g (筋トレ中心)</option>
+                            <option value="custom">カスタム</option>
+                        </select>
+                    </div>
+                    <div id="customTargetContainer" class="hidden">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">カスタム量 (g)</label>
+                        <input type="number" id="customTarget" min="10" max="300" style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: 0.375rem;">
+                    </div>
+                </div>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <button id="autoDistributeBtn" class="btn">3食に自動配分</button>
+                    <button id="resetPlanBtn" class="btn btn-secondary">プランをリセット</button>
+                    <button id="savePlanBtn" class="btn btn-secondary">プランを保存</button>
+                    <button id="loadPlanBtn" class="btn btn-secondary">保存プランを読込</button>
+                </div>
+            </section>
+
+            <!-- サマリーカード -->
+            <section id="summaryCard" class="summary-card">
+                <h2 class="summary-title">📈 摂取状況</h2>
+                <div class="summary-stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalProtein">0g</div>
+                        <div class="stat-label">現在の摂取量</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="targetAmount">70g</div>
+                        <div class="stat-label">目標量</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="achievementRate">0%</div>
+                        <div class="stat-label">達成率</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="remainingAmount">70g</div>
+                        <div class="stat-label">残り</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 食事プランナー -->
+            <section class="meal-planner">
+                <!-- 朝食 -->
+                <div class="meal-card">
+                    <div class="meal-header">
+                        <h3 class="meal-title">🌅 朝食</h3>
+                        <span class="meal-target" id="breakfastTarget">目標: 20g</span>
+                    </div>
+                    <div id="breakfastItems" class="meal-items">
+                        <!-- 動的に追加される食材アイテム -->
+                    </div>
+                    <div class="food-selector">
+                        <select id="breakfastFoodSelect">
+                            <option value="">食材を選択...</option>
+                        </select>
+                        <button onclick="addFoodToMeal('breakfast')" class="btn" style="margin-top: 0.5rem; width: 100%;">追加</button>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="breakfastProgress"></div>
+                    </div>
+                    <div class="progress-text" id="breakfastAmount">0g / 20g</div>
+                </div>
+
+                <!-- 昼食 -->
+                <div class="meal-card">
+                    <div class="meal-header">
+                        <h3 class="meal-title">☀️ 昼食</h3>
+                        <span class="meal-target" id="lunchTarget">目標: 25g</span>
+                    </div>
+                    <div id="lunchItems" class="meal-items">
+                        <!-- 動的に追加される食材アイテム -->
+                    </div>
+                    <div class="food-selector">
+                        <select id="lunchFoodSelect">
+                            <option value="">食材を選択...</option>
+                        </select>
+                        <button onclick="addFoodToMeal('lunch')" class="btn" style="margin-top: 0.5rem; width: 100%;">追加</button>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="lunchProgress"></div>
+                    </div>
+                    <div class="progress-text" id="lunchAmount">0g / 25g</div>
+                </div>
+
+                <!-- 夕食 -->
+                <div class="meal-card">
+                    <div class="meal-header">
+                        <h3 class="meal-title">🌙 夕食</h3>
+                        <span class="meal-target" id="dinnerTarget">目標: 25g</span>
+                    </div>
+                    <div id="dinnerItems" class="meal-items">
+                        <!-- 動的に追加される食材アイテム -->
+                    </div>
+                    <div class="food-selector">
+                        <select id="dinnerFoodSelect">
+                            <option value="">食材を選択...</option>
+                        </select>
+                        <button onclick="addFoodToMeal('dinner')" class="btn" style="margin-top: 0.5rem; width: 100%;">追加</button>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="dinnerProgress"></div>
+                    </div>
+                    <div class="progress-text" id="dinnerAmount">0g / 25g</div>
+                </div>
+            </section>
+
+            <!-- 視覚化セクション -->
+            <section class="card" style="margin-top: 2rem;">
+                <h2 style="margin-bottom: 1rem; color: var(--text-dark);">📊 摂取量の視覚化</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                    <div>
+                        <h3 style="margin-bottom: 1rem; text-align: center;">食事別摂取量</h3>
+                        <canvas id="mealChart" width="300" height="300"></canvas>
+                    </div>
+                    <div>
+                        <h3 style="margin-bottom: 1rem; text-align: center;">達成状況</h3>
+                        <canvas id="progressChart" width="300" height="300"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- おすすめパターン -->
+            <section class="recommendations">
+                <h2>💡 おすすめ組み合わせパターン</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                    <div class="card">
+                        <h3>🥗 バランス型</h3>
+                        <p style="margin-bottom: 1rem; color: var(--text-light);">肉・魚・卵をバランス良く組み合わせ</p>
+                        <button onclick="loadPresetPattern('balanced')" class="btn">このパターンを適用</button>
+                    </div>
+                    <div class="card">
+                        <h3>⚡ 忙しい人向け</h3>
+                        <p style="margin-bottom: 1rem; color: var(--text-light);">コンビニ食品・プロテインを活用</p>
+                        <button onclick="loadPresetPattern('convenient')" class="btn">このパターンを適用</button>
+                    </div>
+                    <div class="card">
+                        <h3>🌱 ベジタリアン</h3>
+                        <p style="margin-bottom: 1rem; color: var(--text-light);">植物性タンパク質中心の組み合わせ</p>
+                        <button onclick="loadPresetPattern('vegetarian')" class="btn">このパターンを適用</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 印刷用レイアウト -->
+            <section style="margin-top: 2rem; text-align: center;">
+                <button onclick="window.print()" class="btn btn-secondary">🖨️ プランを印刷</button>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 プロテイン管理ツール. All rights reserved.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.875rem; opacity: 0.8;">
+                データ出典: 文部科学省「日本食品標準成分表2020年版(八訂)」
+            </p>
+        </div>
+    </footer>
+
+    <script src="js/planner.js"></script>
+</body>
+</html>

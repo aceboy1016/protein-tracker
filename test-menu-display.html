@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メニュー表示テスト</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/restaurants.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .test-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 16px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>メニュー表示テスト</h1>
+    <div id="testGrid" class="test-grid"></div>
+
+    <script>
+        // テストデータを直接埋め込み
+        const testData = {
+            "restaurants": [
+                {
+                    "id": "crispy_salad",
+                    "name": "Crispy Salad Works",
+                    "logo": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=100&h=100&fit=crop",
+                    "category": "サラダ専門店"
+                }
+            ],
+            "menus": [
+                {
+                    "id": "crispy_protein_caesar",
+                    "restaurant_id": "crispy_salad",
+                    "name": "プロテインシーザーサラダ（チキン）",
+                    "category": "サラダ",
+                    "description": "グリルチキンとロメインレタスのシーザーサラダ",
+                    "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&h=200&fit=crop",
+                    "price": 980,
+                    "size": "レギュラー",
+                    "nutrition": {
+                        "calories": 285,
+                        "protein": 32.5,
+                        "carbs": 8.2,
+                        "fat": 12.8,
+                        "fiber": 3.5,
+                        "sodium": 850,
+                        "sugar": 2.1,
+                        "saturated_fat": 3.2,
+                        "trans_fat": 0.0,
+                        "cholesterol": 85,
+                        "calcium": 180,
+                        "iron": 2.8,
+                        "potassium": 420,
+                        "vitamin_a": 850,
+                        "vitamin_c": 25,
+                        "vitamin_d": 0,
+                        "vitamin_e": 8.5,
+                        "vitamin_k": 15,
+                        "thiamin": 0.12,
+                        "riboflavin": 0.25,
+                        "niacin": 12.5,
+                        "vitamin_b6": 0.85,
+                        "folate": 45,
+                        "vitamin_b12": 2.8,
+                        "phosphorus": 280,
+                        "magnesium": 85,
+                        "zinc": 3.2,
+                        "selenium": 28
+                    },
+                    "allergens": ["乳", "卵", "小麦"],
+                    "is_vegetarian": false,
+                    "is_vegan": false,
+                    "is_gluten_free": false,
+                    "available": true
+                }
+            ]
+        };
+
+        console.log('Test data loaded:', testData);
+
+        function displayTestMenus() {
+            const grid = document.getElementById('testGrid');
+
+            testData.menus.forEach(menu => {
+                const restaurant = testData.restaurants.find(r => r.id === menu.restaurant_id);
+
+                const card = document.createElement('div');
+                card.className = 'test-card';
+                card.innerHTML = `
+                    <h3>${menu.name}</h3>
+                    <p><strong>店舗:</strong> ${restaurant.name}</p>
+                    <p><strong>カテゴリー:</strong> ${menu.category}</p>
+                    <p><strong>価格:</strong> ¥${menu.price}</p>
+                    <p><strong>説明:</strong> ${menu.description}</p>
+                    <div style="margin-top: 10px;">
+                        <strong>栄養情報:</strong><br>
+                        カロリー: ${menu.nutrition.calories}kcal<br>
+                        タンパク質: ${menu.nutrition.protein}g<br>
+                        炭水化物: ${menu.nutrition.carbs}g<br>
+                        脂質: ${menu.nutrition.fat}g<br>
+                        ビタミンA: ${menu.nutrition.vitamin_a}μg<br>
+                        ビタミンC: ${menu.nutrition.vitamin_c}mg<br>
+                        カルシウム: ${menu.nutrition.calcium}mg<br>
+                        鉄: ${menu.nutrition.iron}mg
+                    </div>
+                `;
+
+                card.onclick = () => {
+                    alert(`詳細情報: ${menu.name}\n\n` +
+                          `カロリー: ${menu.nutrition.calories}kcal\n` +
+                          `タンパク質: ${menu.nutrition.protein}g\n` +
+                          `ビタミンA: ${menu.nutrition.vitamin_a}μg\n` +
+                          `ビタミンC: ${menu.nutrition.vitamin_c}mg\n` +
+                          `カルシウム: ${menu.nutrition.calcium}mg\n` +
+                          `鉄: ${menu.nutrition.iron}mg`);
+                };
+
+                grid.appendChild(card);
+            });
+
+            console.log('Test menus displayed successfully');
+        }
+
+        // ページ読み込み後に実行
+        document.addEventListener('DOMContentLoaded', displayTestMenus);
+    </script>
+</body>
+</html>

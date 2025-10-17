@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>おすすめ食材 | プロテイン管理ツール</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🥗 おすすめ食材一覧</h1>
+            <nav>
+                <a href="index.html">🏠 ホーム</a>
+                <a href="database.html">📖 食材データベース</a>
+                <a href="planner.html">📊 プラン作成</a>
+                <a href="recommended.html" class="active">🌟 おすすめ食材</a>
+                <a href="restaurants.html">🏪 チェーン店メニュー</a>
+                <a href="admin.html">🛠️ 管理画面</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="intro-section">
+            <h2>💪 栄養バランス抜群のおすすめ食材</h2>
+            <p>タンパク質だけでなく、炭水化物、脂質、ビタミン・ミネラルまで総合的に優秀な食材を厳選しました。<br>
+            各食材の栄養価、健康効果、調理のコツまで詳しく解説しています。</p>
+        </section>
+
+        <section class="filters-section">
+            <div class="filter-controls">
+                <div class="filter-group">
+                    <label for="categoryFilter">🔍 カテゴリーで絞り込み:</label>
+                    <select id="categoryFilter">
+                        <option value="">すべてのカテゴリー</option>
+                        <option value="高タンパク質食材">高タンパク質食材</option>
+                        <option value="オメガ3豊富食材">オメガ3豊富食材</option>
+                        <option value="完全栄養食材">完全栄養食材</option>
+                        <option value="発酵食品">発酵食品</option>
+                        <option value="植物性タンパク質">植物性タンパク質</option>
+                        <option value="ナッツ類">ナッツ類</option>
+                        <option value="穀物・完全タンパク質">穀物・完全タンパク質</option>
+                        <option value="カゼインタンパク質">カゼインタンパク質</option>
+                        <option value="手軽な魚介類">手軽な魚介類</option>
+                        <option value="きのこ類">🍄 きのこ類</option>
+                        <option value="海藻類">🌿 海藻類</option>
+                        <option value="緑黄色野菜">🥦 緑黄色野菜</option>
+                        <option value="全粒穀物">🍚 全粒穀物</option>
+                        <option value="ベリー類">🫐 ベリー類</option>
+                        <option value="青魚">🐟 青魚</option>
+                        <option value="香味野菜">🧄 香味野菜</option>
+                        <option value="低GI食品">🍠 低GI食品</option>
+                        <option value="スーパーシード">🌰 スーパーシード</option>
+                        <option value="ネバネバ食材">🌶️ ネバネバ食材</option>
+                        <option value="良質オイル">🫒 良質オイル</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="priceFilter">💰 価格帯で絞り込み:</label>
+                    <select id="priceFilter">
+                        <option value="">すべての価格帯</option>
+                        <option value="安価">安価</option>
+                        <option value="やや高価">やや高価</option>
+                        <option value="高価">高価</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="ratingFilter">⭐ 評価で絞り込み:</label>
+                    <select id="ratingFilter">
+                        <option value="">すべての評価</option>
+                        <option value="5">⭐⭐⭐⭐⭐ (5つ星)</option>
+                        <option value="4">⭐⭐⭐⭐ (4つ星)</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <section class="foods-grid" id="foodsGrid">
+            <!-- 食材カードがここに動的に挿入されます -->
+        </section>
+
+        <section class="nutrition-tips">
+            <h2>🧠 栄養摂取のコツ</h2>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h3>🎯 バランスの基本</h3>
+                    <p>タンパク質：炭水化物：脂質の比率は、一般的に3:6:1が理想的です。運動量や目標に応じて調整しましょう。</p>
+                </div>
+                <div class="tip-card">
+                    <h3>⏰ 摂取タイミング</h3>
+                    <p>タンパク質は運動後30分以内、炭水化物は運動前2-3時間前の摂取が効果的です。</p>
+                </div>
+                <div class="tip-card">
+                    <h3>🌈 色とりどりの食材</h3>
+                    <p>様々な色の食材を摂ることで、多種多様なビタミン・ミネラルを効率よく摂取できます。</p>
+                </div>
+                <div class="tip-card">
+                    <h3>💧 水分も重要</h3>
+                    <p>栄養素の吸収や代謝には十分な水分が必要です。体重×30-35mlを目安に水分摂取しましょう。</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 プロテイン管理ツール - 健康的なタンパク質摂取をサポート</p>
+        </div>
+    </footer>
+
+    <script src="js/recommended.js"></script>
+</body>
+</html>

@@ -1,0 +1,1684 @@
+:root {
+  --primary-color: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-light: #3b82f6;
+  --secondary-color: #f8fafc;
+  --accent-color: #0ea5e9;
+  --text-dark: #0f172a;
+  --text-light: #64748b;
+  --text-muted: #94a3b8;
+  --bg-light: #ffffff;
+  --bg-gray: #f1f5f9;
+  --bg-dark: #1e293b;
+  --border-color: #e2e8f0;
+  --border-light: #f1f5f9;
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --gradient-primary: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  --gradient-secondary: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  line-height: 1.6;
+  color: var(--text-dark);
+  background: var(--gradient-secondary);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+header {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-light);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--text-light);
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+nav a:hover {
+  color: var(--text-dark);
+  background: var(--bg-gray);
+}
+
+nav a.active {
+  color: var(--primary-color);
+  background: rgba(37, 99, 235, 0.1);
+}
+
+main {
+  padding: 2rem 0;
+  min-height: calc(100vh - 200px);
+}
+
+.hero {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--bg-light);
+  border-radius: 1.5rem;
+  margin-bottom: 4rem;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--border-color);
+}
+
+.hero h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.hero p {
+  font-size: 1.25rem;
+  color: var(--text-light);
+  max-width: 650px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.6;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  background: var(--gradient-primary);
+  color: white;
+  text-decoration: none;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+  letter-spacing: -0.01em;
+  box-shadow: var(--shadow-md);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-secondary {
+  background: var(--bg-light);
+  color: var(--text-dark);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-gray);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.card {
+  background: var(--bg-light);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  transition: all 0.2s ease;
+  border: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-primary);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
+}
+
+.card h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-dark);
+}
+
+.card p {
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+.food-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--bg-light);
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+  margin-bottom: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.food-item:hover {
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow);
+}
+
+.food-icon {
+  width: 3rem;
+  height: 3rem;
+  background: var(--gradient-primary);
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+.food-info {
+  flex: 1;
+}
+
+.food-name {
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.25rem;
+}
+
+.food-details {
+  font-size: 0.875rem;
+  color: var(--text-light);
+}
+
+.protein-amount {
+  font-weight: 600;
+  color: var(--primary-dark);
+  font-size: 1.1rem;
+}
+
+.search-container {
+  margin-bottom: 2rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.filter-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--border-color);
+  overflow-x: auto;
+}
+
+.filter-tab {
+  padding: 0.75rem 1rem;
+  background: none;
+  border: none;
+  color: var(--text-light);
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.filter-tab.active {
+  color: var(--primary-dark);
+  border-bottom-color: var(--primary-color);
+}
+
+.meal-planner {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.meal-card {
+  background: var(--bg-light);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+}
+
+.meal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.meal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.meal-target {
+  font-size: 0.875rem;
+  color: var(--text-light);
+}
+
+.food-selector {
+  margin-bottom: 1rem;
+}
+
+.food-selector select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+}
+
+.progress-bar {
+  background: var(--bg-gray);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  height: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+  background: var(--primary-color);
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 0.875rem;
+  color: var(--text-light);
+  text-align: center;
+}
+
+.summary-card {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+  color: white;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.summary-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.summary-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.stat-item {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  opacity: 0.9;
+}
+
+.recommendations {
+  background: var(--bg-light);
+  border-radius: 0.75rem;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  margin-bottom: 2rem;
+}
+
+.recommendations h3 {
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+
+/* テンプレートカード */
+.template-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.template-card {
+  background: var(--bg-light);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  border: 2px solid var(--border-color);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.template-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-primary);
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
+}
+
+.template-card:hover {
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.template-card:hover::before {
+  transform: scaleX(1);
+}
+
+.template-card.selected {
+  border-color: var(--primary-color);
+  background: rgba(37, 99, 235, 0.05);
+  box-shadow: var(--shadow-md);
+}
+
+.template-card.selected::before {
+  transform: scaleX(1);
+}
+
+.template-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.template-icon {
+  width: 3rem;
+  height: 3rem;
+  background: var(--gradient-primary);
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+}
+
+.template-info h3 {
+  margin: 0 0 0.25rem 0;
+  color: var(--text-dark);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.template-info .template-subtitle {
+  color: var(--text-light);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.template-description {
+  color: var(--text-light);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.template-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.template-stat {
+  text-align: center;
+  padding: 0.75rem;
+  background: var(--bg-gray);
+  border-radius: 0.5rem;
+}
+
+.template-stat-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 0.25rem;
+}
+
+.template-stat-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.template-foods {
+  margin-bottom: 1rem;
+}
+
+.template-foods-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.template-foods-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.template-food-tag {
+  background: var(--secondary-color);
+  color: var(--text-dark);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.template-action {
+  text-align: center;
+}
+
+.template-btn {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.template-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.template-card.selected .template-btn {
+  background: var(--bg-light);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+.recommendation-list {
+  list-style: none;
+}
+
+.recommendation-list li {
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  background: var(--secondary-color);
+  border-radius: 0.5rem;
+  border-left: 4px solid var(--primary-color);
+}
+
+footer {
+  background: var(--text-dark);
+  color: white;
+  text-align: center;
+  padding: 2rem 0;
+  margin-top: 4rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 0.75rem;
+  }
+
+  .header-content {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  nav ul {
+    gap: 1rem;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .meal-planner {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .filter-tabs {
+    padding-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .summary-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .food-item {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .food-emoji {
+    font-size: 1.5rem;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.template-applying {
+  animation: templateApply 0.6s ease;
+}
+
+@keyframes templateApply {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-xl);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.meal-update {
+  animation: mealUpdate 0.4s ease;
+}
+
+@keyframes mealUpdate {
+  0% {
+    background: var(--bg-light);
+  }
+  50% {
+    background: rgba(37, 99, 235, 0.1);
+  }
+  100% {
+    background: var(--bg-light);
+  }
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-light);
+}
+
+.error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+}
+
+.success {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #16a34a;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+}
+
+/* おすすめ食材ページ専用スタイル */
+.intro-section {
+  background: var(--bg-light);
+  border-radius: 1rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  text-align: center;
+}
+
+.intro-section h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+
+.intro-section p {
+  color: var(--text-light);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.filters-section {
+  background: var(--bg-light);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+}
+
+.filter-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  align-items: end;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filter-group label {
+  font-weight: 600;
+  color: var(--text-dark);
+  font-size: 0.875rem;
+}
+
+.filter-group select {
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.filter-group select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.foods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.food-card {
+  background: var(--bg-light);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.food-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-primary);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.food-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+.food-card:hover::before {
+  transform: scaleX(1);
+}
+
+.food-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.food-emoji {
+  font-size: 2.5rem;
+  flex-shrink: 0;
+}
+
+.food-title h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.food-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.category-badge {
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--primary-color);
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.price-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.price-badge.安価 {
+  background: rgba(34, 197, 94, 0.1);
+  color: #16a34a;
+}
+
+.price-badge.やや高価 {
+  background: rgba(245, 158, 11, 0.1);
+  color: #d97706;
+}
+
+.price-badge.高価 {
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+}
+
+.rating {
+  font-size: 0.875rem;
+}
+
+.food-description {
+  color: var(--text-light);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.nutrition-overview {
+  background: var(--bg-gray);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.macro-nutrients {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.macro-item {
+  text-align: center;
+}
+
+.macro-label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.macro-value {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-top: 0.25rem;
+}
+
+.macro-item.calories .macro-value {
+  color: var(--accent-color);
+}
+
+.serving-info {
+  text-align: center;
+  color: var(--text-light);
+  border-top: 1px solid var(--border-color);
+  padding-top: 0.75rem;
+}
+
+.nutrients-section {
+  margin-bottom: 1.5rem;
+}
+
+.nutrients-group {
+  margin-bottom: 1rem;
+}
+
+.nutrients-group h4 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.nutrients-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.nutrient-tag {
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.nutrient-tag.非常に豊富 {
+  background: rgba(34, 197, 94, 0.2);
+  color: #15803d;
+}
+
+.nutrient-tag.豊富 {
+  background: rgba(59, 130, 246, 0.2);
+  color: #1d4ed8;
+}
+
+.nutrient-tag.含有 {
+  background: rgba(156, 163, 175, 0.2);
+  color: #4b5563;
+}
+
+.benefits-section, .cooking-section {
+  margin-bottom: 1.5rem;
+}
+
+.benefits-section h4, .cooking-section h4 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.75rem;
+}
+
+.benefits-list, .cooking-tips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.benefits-list li, .cooking-tips li {
+  padding: 0.5rem 0;
+  color: var(--text-light);
+  font-size: 0.875rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.benefits-list li:last-child, .cooking-tips li:last-child {
+  border-bottom: none;
+}
+
+.food-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn-primary, .btn-secondary {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--gradient-primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+  background: var(--bg-light);
+  color: var(--text-dark);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-gray);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.nutrition-tips {
+  background: var(--bg-light);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+}
+
+.nutrition-tips h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.tip-card {
+  background: var(--bg-gray);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  border: 1px solid var(--border-light);
+  transition: all 0.2s ease;
+}
+
+.tip-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.tip-card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.75rem;
+}
+
+.tip-card p {
+  color: var(--text-light);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.no-results, .error-message {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-light);
+  grid-column: 1 / -1;
+}
+
+.no-results h3, .error-message h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+/* 栄養チャートモーダル */
+.nutrition-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: var(--bg-light);
+  border-radius: 1rem;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-xl);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  background: var(--bg-gray);
+  color: var(--text-dark);
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.chart-legend {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.legend-color {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.25rem;
+}
+
+.legend-color.protein {
+  background: rgba(59, 130, 246, 0.8);
+}
+
+.legend-color.carbs {
+  background: rgba(16, 185, 129, 0.8);
+}
+
+.legend-color.fat {
+  background: rgba(245, 158, 11, 0.8);
+}
+
+/* 通知スタイル */
+.notification {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: var(--bg-light);
+  color: var(--text-dark);
+  padding: 1rem 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--border-color);
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  z-index: 1001;
+  max-width: 300px;
+}
+
+.notification.show {
+  transform: translateX(0);
+}
+
+.notification.success {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+  color: #16a34a;
+}
+
+.notification.error {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #dc2626;
+}
+
+/* 新しい簡潔カードスタイル */
+.food-card-simple {
+  background: var(--bg-light);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.food-card-simple:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+.food-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.food-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.food-card-simple:hover .food-image img {
+  transform: scale(1.05);
+}
+
+.food-content {
+  padding: 1.5rem;
+}
+
+.food-header-simple {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.food-header-simple h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0;
+  flex: 1;
+}
+
+.rating-simple {
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+}
+
+.food-description-simple {
+  margin-bottom: 1rem;
+}
+
+.food-description-simple p {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.food-meta-simple {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.category-badge-simple {
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--primary-color);
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.price-badge-simple {
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.price-badge-simple.安価 {
+  background: rgba(34, 197, 94, 0.1);
+  color: #16a34a;
+}
+
+.price-badge-simple.やや高価 {
+  background: rgba(245, 158, 11, 0.1);
+  color: #d97706;
+}
+
+.price-badge-simple.高価 {
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+}
+
+.nutrition-simple {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--bg-gray);
+  border-radius: 0.5rem;
+}
+
+.nutrition-item {
+  text-align: center;
+}
+
+.nutrition-label {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.nutrition-value {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-top: 0.25rem;
+}
+
+.food-actions-simple {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn-detail, .btn-add {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  text-decoration: none;
+}
+
+.btn-detail {
+  background: var(--bg-light);
+  color: var(--text-dark);
+  border: 1px solid var(--border-color);
+}
+
+.btn-detail:hover {
+  background: var(--bg-gray);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.btn-add {
+  background: var(--gradient-primary);
+  color: white;
+}
+
+.btn-add:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* 詳細モーダルスタイル */
+.food-detail-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-content-detail {
+  background: var(--bg-light);
+  border-radius: 1rem;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-xl);
+  position: relative;
+}
+
+.modal-header-detail {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1001;
+}
+
+.close-btn-detail {
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-dark);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow);
+}
+
+.close-btn-detail:hover {
+  background: white;
+  transform: scale(1.1);
+}
+
+.food-detail-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.food-detail-image {
+  position: sticky;
+  top: 2rem;
+  height: fit-content;
+}
+
+.food-detail-image img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+.food-detail-info {
+  padding-right: 1rem;
+}
+
+.food-detail-header {
+  margin-bottom: 1.5rem;
+}
+
+.food-detail-header h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 0.75rem;
+}
+
+.food-detail-meta {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.food-detail-description {
+  margin-bottom: 2rem;
+}
+
+.food-detail-description p {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+.nutrition-detail {
+  margin-bottom: 2rem;
+}
+
+.nutrition-detail h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+
+.nutrition-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.nutrition-item-detail {
+  text-align: center;
+  padding: 1rem;
+  background: var(--bg-gray);
+  border-radius: 0.75rem;
+}
+
+.nutrition-item-detail .label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.nutrition-item-detail .value {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.serving-info-detail {
+  text-align: center;
+  color: var(--text-light);
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+}
+
+.nutrients-detail {
+  margin-bottom: 2rem;
+}
+
+.nutrients-group-detail {
+  margin-bottom: 1.5rem;
+}
+
+.nutrients-group-detail h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.75rem;
+}
+
+.benefits-detail, .cooking-detail {
+  margin-bottom: 2rem;
+}
+
+.benefits-detail h4, .cooking-detail h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.75rem;
+}
+
+.benefits-list, .cooking-tips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.benefits-list li, .cooking-tips li {
+  padding: 0.75rem 0;
+  color: var(--text-light);
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.benefits-list li:last-child, .cooking-tips li:last-child {
+  border-bottom: none;
+}
+
+.detail-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+  .foods-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .food-detail-content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .food-detail-image {
+    position: static;
+  }
+
+  .nutrition-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .food-actions-simple {
+    flex-direction: column;
+  }
+
+  .detail-actions {
+    flex-direction: column;
+  }
+
+  .tips-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-content-detail {
+    margin: 1rem;
+    max-width: none;
+  }
+}

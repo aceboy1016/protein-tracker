@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理画面 | プロテイン管理ツール</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🛠️ 管理画面</h1>
+            <nav>
+                <a href="index.html">🏠 ホーム</a>
+                <a href="database.html">📖 食材データベース</a>
+                <a href="planner.html">📊 プラン作成</a>
+                <a href="recommended.html">🌟 おすすめ食材</a>
+                <a href="admin.html" class="active">🛠️ 管理画面</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="admin-dashboard">
+            <!-- 管理メニュー -->
+            <aside class="admin-sidebar">
+                <nav class="admin-nav">
+                    <ul>
+                        <li><a href="#foods" class="nav-link active" data-tab="foods">📝 食材管理</a></li>
+                        <li><a href="#categories" class="nav-link" data-tab="categories">🏷️ カテゴリー管理</a></li>
+                        <li><a href="#restaurants" class="nav-link" data-tab="restaurants">🏪 レストラン管理</a></li>
+                        <li><a href="#menus" class="nav-link" data-tab="menus">🍽️ メニュー管理</a></li>
+                        <li><a href="#import-export" class="nav-link" data-tab="import-export">📤 インポート/エクスポート</a></li>
+                        <li><a href="#settings" class="nav-link" data-tab="settings">⚙️ 設定</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- メインコンテンツ -->
+            <main class="admin-content">
+                <!-- 食材管理タブ -->
+                <section id="tab-foods" class="admin-tab active">
+                    <div class="tab-header">
+                        <h2>📝 食材管理</h2>
+                        <button class="btn-primary" onclick="showAddFoodModal()">
+                            ➕ 新しい食材を追加
+                        </button>
+                    </div>
+
+                    <div class="admin-filters">
+                        <input type="text" id="searchFoods" placeholder="食材名で検索..." class="search-input">
+                        <select id="filterCategory" class="filter-select">
+                            <option value="">すべてのカテゴリー</option>
+                        </select>
+                    </div>
+
+                    <div class="foods-table-container">
+                        <table class="foods-table">
+                            <thead>
+                                <tr>
+                                    <th>画像</th>
+                                    <th>食材名</th>
+                                    <th>カテゴリー</th>
+                                    <th>タンパク質</th>
+                                    <th>評価</th>
+                                    <th>価格帯</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="foodsTableBody">
+                                <!-- 動的に挿入されます -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- カテゴリー管理タブ -->
+                <section id="tab-categories" class="admin-tab">
+                    <div class="tab-header">
+                        <h2>🏷️ カテゴリー管理</h2>
+                        <button class="btn-primary" onclick="showAddCategoryModal()">
+                            ➕ 新しいカテゴリーを追加
+                        </button>
+                    </div>
+
+                    <div class="categories-grid" id="categoriesGrid">
+                        <!-- 動的に挿入されます -->
+                    </div>
+                </section>
+
+                <!-- レストラン管理タブ -->
+                <section id="tab-restaurants" class="admin-tab">
+                    <div class="tab-header">
+                        <h2>🏪 レストラン管理</h2>
+                        <button class="btn-primary" onclick="showAddRestaurantModal()">
+                            ➕ 新しいレストランを追加
+                        </button>
+                    </div>
+
+                    <div class="admin-filters">
+                        <input type="text" id="searchRestaurants" placeholder="レストラン名で検索..." class="search-input">
+                        <select id="filterRestaurantCategory" class="filter-select">
+                            <option value="">すべてのカテゴリー</option>
+                            <option value="サラダ専門店">サラダ専門店</option>
+                            <option value="サンドイッチチェーン">サンドイッチチェーン</option>
+                            <option value="牛丼チェーン">牛丼チェーン</option>
+                            <option value="ハンバーガーチェーン">ハンバーガーチェーン</option>
+                            <option value="カフェチェーン">カフェチェーン</option>
+                        </select>
+                    </div>
+
+                    <div class="restaurants-grid" id="restaurantsGrid">
+                        <!-- 動的に挿入されます -->
+                    </div>
+                </section>
+
+                <!-- メニュー管理タブ -->
+                <section id="tab-menus" class="admin-tab">
+                    <div class="tab-header">
+                        <h2>🍽️ メニュー管理</h2>
+                        <button class="btn-primary" onclick="showAddMenuModal()">
+                            ➕ 新しいメニューを追加
+                        </button>
+                    </div>
+
+                    <div class="admin-filters">
+                        <input type="text" id="searchMenus" placeholder="メニュー名で検索..." class="search-input">
+                        <select id="filterMenuRestaurant" class="filter-select">
+                            <option value="">すべてのレストラン</option>
+                        </select>
+                        <select id="filterMenuCategory" class="filter-select">
+                            <option value="">すべてのカテゴリー</option>
+                            <option value="サラダ">サラダ</option>
+                            <option value="サンドイッチ">サンドイッチ</option>
+                            <option value="丼">丼</option>
+                            <option value="ハンバーガー">ハンバーガー</option>
+                            <option value="軽食">軽食</option>
+                            <option value="ボウル">ボウル</option>
+                        </select>
+                    </div>
+
+                    <div class="menus-table-container">
+                        <table class="menus-table">
+                            <thead>
+                                <tr>
+                                    <th>画像</th>
+                                    <th>レストラン</th>
+                                    <th>メニュー名</th>
+                                    <th>カテゴリー</th>
+                                    <th>価格</th>
+                                    <th>カロリー</th>
+                                    <th>タンパク質</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="menusTableBody">
+                                <!-- 動的に挿入されます -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- インポート/エクスポートタブ -->
+                <section id="tab-import-export" class="admin-tab">
+                    <div class="tab-header">
+                        <h2>📤 インポート/エクスポート</h2>
+                    </div>
+
+                    <div class="import-export-section">
+                        <div class="export-section">
+                            <h3>📤 エクスポート</h3>
+                            <p>現在の食材データをJSONファイルでダウンロードできます。</p>
+                            <button class="btn-secondary" onclick="exportData()">
+                                📥 データをエクスポート
+                            </button>
+                        </div>
+
+                        <div class="import-section">
+                            <h3>📥 インポート</h3>
+                            <p>JSONファイルから食材データを一括インポートできます。</p>
+                            <input type="file" id="importFile" accept=".json" style="display: none;">
+                            <button class="btn-secondary" onclick="document.getElementById('importFile').click()">
+                                📤 データをインポート
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 設定タブ -->
+                <section id="tab-settings" class="admin-tab">
+                    <div class="tab-header">
+                        <h2>⚙️ 設定</h2>
+                    </div>
+
+                    <!-- 自動更新システム -->
+                    <div class="auto-update-section">
+                        <h3>🔄 自動更新システム</h3>
+                        <p>チェーン店の新メニューと実際の写真を自動で取得・更新します</p>
+
+                        <div class="update-status">
+                            <div class="status-indicator" id="updateStatusIndicator"></div>
+                            <span id="updateStatusText">システム停止中</span>
+                            <button class="btn-primary" id="toggleAutoUpdate" onclick="toggleAutoUpdate()">
+                                自動更新を開始
+                            </button>
+                        </div>
+
+                        <div class="update-controls">
+                            <button class="btn-secondary" onclick="manualUpdate()">手動更新を実行</button>
+                            <button class="btn-secondary" onclick="testConnection()">接続テスト</button>
+                            <button class="btn-secondary" onclick="clearUpdateLog()">ログクリア</button>
+                        </div>
+
+                        <div class="sync-status">
+                            <div class="sync-item">
+                                <h5>最終更新</h5>
+                                <div class="sync-date" id="lastUpdateTime">未実行</div>
+                            </div>
+                            <div class="sync-item">
+                                <h5>新規メニュー</h5>
+                                <div class="sync-count" id="newMenusCount">0</div>
+                            </div>
+                            <div class="sync-item">
+                                <h5>更新済み画像</h5>
+                                <div class="sync-count" id="updatedImagesCount">0</div>
+                            </div>
+                            <div class="sync-item">
+                                <h5>エラー数</h5>
+                                <div class="sync-count" id="errorCount">0</div>
+                            </div>
+                        </div>
+
+                        <div class="update-log" id="updateLog">
+                            <div class="log-entry">システム準備完了 - 自動更新を開始してください</div>
+                        </div>
+                    </div>
+
+                    <!-- API設定 -->
+                    <div class="auto-update-section">
+                        <h3>🔗 API設定</h3>
+                        <p>各チェーン店のデータ取得設定</p>
+
+                        <div class="api-settings">
+                            <div class="api-setting-item">
+                                <h4>🥗 Crispy Salad</h4>
+                                <label>API エンドポイント:</label>
+                                <input type="url" id="crispyApiUrl" placeholder="https://api.crispy-salad.com/menu" value="https://api.crispy-salad.com/v1/menu">
+                                <label>APIキー:</label>
+                                <input type="password" id="crispyApiKey" placeholder="your-api-key">
+                                <button class="api-test-btn" onclick="testAPI('crispy')">接続テスト</button>
+                            </div>
+
+                            <div class="api-setting-item">
+                                <h4>🥪 サブウェイ</h4>
+                                <label>スクレイピングURL:</label>
+                                <input type="url" id="subwayUrl" placeholder="https://subway.co.jp/menu" value="https://subway.co.jp/menu">
+                                <label>画像取得間隔（分）:</label>
+                                <input type="number" id="subwayInterval" value="60" min="30">
+                                <button class="api-test-btn" onclick="testAPI('subway')">接続テスト</button>
+                            </div>
+
+                            <div class="api-setting-item">
+                                <h4>🍱 吉野家</h4>
+                                <label>RSS フィード:</label>
+                                <input type="url" id="yoshinoyaRss" placeholder="https://yoshinoya.com/rss" value="https://yoshinoya.com/menu/rss">
+                                <label>栄養情報API:</label>
+                                <input type="url" id="yoshinoyaNutrition" placeholder="https://yoshinoya.com/api/nutrition">
+                                <button class="api-test-btn" onclick="testAPI('yoshinoya')">接続テスト</button>
+                            </div>
+
+                            <div class="api-setting-item">
+                                <h4>🍔 モスバーガー</h4>
+                                <label>公式API:</label>
+                                <input type="url" id="mosApi" placeholder="https://mos.jp/api/menu" value="https://mos.jp/api/v2/menu">
+                                <label>認証トークン:</label>
+                                <input type="password" id="mosToken" placeholder="bearer-token">
+                                <button class="api-test-btn" onclick="testAPI('mos')">接続テスト</button>
+                            </div>
+
+                            <div class="api-setting-item">
+                                <h4>☕ スターバックス</h4>
+                                <label>メニューAPI:</label>
+                                <input type="url" id="starbucksApi" placeholder="https://starbucks.co.jp/api/menu" value="https://app.starbucks.co.jp/api/v1/menu">
+                                <label>地域設定:</label>
+                                <select id="starbucksRegion">
+                                    <option value="jp">日本</option>
+                                    <option value="us">アメリカ</option>
+                                </select>
+                                <button class="api-test-btn" onclick="testAPI('starbucks')">接続テスト</button>
+                            </div>
+
+                            <div class="api-setting-item">
+                                <h4>🖼️ 画像取得設定</h4>
+                                <label>Unsplash API キー:</label>
+                                <input type="password" id="unsplashKey" placeholder="unsplash-access-key">
+                                <label>Google Images API:</label>
+                                <input type="password" id="googleImagesKey" placeholder="google-api-key">
+                                <button class="api-test-btn" onclick="testAPI('images')">接続テスト</button>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn-primary" onclick="saveAPISettings()">API設定を保存</button>
+                            <button class="btn-secondary" onclick="resetAPISettings()">デフォルトに戻す</button>
+                        </div>
+                    </div>
+
+                    <!-- 一般設定 -->
+                    <div class="settings-section">
+                        <div class="setting-item">
+                            <h3>🗄️ データ管理</h3>
+                            <p>ローカルストレージの使用状況とデータリセット</p>
+                            <div class="setting-actions">
+                                <span id="storageUsage">計算中...</span>
+                                <button class="btn-danger" onclick="resetAllData()">
+                                    🗑️ すべてのデータをリセット
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <h3>🔄 自動保存</h3>
+                            <p>変更を自動的に保存する</p>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="autoSave" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="setting-item">
+                            <h3>⏰ 更新頻度</h3>
+                            <p>自動更新の実行間隔を設定</p>
+                            <select id="updateFrequency">
+                                <option value="15">15分間隔</option>
+                                <option value="30">30分間隔</option>
+                                <option value="60" selected>1時間間隔</option>
+                                <option value="180">3時間間隔</option>
+                                <option value="360">6時間間隔</option>
+                                <option value="720">12時間間隔</option>
+                                <option value="1440">24時間間隔</option>
+                            </select>
+                        </div>
+
+                        <div class="setting-item">
+                            <h3>🔔 通知設定</h3>
+                            <p>新メニュー発見時の通知</p>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="enableNotifications" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </main>
+
+    <!-- 食材追加/編集モーダル -->
+    <div id="foodModal" class="modal">
+        <div class="modal-content-large">
+            <div class="modal-header">
+                <h3 id="foodModalTitle">新しい食材を追加</h3>
+                <button class="close-btn" onclick="closeFoodModal()">&times;</button>
+            </div>
+
+            <form id="foodForm" class="food-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="foodName">食材名 *</label>
+                        <input type="text" id="foodName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="foodCategory">カテゴリー *</label>
+                        <select id="foodCategory" required>
+                            <option value="">カテゴリーを選択</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="foodImage">画像</label>
+                        <div class="image-upload">
+                            <input type="file" id="foodImage" accept="image/*">
+                            <div class="image-preview" id="imagePreview">
+                                <span>画像をアップロード</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="foodDescription">説明 *</label>
+                        <textarea id="foodDescription" rows="3" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="proteinPer100g">タンパク質（100gあたり）*</label>
+                        <input type="number" id="proteinPer100g" step="0.1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="carbsPer100g">炭水化物（100gあたり）*</label>
+                        <input type="number" id="carbsPer100g" step="0.1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fatPer100g">脂質（100gあたり）*</label>
+                        <input type="number" id="fatPer100g" step="0.1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="caloriesPer100g">カロリー（100gあたり）*</label>
+                        <input type="number" id="caloriesPer100g" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="servingSize">1食分の目安 *</label>
+                        <input type="text" id="servingSize" placeholder="例: 1切れ(80g)" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="proteinPerServing">1食分のタンパク質 *</label>
+                        <input type="number" id="proteinPerServing" step="0.1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rating">評価</label>
+                        <select id="rating">
+                            <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+                            <option value="4" selected>⭐⭐⭐⭐ (4)</option>
+                            <option value="3">⭐⭐⭐ (3)</option>
+                            <option value="2">⭐⭐ (2)</option>
+                            <option value="1">⭐ (1)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="priceRange">価格帯</label>
+                        <select id="priceRange">
+                            <option value="安価">安価</option>
+                            <option value="やや高価" selected>やや高価</option>
+                            <option value="高価">高価</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h4>🧪 ビタミン・ミネラル</h4>
+                    <div class="nutrients-form">
+                        <div class="nutrients-group">
+                            <h5>ビタミン</h5>
+                            <div id="vitaminsForm"></div>
+                            <button type="button" class="btn-small" onclick="addNutrient('vitamins')">+ ビタミン追加</button>
+                        </div>
+
+                        <div class="nutrients-group">
+                            <h5>ミネラル</h5>
+                            <div id="mineralsForm"></div>
+                            <button type="button" class="btn-small" onclick="addNutrient('minerals')">+ ミネラル追加</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h4>💪 健康効果</h4>
+                    <div id="benefitsForm"></div>
+                    <button type="button" class="btn-small" onclick="addBenefit()">+ 効果追加</button>
+                </div>
+
+                <div class="form-section">
+                    <h4>👨‍🍳 調理のコツ</h4>
+                    <div id="cookingTipsForm"></div>
+                    <button type="button" class="btn-small" onclick="addCookingTip()">+ コツ追加</button>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeFoodModal()">キャンセル</button>
+                    <button type="submit" class="btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- カテゴリー追加/編集モーダル -->
+    <div id="categoryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="categoryModalTitle">新しいカテゴリーを追加</h3>
+                <button class="close-btn" onclick="closeCategoryModal()">&times;</button>
+            </div>
+
+            <form id="categoryForm" class="category-form">
+                <div class="form-group">
+                    <label for="categoryName">カテゴリー名 *</label>
+                    <input type="text" id="categoryName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="categoryDescription">説明</label>
+                    <textarea id="categoryDescription" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="categoryEmoji">絵文字</label>
+                    <input type="text" id="categoryEmoji" placeholder="🥗" maxlength="2">
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeCategoryModal()">キャンセル</button>
+                    <button type="submit" class="btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- レストラン追加/編集モーダル -->
+    <div id="restaurantModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="restaurantModalTitle">新しいレストランを追加</h3>
+                <button class="close-btn" onclick="closeRestaurantModal()">&times;</button>
+            </div>
+
+            <form id="restaurantForm" class="restaurant-form">
+                <div class="form-group">
+                    <label for="restaurantName">レストラン名 *</label>
+                    <input type="text" id="restaurantName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="restaurantCategory">カテゴリー *</label>
+                    <select id="restaurantCategory" required>
+                        <option value="">カテゴリーを選択</option>
+                        <option value="サラダ専門店">サラダ専門店</option>
+                        <option value="サンドイッチチェーン">サンドイッチチェーン</option>
+                        <option value="牛丼チェーン">牛丼チェーン</option>
+                        <option value="ハンバーガーチェーン">ハンバーガーチェーン</option>
+                        <option value="カフェチェーン">カフェチェーン</option>
+                        <option value="その他">その他</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="restaurantDescription">説明</label>
+                    <textarea id="restaurantDescription" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="restaurantLogo">ロゴ画像URL</label>
+                    <input type="url" id="restaurantLogo" placeholder="https://example.com/logo.png">
+                </div>
+
+                <div class="form-group">
+                    <label for="restaurantWebsite">ウェブサイト</label>
+                    <input type="url" id="restaurantWebsite" placeholder="https://example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="restaurantEstablished">設立年</label>
+                    <input type="number" id="restaurantEstablished" min="1800" max="2025">
+                </div>
+
+                <div class="form-group">
+                    <label for="restaurantLocations">展開地域</label>
+                    <input type="text" id="restaurantLocations" placeholder="例: 東京,大阪,全国">
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeRestaurantModal()">キャンセル</button>
+                    <button type="submit" class="btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- メニュー追加/編集モーダル -->
+    <div id="menuModal" class="modal">
+        <div class="modal-content-large">
+            <div class="modal-header">
+                <h3 id="menuModalTitle">新しいメニューを追加</h3>
+                <button class="close-btn" onclick="closeMenuModal()">&times;</button>
+            </div>
+
+            <form id="menuForm" class="menu-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="menuName">メニュー名 *</label>
+                        <input type="text" id="menuName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="menuRestaurant">レストラン *</label>
+                        <select id="menuRestaurant" required>
+                            <option value="">レストランを選択</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="menuCategory">カテゴリー *</label>
+                        <select id="menuCategory" required>
+                            <option value="">カテゴリーを選択</option>
+                            <option value="サラダ">サラダ</option>
+                            <option value="サンドイッチ">サンドイッチ</option>
+                            <option value="丼">丼</option>
+                            <option value="ハンバーガー">ハンバーガー</option>
+                            <option value="軽食">軽食</option>
+                            <option value="ボウル">ボウル</option>
+                            <option value="その他">その他</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="menuDescription">説明 *</label>
+                        <textarea id="menuDescription" rows="3" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="menuImage">画像URL</label>
+                        <input type="url" id="menuImage" placeholder="https://example.com/menu.jpg">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="menuPrice">価格（円）*</label>
+                        <input type="number" id="menuPrice" min="0" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="menuSize">サイズ・容量</label>
+                        <input type="text" id="menuSize" placeholder="例: レギュラー、15cm、並盛">
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h4>🧪 栄養成分（1食分）</h4>
+                    <div class="nutrition-form-grid">
+                        <div class="form-group">
+                            <label for="menuCalories">カロリー（kcal）*</label>
+                            <input type="number" id="menuCalories" min="0" step="1" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="menuProtein">タンパク質（g）*</label>
+                            <input type="number" id="menuProtein" min="0" step="0.1" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="menuCarbs">炭水化物（g）*</label>
+                            <input type="number" id="menuCarbs" min="0" step="0.1" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="menuFat">脂質（g）*</label>
+                            <input type="number" id="menuFat" min="0" step="0.1" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="menuFiber">食物繊維（g）</label>
+                            <input type="number" id="menuFiber" min="0" step="0.1">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="menuSodium">塩分（mg）</label>
+                            <input type="number" id="menuSodium" min="0" step="1">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h4>🏷️ アレルギー・食事制限</h4>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="menuAllergens">アレルギー物質</label>
+                            <input type="text" id="menuAllergens" placeholder="例: 卵,乳,小麦（カンマ区切り）">
+                        </div>
+
+                        <div class="form-group dietary-checkboxes">
+                            <label>
+                                <input type="checkbox" id="menuVegetarian"> ベジタリアン対応
+                            </label>
+                            <label>
+                                <input type="checkbox" id="menuVegan"> ヴィーガン対応
+                            </label>
+                            <label>
+                                <input type="checkbox" id="menuGlutenFree"> グルテンフリー
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="menuAvailable" checked> 販売中
+                            </label>
+                            <label>
+                                <input type="checkbox" id="menuSeasonal"> 季節限定
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeMenuModal()">キャンセル</button>
+                    <button type="submit" class="btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+    <script src="js/auto-update.js"></script>
+</body>
+</html>

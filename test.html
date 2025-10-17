@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - おすすめ食材</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>テストページ</h1>
+        <div id="foodsGrid"></div>
+
+        <script>
+        // テスト用の簡単なスクリプト
+        console.log('スクリプト開始');
+
+        // JSONデータの読み込みテスト
+        fetch('data/recommended-foods.json')
+            .then(response => {
+                console.log('レスポンス:', response);
+                return response.json();
+            })
+            .then(data => {
+                console.log('データ:', data);
+                document.getElementById('foodsGrid').innerHTML = '<p>データ読み込み成功: ' + data.recommended_foods.length + '件の食材</p>';
+            })
+            .catch(error => {
+                console.error('エラー:', error);
+                document.getElementById('foodsGrid').innerHTML = '<p style="color: red;">エラー: ' + error.message + '</p>';
+            });
+        </script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,257 @@
+{
+  "fish": [
+    {
+      "id": "tuna_sashimi",
+      "name": "まぐろ(刺身)",
+      "category": "魚介類",
+      "protein_per_100g": 24.3,
+      "serving_size": "3切れ(30g)",
+      "protein_per_serving": 7.3,
+      "emoji": "🍣"
+    },
+    {
+      "id": "salmon_sashimi",
+      "name": "サーモン(刺身)",
+      "category": "魚介類",
+      "protein_per_100g": 22.3,
+      "serving_size": "3切れ(30g)",
+      "protein_per_serving": 6.7,
+      "emoji": "🐟"
+    },
+    {
+      "id": "canned_tuna",
+      "name": "ツナ缶(水煮)",
+      "category": "魚介類",
+      "protein_per_100g": 25.4,
+      "serving_size": "1缶(70g)",
+      "protein_per_serving": 17.8,
+      "emoji": "🥫"
+    },
+    {
+      "id": "grilled_mackerel",
+      "name": "焼きさば",
+      "category": "魚介類",
+      "protein_per_100g": 20.7,
+      "serving_size": "1切れ(80g)",
+      "protein_per_serving": 16.6,
+      "emoji": "🐟"
+    },
+    {
+      "id": "shrimp",
+      "name": "えび",
+      "category": "魚介類",
+      "protein_per_100g": 18.4,
+      "serving_size": "5尾(60g)",
+      "protein_per_serving": 11.0,
+      "emoji": "🦐"
+    }
+  ],
+  "meat": [
+    {
+      "id": "chicken_breast",
+      "name": "鶏むね肉(皮なし)",
+      "category": "肉類",
+      "protein_per_100g": 23.3,
+      "serving_size": "1枚(120g)",
+      "protein_per_serving": 28.0,
+      "emoji": "🐔"
+    },
+    {
+      "id": "chicken_thigh",
+      "name": "鶏もも肉(皮なし)",
+      "category": "肉類",
+      "protein_per_100g": 18.8,
+      "serving_size": "1枚(150g)",
+      "protein_per_serving": 28.2,
+      "emoji": "🐔"
+    },
+    {
+      "id": "beef_sirloin",
+      "name": "牛サーロイン",
+      "category": "肉類",
+      "protein_per_100g": 17.4,
+      "serving_size": "1枚(120g)",
+      "protein_per_serving": 20.9,
+      "emoji": "🥩"
+    },
+    {
+      "id": "pork_loin",
+      "name": "豚ロース",
+      "category": "肉類",
+      "protein_per_100g": 19.3,
+      "serving_size": "1枚(100g)",
+      "protein_per_serving": 19.3,
+      "emoji": "🥓"
+    },
+    {
+      "id": "ground_beef",
+      "name": "牛ひき肉",
+      "category": "肉類",
+      "protein_per_100g": 17.6,
+      "serving_size": "ハンバーグ1個(100g)",
+      "protein_per_serving": 17.6,
+      "emoji": "🍖"
+    },
+    {
+      "id": "ham",
+      "name": "ハム",
+      "category": "肉類",
+      "protein_per_100g": 16.5,
+      "serving_size": "2枚(40g)",
+      "protein_per_serving": 6.6,
+      "emoji": "🍖"
+    }
+  ],
+  "eggs": [
+    {
+      "id": "chicken_egg",
+      "name": "鶏卵",
+      "category": "卵類",
+      "protein_per_100g": 12.3,
+      "serving_size": "1個(50g)",
+      "protein_per_serving": 6.2,
+      "emoji": "🥚"
+    },
+    {
+      "id": "egg_white",
+      "name": "卵白",
+      "category": "卵類",
+      "protein_per_100g": 10.5,
+      "serving_size": "1個分(35g)",
+      "protein_per_serving": 3.7,
+      "emoji": "🥚"
+    }
+  ],
+  "dairy": [
+    {
+      "id": "milk",
+      "name": "牛乳",
+      "category": "乳製品",
+      "protein_per_100g": 3.3,
+      "serving_size": "コップ1杯(200ml)",
+      "protein_per_serving": 6.6,
+      "emoji": "🥛"
+    },
+    {
+      "id": "yogurt",
+      "name": "プレーンヨーグルト",
+      "category": "乳製品",
+      "protein_per_100g": 3.6,
+      "serving_size": "1個(100g)",
+      "protein_per_serving": 3.6,
+      "emoji": "🍦"
+    },
+    {
+      "id": "greek_yogurt",
+      "name": "ギリシャヨーグルト",
+      "category": "乳製品",
+      "protein_per_100g": 10.0,
+      "serving_size": "1個(100g)",
+      "protein_per_serving": 10.0,
+      "emoji": "🍦"
+    },
+    {
+      "id": "cheese",
+      "name": "プロセスチーズ",
+      "category": "乳製品",
+      "protein_per_100g": 22.7,
+      "serving_size": "1枚(18g)",
+      "protein_per_serving": 4.1,
+      "emoji": "🧀"
+    },
+    {
+      "id": "cottage_cheese",
+      "name": "カッテージチーズ",
+      "category": "乳製品",
+      "protein_per_100g": 13.3,
+      "serving_size": "大さじ2(30g)",
+      "protein_per_serving": 4.0,
+      "emoji": "🧀"
+    }
+  ],
+  "beans": [
+    {
+      "id": "tofu",
+      "name": "木綿豆腐",
+      "category": "豆類",
+      "protein_per_100g": 6.6,
+      "serving_size": "1/3丁(100g)",
+      "protein_per_serving": 6.6,
+      "emoji": "🥥"
+    },
+    {
+      "id": "silken_tofu",
+      "name": "絹ごし豆腐",
+      "category": "豆類",
+      "protein_per_100g": 4.9,
+      "serving_size": "1/3丁(100g)",
+      "protein_per_serving": 4.9,
+      "emoji": "🥥"
+    },
+    {
+      "id": "natto",
+      "name": "納豆",
+      "category": "豆類",
+      "protein_per_100g": 16.5,
+      "serving_size": "1パック(40g)",
+      "protein_per_serving": 6.6,
+      "emoji": "🫘"
+    },
+    {
+      "id": "soymilk",
+      "name": "豆乳",
+      "category": "豆類",
+      "protein_per_100g": 3.6,
+      "serving_size": "コップ1杯(200ml)",
+      "protein_per_serving": 7.2,
+      "emoji": "🥛"
+    },
+    {
+      "id": "kidney_beans",
+      "name": "いんげん豆",
+      "category": "豆類",
+      "protein_per_100g": 19.9,
+      "serving_size": "煮豆小鉢(50g)",
+      "protein_per_serving": 10.0,
+      "emoji": "🫘"
+    },
+    {
+      "id": "peanuts",
+      "name": "ピーナッツ",
+      "category": "豆類",
+      "protein_per_100g": 25.4,
+      "serving_size": "ひとつかみ(20g)",
+      "protein_per_serving": 5.1,
+      "emoji": "🥜"
+    },
+    {
+      "id": "almonds",
+      "name": "アーモンド",
+      "category": "豆類",
+      "protein_per_100g": 18.6,
+      "serving_size": "ひとつかみ(20g)",
+      "protein_per_serving": 3.7,
+      "emoji": "🥜"
+    }
+  ],
+  "other": [
+    {
+      "id": "protein_powder",
+      "name": "プロテインパウダー",
+      "category": "その他",
+      "protein_per_100g": 80.0,
+      "serving_size": "1杯(25g)",
+      "protein_per_serving": 20.0,
+      "emoji": "🥤"
+    },
+    {
+      "id": "protein_bar",
+      "name": "プロテインバー",
+      "category": "その他",
+      "protein_per_100g": 20.0,
+      "serving_size": "1本(40g)",
+      "protein_per_serving": 8.0,
+      "emoji": "🍫"
+    }
+  ]
+}

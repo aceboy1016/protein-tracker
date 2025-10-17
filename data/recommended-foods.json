@@ -1,0 +1,1889 @@
+{
+  "recommended_foods": [
+    {
+      "id": "chicken_breast_super",
+      "name": "鶏むね肉(皮なし)",
+      "category": "高タンパク質食材",
+      "description": "低脂肪・高タンパク質の代表格。筋肉づくりに最適",
+      "protein_per_100g": 23.3,
+      "carbs_per_100g": 0.0,
+      "fat_per_100g": 1.9,
+      "calories_per_100g": 105,
+      "serving_size": "1枚(120g)",
+      "protein_per_serving": 28.0,
+      "vitamins": {
+        "vitamin_b6": "豊富",
+        "niacin": "豊富",
+        "vitamin_b12": "含有"
+      },
+      "minerals": {
+        "phosphorus": "豊富",
+        "selenium": "豊富",
+        "potassium": "含有"
+      },
+      "benefits": [
+        "筋肉合成促進",
+        "疲労回復",
+        "代謝向上"
+      ],
+      "cooking_tips": [
+        "蒸し調理で柔らかく",
+        "下味をしっかりつける",
+        "加熱しすぎない"
+      ],
+      "emoji": "🐔",
+      "rating": 5,
+      "price_range": "安価"
+    },
+    {
+      "id": "salmon_omega3",
+      "name": "サーモン(刺身・焼き)",
+      "category": "オメガ3豊富食材",
+      "description": "良質なタンパク質とオメガ3脂肪酸を同時摂取",
+      "protein_per_100g": 22.3,
+      "carbs_per_100g": 0.1,
+      "fat_per_100g": 12.8,
+      "calories_per_100g": 200,
+      "serving_size": "1切れ(80g)",
+      "protein_per_serving": 17.8,
+      "vitamins": {
+        "vitamin_d": "非常に豊富",
+        "vitamin_b12": "豊富",
+        "vitamin_b6": "含有"
+      },
+      "minerals": {
+        "selenium": "非常に豊富",
+        "phosphorus": "豊富",
+        "potassium": "含有"
+      },
+      "benefits": [
+        "心血管健康",
+        "脳機能向上",
+        "抗炎症作用"
+      ],
+      "cooking_tips": [
+        "皮付きで焼くとうま味UP",
+        "塩焼きがシンプルで美味",
+        "刺身なら栄養素そのまま"
+      ],
+      "emoji": "🐟",
+      "rating": 5,
+      "price_range": "やや高価"
+    },
+    {
+      "id": "eggs_complete",
+      "name": "鶏卵(全卵)",
+      "category": "完全栄養食材",
+      "description": "完全アミノ酸スコア100の理想的なタンパク質源",
+      "protein_per_100g": 12.3,
+      "carbs_per_100g": 0.3,
+      "fat_per_100g": 10.3,
+      "calories_per_100g": 151,
+      "serving_size": "2個(100g)",
+      "protein_per_serving": 12.3,
+      "vitamins": {
+        "vitamin_a": "豊富",
+        "vitamin_d": "含有",
+        "vitamin_b12": "豊富",
+        "folate": "含有"
+      },
+      "minerals": {
+        "iron": "含有",
+        "zinc": "含有",
+        "selenium": "豊富"
+      },
+      "benefits": [
+        "完全アミノ酸",
+        "コリン豊富で脳健康",
+        "ルテイン含有で目の健康"
+      ],
+      "cooking_tips": [
+        "半熟がタンパク質吸収良好",
+        "茹で卵で手軽に摂取",
+        "黄身も一緒に食べる"
+      ],
+      "emoji": "🥚",
+      "rating": 5,
+      "price_range": "安価"
+    },
+    {
+      "id": "greek_yogurt_pro",
+      "name": "ギリシャヨーグルト",
+      "category": "発酵食品",
+      "description": "プロバイオティクスと高タンパク質の組み合わせ",
+      "protein_per_100g": 10.0,
+      "carbs_per_100g": 4.0,
+      "fat_per_100g": 0.4,
+      "calories_per_100g": 59,
+      "serving_size": "1個(150g)",
+      "protein_per_serving": 15.0,
+      "vitamins": {
+        "vitamin_b12": "豊富",
+        "riboflavin": "豊富",
+        "vitamin_a": "含有"
+      },
+      "minerals": {
+        "calcium": "非常に豊富",
+        "phosphorus": "豊富",
+        "potassium": "含有"
+      },
+      "benefits": [
+        "腸内環境改善",
+        "骨密度向上",
+        "筋タンパク質合成"
+      ],
+      "cooking_tips": [
+        "フルーツと組み合わせ",
+        "ハチミツでほんのり甘く",
+        "そのまま食べるのがベスト"
+      ],
+      "emoji": "🍦",
+      "rating": 4,
+      "price_range": "やや高価"
+    },
+    {
+      "id": "tuna_can_mercury_safe",
+      "name": "ツナ缶(水煮)",
+      "category": "手軽な魚介類",
+      "description": "手軽に摂れる良質魚タンパク質、保存も利く",
+      "protein_per_100g": 25.4,
+      "carbs_per_100g": 0.1,
+      "fat_per_100g": 0.7,
+      "calories_per_100g": 108,
+      "serving_size": "1缶(70g)",
+      "protein_per_serving": 17.8,
+      "vitamins": {
+        "vitamin_d": "含有",
+        "niacin": "豊富",
+        "vitamin_b12": "豊富"
+      },
+      "minerals": {
+        "selenium": "非常に豊富",
+        "phosphorus": "豊富",
+        "potassium": "含有"
+      },
+      "benefits": [
+        "手軽な魚介摂取",
+        "低脂肪高タンパク",
+        "長期保存可能"
+      ],
+      "cooking_tips": [
+        "サラダにそのまま",
+        "オニオンと和える",
+        "パスタの具材に"
+      ],
+      "emoji": "🥫",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "tofu_isoflavone",
+      "name": "木綿豆腐",
+      "category": "植物性タンパク質",
+      "description": "植物性タンパク質とイソフラボンの宝庫",
+      "protein_per_100g": 6.6,
+      "carbs_per_100g": 1.6,
+      "fat_per_100g": 4.2,
+      "calories_per_100g": 72,
+      "serving_size": "1/2丁(150g)",
+      "protein_per_serving": 9.9,
+      "vitamins": {
+        "vitamin_k": "含有",
+        "folate": "含有"
+      },
+      "minerals": {
+        "calcium": "豊富",
+        "magnesium": "豊富",
+        "iron": "含有"
+      },
+      "benefits": [
+        "イソフラボンで女性ホルモン様作用",
+        "植物性タンパク質",
+        "低カロリー"
+      ],
+      "cooking_tips": [
+        "水切りしてから調理",
+        "冷奴でそのまま",
+        "炒め物で食感楽しむ"
+      ],
+      "emoji": "🥥",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "natto_vitamin_k2",
+      "name": "納豆",
+      "category": "発酵食品",
+      "description": "ビタミンK2と植物性タンパク質、発酵パワー",
+      "protein_per_100g": 16.5,
+      "carbs_per_100g": 12.1,
+      "fat_per_100g": 10.0,
+      "calories_per_100g": 200,
+      "serving_size": "1パック(45g)",
+      "protein_per_serving": 7.4,
+      "vitamins": {
+        "vitamin_k2": "非常に豊富",
+        "folate": "豊富",
+        "vitamin_b6": "含有"
+      },
+      "minerals": {
+        "magnesium": "豊富",
+        "potassium": "豊富",
+        "iron": "含有"
+      },
+      "benefits": [
+        "骨の健康促進",
+        "腸内環境改善",
+        "血栓予防"
+      ],
+      "cooking_tips": [
+        "よくかき混ぜる",
+        "ネギと組み合わせ",
+        "温かいご飯にのせて"
+      ],
+      "emoji": "🫘",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "almonds_vitamin_e",
+      "name": "アーモンド",
+      "category": "ナッツ類",
+      "description": "ビタミンEと良質な脂質、植物性タンパク質",
+      "protein_per_100g": 18.6,
+      "carbs_per_100g": 19.7,
+      "fat_per_100g": 54.2,
+      "calories_per_100g": 598,
+      "serving_size": "ひとつかみ(25g)",
+      "protein_per_serving": 4.7,
+      "vitamins": {
+        "vitamin_e": "非常に豊富",
+        "riboflavin": "豊富",
+        "niacin": "含有"
+      },
+      "minerals": {
+        "magnesium": "非常に豊富",
+        "phosphorus": "豊富",
+        "calcium": "豊富"
+      },
+      "benefits": [
+        "抗酸化作用",
+        "心血管健康",
+        "満腹感持続"
+      ],
+      "cooking_tips": [
+        "生のまま食べる",
+        "軽く炒って香ばしく",
+        "サラダのトッピング"
+      ],
+      "emoji": "🥜",
+      "rating": 4,
+      "price_range": "やや高価"
+    },
+    {
+      "id": "quinoa_complete_protein",
+      "name": "キヌア",
+      "category": "穀物・完全タンパク質",
+      "description": "穀物では珍しい完全アミノ酸食材、グルテンフリー",
+      "protein_per_100g": 14.1,
+      "carbs_per_100g": 64.2,
+      "fat_per_100g": 6.1,
+      "calories_per_100g": 368,
+      "serving_size": "茹で上がり(100g)",
+      "protein_per_serving": 4.4,
+      "vitamins": {
+        "folate": "豊富",
+        "vitamin_e": "含有",
+        "vitamin_b6": "含有"
+      },
+      "minerals": {
+        "magnesium": "非常に豊富",
+        "phosphorus": "豊富",
+        "iron": "豊富"
+      },
+      "benefits": [
+        "完全アミノ酸",
+        "グルテンフリー",
+        "食物繊維豊富"
+      ],
+      "cooking_tips": [
+        "よく洗ってから茹でる",
+        "サラダに混ぜて",
+        "スープの具材に"
+      ],
+      "emoji": "🌾",
+      "rating": 4,
+      "price_range": "高価"
+    },
+    {
+      "id": "cottage_cheese_casein",
+      "name": "カッテージチーズ",
+      "category": "カゼインタンパク質",
+      "description": "夜間のタンパク質補給に最適なカゼインプロテイン",
+      "protein_per_100g": 13.3,
+      "carbs_per_100g": 3.4,
+      "fat_per_100g": 4.3,
+      "calories_per_100g": 98,
+      "serving_size": "大さじ3(50g)",
+      "protein_per_serving": 6.7,
+      "vitamins": {
+        "vitamin_b12": "豊富",
+        "riboflavin": "豊富"
+      },
+      "minerals": {
+        "calcium": "豊富",
+        "phosphorus": "豊富",
+        "sodium": "含有"
+      },
+      "benefits": [
+        "持続的アミノ酸供給",
+        "就寝前摂取に最適",
+        "低脂肪"
+      ],
+      "cooking_tips": [
+        "フルーツと組み合わせ",
+        "サラダのトッピング",
+        "そのまま食べても美味"
+      ],
+      "emoji": "🧀",
+      "rating": 4,
+      "price_range": "やや高価"
+    },
+    {
+      "id": "shiitake_mushroom",
+      "name": "しいたけ",
+      "category": "きのこ類",
+      "description": "免疫力を高めるβ-グルカンとビタミンDの宝庫",
+      "protein_per_100g": 3.0,
+      "carbs_per_100g": 5.7,
+      "fat_per_100g": 0.4,
+      "calories_per_100g": 18,
+      "serving_size": "中サイズ3個(60g)",
+      "protein_per_serving": 1.8,
+      "vitamins": {
+        "vitamin_d": "非常に豊富",
+        "vitamin_b2": "豊富",
+        "niacin": "含有"
+      },
+      "minerals": {
+        "potassium": "豊富",
+        "phosphorus": "含有",
+        "zinc": "含有"
+      },
+      "benefits": [
+        "免疫力向上",
+        "コレステロール値改善",
+        "抗酸化作用"
+      ],
+      "cooking_tips": [
+        "天日干しでビタミンD増加",
+        "だし汁で旨味UP",
+        "軸も栄養豊富なので活用"
+      ],
+      "emoji": "🍄",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "maitake_mushroom",
+      "name": "まいたけ",
+      "category": "きのこ類",
+      "description": "血糖値調整とダイエット効果で注目のスーパーキノコ",
+      "protein_per_100g": 2.0,
+      "carbs_per_100g": 4.4,
+      "fat_per_100g": 0.5,
+      "calories_per_100g": 16,
+      "serving_size": "1パック(100g)",
+      "protein_per_serving": 2.0,
+      "vitamins": {
+        "vitamin_d": "豊富",
+        "niacin": "豊富",
+        "vitamin_b2": "含有"
+      },
+      "minerals": {
+        "potassium": "豊富",
+        "phosphorus": "含有",
+        "copper": "含有"
+      },
+      "benefits": [
+        "血糖値安定",
+        "脂肪燃焼促進",
+        "免疫力強化"
+      ],
+      "cooking_tips": [
+        "手で裂いて食感を楽しむ",
+        "炒め物で香りを引き出す",
+        "冷凍保存で栄養価アップ"
+      ],
+      "emoji": "🍄",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "wakame_seaweed",
+      "name": "わかめ",
+      "category": "海藻類",
+      "description": "ミネラル豊富な海の恵み、デトックス効果も抜群",
+      "protein_per_100g": 1.9,
+      "carbs_per_100g": 5.6,
+      "fat_per_100g": 0.2,
+      "calories_per_100g": 16,
+      "serving_size": "乾燥5g(戻すと50g)",
+      "protein_per_serving": 1.0,
+      "vitamins": {
+        "vitamin_k": "非常に豊富",
+        "folate": "豊富",
+        "vitamin_a": "含有"
+      },
+      "minerals": {
+        "iodine": "非常に豊富",
+        "calcium": "豊富",
+        "magnesium": "豊富"
+      },
+      "benefits": [
+        "甲状腺機能サポート",
+        "デトックス効果",
+        "骨密度向上"
+      ],
+      "cooking_tips": [
+        "水で戻して塩抜き",
+        "味噌汁の定番具材",
+        "酢の物で栄養吸収UP"
+      ],
+      "emoji": "🌿",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "kombu_seaweed",
+      "name": "昆布",
+      "category": "海藻類",
+      "description": "うま味の元グルタミン酸とミネラルの宝庫",
+      "protein_per_100g": 8.2,
+      "carbs_per_100g": 51.8,
+      "fat_per_100g": 1.2,
+      "calories_per_100g": 138,
+      "serving_size": "だし用10g",
+      "protein_per_serving": 0.8,
+      "vitamins": {
+        "vitamin_k": "非常に豊富",
+        "folate": "豊富",
+        "vitamin_c": "含有"
+      },
+      "minerals": {
+        "iodine": "非常に豊富",
+        "calcium": "非常に豊富",
+        "potassium": "豊富"
+      },
+      "benefits": [
+        "だし汁でうま味UP",
+        "血圧調整",
+        "腸内環境改善"
+      ],
+      "cooking_tips": [
+        "水出しでまろやかなだし",
+        "煮物に加えて旨味アップ",
+        "刻んで佃煮に"
+      ],
+      "emoji": "🌿",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "broccoli_super",
+      "name": "ブロッコリー",
+      "category": "緑黄色野菜",
+      "description": "ビタミンC爆弾！抗酸化パワーでがん予防効果も",
+      "protein_per_100g": 4.3,
+      "carbs_per_100g": 5.2,
+      "fat_per_100g": 0.5,
+      "calories_per_100g": 33,
+      "serving_size": "小房5-6個(100g)",
+      "protein_per_serving": 4.3,
+      "vitamins": {
+        "vitamin_c": "非常に豊富",
+        "vitamin_k": "豊富",
+        "folate": "豊富"
+      },
+      "minerals": {
+        "potassium": "豊富",
+        "phosphorus": "含有",
+        "magnesium": "含有"
+      },
+      "benefits": [
+        "がん予防効果",
+        "美肌効果",
+        "免疫力強化"
+      ],
+      "cooking_tips": [
+        "茹ですぎ注意、3分程度",
+        "蒸し調理で栄養保持",
+        "茎の部分も栄養豊富"
+      ],
+      "emoji": "🥦",
+      "rating": 5,
+      "price_range": "安価"
+    },
+    {
+      "id": "spinach_iron",
+      "name": "ほうれん草",
+      "category": "緑黄色野菜",
+      "description": "鉄分とビタミンKで貧血対策と骨の健康を両立",
+      "protein_per_100g": 2.2,
+      "carbs_per_100g": 3.1,
+      "fat_per_100g": 0.4,
+      "calories_per_100g": 20,
+      "serving_size": "1束(200g)",
+      "protein_per_serving": 4.4,
+      "vitamins": {
+        "vitamin_k": "非常に豊富",
+        "vitamin_a": "非常に豊富",
+        "folate": "豊富"
+      },
+      "minerals": {
+        "iron": "豊富",
+        "magnesium": "豊富",
+        "potassium": "豊富"
+      },
+      "benefits": [
+        "貧血予防",
+        "目の健康維持",
+        "骨密度向上"
+      ],
+      "cooking_tips": [
+        "下茹でしてアク抜き",
+        "ビタミンCと合わせて鉄分吸収UP",
+        "胡麻和えで栄養価UP"
+      ],
+      "emoji": "🥬",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "kimchi_fermented",
+      "name": "キムチ",
+      "category": "発酵食品",
+      "description": "乳酸菌とカプサイシンで腸活×脂肪燃焼のW効果",
+      "protein_per_100g": 2.8,
+      "carbs_per_100g": 5.2,
+      "fat_per_100g": 0.3,
+      "calories_per_100g": 27,
+      "serving_size": "小鉢1杯(50g)",
+      "protein_per_serving": 1.4,
+      "vitamins": {
+        "vitamin_c": "豊富",
+        "vitamin_b12": "含有",
+        "vitamin_k": "含有"
+      },
+      "minerals": {
+        "sodium": "豊富",
+        "potassium": "含有",
+        "calcium": "含有"
+      },
+      "benefits": [
+        "腸内環境改善",
+        "代謝促進",
+        "免疫力向上"
+      ],
+      "cooking_tips": [
+        "そのまま食べて乳酸菌摂取",
+        "炒め物で辛み調整",
+        "豚肉と相性抜群"
+      ],
+      "emoji": "🥬",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "miso_fermented",
+      "name": "味噌",
+      "category": "発酵食品",
+      "description": "日本の発酵文化の代表、イソフラボンと旨味の宝庫",
+      "protein_per_100g": 12.9,
+      "carbs_per_100g": 17.0,
+      "fat_per_100g": 6.0,
+      "calories_per_100g": 217,
+      "serving_size": "大さじ1(18g)",
+      "protein_per_serving": 2.3,
+      "vitamins": {
+        "vitamin_k": "含有",
+        "vitamin_b12": "含有",
+        "folate": "含有"
+      },
+      "minerals": {
+        "sodium": "非常に豊富",
+        "potassium": "豊富",
+        "magnesium": "含有"
+      },
+      "benefits": [
+        "腸内環境改善",
+        "イソフラボン効果",
+        "旨味で減塩効果"
+      ],
+      "cooking_tips": [
+        "沸騰させすぎない",
+        "だし汁と合わせて味噌汁",
+        "肉や魚の漬け床に"
+      ],
+      "emoji": "🍜",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "brown_rice",
+      "name": "玄米",
+      "category": "全粒穀物",
+      "description": "完全栄養穀物、食物繊維とビタミンB群が豊富",
+      "protein_per_100g": 6.8,
+      "carbs_per_100g": 71.8,
+      "fat_per_100g": 2.7,
+      "calories_per_100g": 350,
+      "serving_size": "茶碗1杯(150g)",
+      "protein_per_serving": 4.1,
+      "vitamins": {
+        "vitamin_b1": "豊富",
+        "vitamin_b6": "豊富",
+        "niacin": "豊富"
+      },
+      "minerals": {
+        "magnesium": "豊富",
+        "phosphorus": "豊富",
+        "potassium": "豊富"
+      },
+      "benefits": [
+        "血糖値安定",
+        "便秘解消",
+        "疲労回復"
+      ],
+      "cooking_tips": [
+        "一晩浸水してから炊飯",
+        "圧力鍋で柔らかく",
+        "白米と混ぜて慣らす"
+      ],
+      "emoji": "🍚",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "blueberry_antioxidant",
+      "name": "ブルーベリー",
+      "category": "ベリー類",
+      "description": "アントシアニンで目の健康と記憶力向上をサポート",
+      "protein_per_100g": 0.7,
+      "carbs_per_100g": 14.5,
+      "fat_per_100g": 0.3,
+      "calories_per_100g": 49,
+      "serving_size": "1カップ(148g)",
+      "protein_per_serving": 1.0,
+      "vitamins": {
+        "vitamin_c": "豊富",
+        "vitamin_k": "含有",
+        "vitamin_e": "含有"
+      },
+      "minerals": {
+        "potassium": "含有",
+        "manganese": "豊富",
+        "magnesium": "含有"
+      },
+      "benefits": [
+        "目の健康維持",
+        "記憶力向上",
+        "抗酸化作用"
+      ],
+      "cooking_tips": [
+        "冷凍でも栄養価変わらず",
+        "ヨーグルトにトッピング",
+        "スムージーで手軽に"
+      ],
+      "emoji": "🫐",
+      "rating": 4,
+      "price_range": "やや高価"
+    },
+    {
+      "id": "mackerel_omega3",
+      "name": "サバ",
+      "category": "青魚",
+      "description": "オメガ3とタンパク質の黄金比、血管の健康に最適",
+      "protein_per_100g": 20.7,
+      "carbs_per_100g": 0.3,
+      "fat_per_100g": 12.1,
+      "calories_per_100g": 202,
+      "serving_size": "1切れ(80g)",
+      "protein_per_serving": 16.6,
+      "vitamins": {
+        "vitamin_d": "非常に豊富",
+        "vitamin_b12": "非常に豊富",
+        "niacin": "豊富"
+      },
+      "minerals": {
+        "selenium": "非常に豊富",
+        "phosphorus": "豊富",
+        "potassium": "豊富"
+      },
+      "benefits": [
+        "心血管疾患予防",
+        "脳機能向上",
+        "抗炎症作用"
+      ],
+      "cooking_tips": [
+        "塩焼きで脂を程よく落とす",
+        "味噌煮で臭み消し",
+        "缶詰でも栄養価キープ"
+      ],
+      "emoji": "🐟",
+      "rating": 5,
+      "price_range": "安価"
+    },
+    {
+      "id": "ginger_metabolism",
+      "name": "生姜",
+      "category": "香味野菜",
+      "description": "ジンゲロールで代謝UP、冷え性改善の特効薬",
+      "protein_per_100g": 0.9,
+      "carbs_per_100g": 4.5,
+      "fat_per_100g": 0.3,
+      "calories_per_100g": 30,
+      "serving_size": "薄切り3枚(10g)",
+      "protein_per_serving": 0.1,
+      "vitamins": {
+        "vitamin_c": "含有",
+        "vitamin_b6": "含有"
+      },
+      "minerals": {
+        "potassium": "含有",
+        "magnesium": "含有",
+        "zinc": "含有"
+      },
+      "benefits": [
+        "代謝促進",
+        "冷え性改善",
+        "消化促進"
+      ],
+      "cooking_tips": [
+        "すりおろして薬味に",
+        "加熱で甘みが増す",
+        "乾燥粉末で手軽に"
+      ],
+      "emoji": "🫚",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "garlic_allicin",
+      "name": "にんにく",
+      "category": "香味野菜",
+      "description": "アリシンの抗菌・抗酸化パワー、疲労回復に最強",
+      "protein_per_100g": 6.0,
+      "carbs_per_100g": 20.6,
+      "fat_per_100g": 1.3,
+      "calories_per_100g": 134,
+      "serving_size": "1片(6g)",
+      "protein_per_serving": 0.4,
+      "vitamins": {
+        "vitamin_b6": "豊富",
+        "vitamin_c": "含有",
+        "vitamin_b1": "含有"
+      },
+      "minerals": {
+        "potassium": "豊富",
+        "phosphorus": "含有",
+        "sulfur": "豊富"
+      },
+      "benefits": [
+        "疲労回復",
+        "免疫力強化",
+        "血流改善"
+      ],
+      "cooking_tips": [
+        "刻んで10分置いてアリシン活性化",
+        "オリーブオイルで炒めて香り出し",
+        "丸ごと加熱で甘みアップ"
+      ],
+      "emoji": "🧄",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "sweet_potato_lowgi",
+      "name": "さつまいも",
+      "category": "低GI食品",
+      "description": "低GIで血糖値安定、食物繊維とビタミンCの宝庫",
+      "protein_per_100g": 1.2,
+      "carbs_per_100g": 29.7,
+      "fat_per_100g": 0.2,
+      "calories_per_100g": 132,
+      "serving_size": "中サイズ1/2本(100g)",
+      "protein_per_serving": 1.2,
+      "vitamins": {
+        "vitamin_c": "豊富",
+        "vitamin_e": "含有",
+        "vitamin_b6": "含有"
+      },
+      "minerals": {
+        "potassium": "豊富",
+        "magnesium": "含有",
+        "calcium": "含有"
+      },
+      "benefits": [
+        "血糖値安定",
+        "便秘解消",
+        "美肌効果"
+      ],
+      "cooking_tips": [
+        "皮ごと調理で栄養UP",
+        "蒸し調理で甘み引き出し",
+        "冷やすとレジスタントスターチ増加"
+      ],
+      "emoji": "🍠",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "chia_seeds",
+      "name": "チアシード",
+      "category": "スーパーシード",
+      "description": "オメガ3と食物繊維の小さな巨人、満腹感も抜群",
+      "protein_per_100g": 16.5,
+      "carbs_per_100g": 42.1,
+      "fat_per_100g": 30.7,
+      "calories_per_100g": 486,
+      "serving_size": "大さじ1(12g)",
+      "protein_per_serving": 2.0,
+      "vitamins": {
+        "vitamin_b3": "含有",
+        "vitamin_b1": "含有"
+      },
+      "minerals": {
+        "calcium": "非常に豊富",
+        "phosphorus": "豊富",
+        "magnesium": "豊富"
+      },
+      "benefits": [
+        "満腹感持続",
+        "腸内環境改善",
+        "オメガ3補給"
+      ],
+      "cooking_tips": [
+        "水に浸してゲル状に",
+        "ヨーグルトに混ぜて",
+        "スムージーにプラス"
+      ],
+      "emoji": "🌰",
+      "rating": 4,
+      "price_range": "高価"
+    },
+    {
+      "id": "okra_mucilage",
+      "name": "オクラ",
+      "category": "ネバネバ食材",
+      "description": "ムチンで胃腸保護、血糖値上昇も緩やか",
+      "protein_per_100g": 2.1,
+      "carbs_per_100g": 6.6,
+      "fat_per_100g": 0.2,
+      "calories_per_100g": 30,
+      "serving_size": "5本(50g)",
+      "protein_per_serving": 1.1,
+      "vitamins": {
+        "vitamin_c": "豊富",
+        "vitamin_k": "豊富",
+        "folate": "豊富"
+      },
+      "minerals": {
+        "potassium": "豊富",
+        "calcium": "含有",
+        "magnesium": "含有"
+      },
+      "benefits": [
+        "胃腸保護",
+        "血糖値安定",
+        "疲労回復"
+      ],
+      "cooking_tips": [
+        "板ずりで産毛除去",
+        "さっと茹でて食感保持",
+        "刻んでネバネバ倍増"
+      ],
+      "emoji": "🌶️",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "olive_oil_extra_virgin",
+      "name": "エクストラバージンオリーブオイル",
+      "category": "良質オイル",
+      "description": "オレイン酸とポリフェノールで心血管を守る黄金オイル",
+      "protein_per_100g": 0.0,
+      "carbs_per_100g": 0.0,
+      "fat_per_100g": 100.0,
+      "calories_per_100g": 921,
+      "serving_size": "大さじ1(12g)",
+      "protein_per_serving": 0.0,
+      "vitamins": {
+        "vitamin_e": "豊富",
+        "vitamin_k": "含有"
+      },
+      "minerals": {
+        "antioxidants": "豊富"
+      },
+      "benefits": [
+        "心血管疾患予防",
+        "抗炎症作用",
+        "悪玉コレステロール減少"
+      ],
+      "cooking_tips": [
+        "加熱しすぎない",
+        "サラダにそのままかけて",
+        "パンにつけて風味を楽しむ"
+      ],
+      "emoji": "🫒",
+      "rating": 5,
+      "price_range": "やや高価"
+    },
+    {
+      "id": "shimeji_mushroom",
+      "name": "しめじ",
+      "category": "きのこ類",
+      "description": "旨味成分豊富で食物繊維たっぷり、ダイエットの味方",
+      "protein_per_100g": 2.7,
+      "carbs_per_100g": 5.9,
+      "fat_per_100g": 0.3,
+      "calories_per_100g": 18,
+      "serving_size": "1パック(100g)",
+      "protein_per_serving": 2.7,
+      "vitamins": {
+        "niacin": "豊富",
+        "vitamin_d": "含有",
+        "vitamin_b2": "含有"
+      },
+      "minerals": {
+        "potassium": "豊富",
+        "phosphorus": "含有"
+      },
+      "benefits": [
+        "免疫力向上",
+        "便秘解消",
+        "低カロリー"
+      ],
+      "cooking_tips": [
+        "石づきを取って調理",
+        "炒め物で香り引き出し",
+        "汁物で旨味UP"
+      ],
+      "emoji": "🍄",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "eryngii_mushroom",
+      "name": "エリンギ",
+      "category": "きのこ類",
+      "description": "コリコリ食感で満足感UP、食物繊維とカリウムが豊富",
+      "protein_per_100g": 3.1,
+      "carbs_per_100g": 6.0,
+      "fat_per_100g": 0.4,
+      "calories_per_100g": 24,
+      "serving_size": "2本(100g)",
+      "protein_per_serving": 3.1,
+      "vitamins": {
+        "niacin": "豊富",
+        "vitamin_d": "含有"
+      },
+      "minerals": {
+        "potassium": "豊富",
+        "phosphorus": "含有"
+      },
+      "benefits": [
+        "満腹感持続",
+        "血圧調整",
+        "腸内環境改善"
+      ],
+      "cooking_tips": [
+        "縦に裂いて食感楽しむ",
+        "バター炒めで風味UP",
+        "肉の代替として活用"
+      ],
+      "emoji": "🍄",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "nori_seaweed",
+      "name": "海苔",
+      "category": "海藻類",
+      "description": "タンパク質とビタミンB12の海の宝石、ベジタリアンの救世主",
+      "protein_per_100g": 41.4,
+      "carbs_per_100g": 44.3,
+      "fat_per_100g": 3.7,
+      "calories_per_100g": 188,
+      "serving_size": "大判1枚(3g)",
+      "protein_per_serving": 1.2,
+      "vitamins": {
+        "vitamin_b12": "非常に豊富",
+        "vitamin_a": "豊富",
+        "vitamin_c": "豊富"
+      },
+      "minerals": {
+        "iodine": "非常に豊富",
+        "iron": "豊富",
+        "calcium": "豊富"
+      },
+      "benefits": [
+        "植物性B12摂取",
+        "貧血予防",
+        "甲状腺機能サポート"
+      ],
+      "cooking_tips": [
+        "そのまま食べて栄養満点",
+        "おにぎりで手軽に",
+        "細切りでサラダに"
+      ],
+      "emoji": "🌿",
+      "rating": 5,
+      "price_range": "安価"
+    },
+    {
+      "id": "hijiki_seaweed",
+      "name": "ひじき",
+      "category": "海藻類",
+      "description": "鉄分とカルシウムの宝庫、女性の健康をサポート",
+      "protein_per_100g": 9.2,
+      "carbs_per_100g": 58.4,
+      "fat_per_100g": 3.2,
+      "calories_per_100g": 139,
+      "serving_size": "乾燥10g(戻すと70g)",
+      "protein_per_serving": 0.9,
+      "vitamins": {
+        "vitamin_k": "非常に豊富",
+        "folate": "豊富"
+      },
+      "minerals": {
+        "iron": "非常に豊富",
+        "calcium": "非常に豊富",
+        "magnesium": "豊富"
+      },
+      "benefits": [
+        "貧血予防",
+        "骨密度向上",
+        "美髪効果"
+      ],
+      "cooking_tips": [
+        "水で戻してから調理",
+        "煮物で定番",
+        "サラダで現代風に"
+      ],
+      "emoji": "🌿",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "tomato_lycopene",
+      "name": "トマト",
+      "category": "緑黄色野菜",
+      "description": "リコピンの抗酸化パワーで美肌とがん予防をダブルケア",
+      "protein_per_100g": 0.7,
+      "carbs_per_100g": 4.7,
+      "fat_per_100g": 0.1,
+      "calories_per_100g": 19,
+      "serving_size": "中サイズ1個(150g)",
+      "protein_per_serving": 1.1,
+      "vitamins": {
+        "vitamin_c": "豊富",
+        "vitamin_a": "豊富",
+        "vitamin_k": "含有"
+      },
+      "minerals": {
+        "potassium": "豊富",
+        "magnesium": "含有"
+      },
+      "benefits": [
+        "抗酸化作用",
+        "美肌効果",
+        "がん予防"
+      ],
+      "cooking_tips": [
+        "加熱でリコピン吸収UP",
+        "オリーブオイルと合わせて",
+        "生でもビタミンC豊富"
+      ],
+      "emoji": "🍅",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "kale_superfood",
+      "name": "ケール",
+      "category": "緑黄色野菜",
+      "description": "野菜の王様、栄養密度No.1のスーパーフード",
+      "protein_per_100g": 2.1,
+      "carbs_per_100g": 7.8,
+      "fat_per_100g": 0.4,
+      "calories_per_100g": 28,
+      "serving_size": "葉2-3枚(50g)",
+      "protein_per_serving": 1.1,
+      "vitamins": {
+        "vitamin_k": "非常に豊富",
+        "vitamin_a": "非常に豊富",
+        "vitamin_c": "非常に豊富"
+      },
+      "minerals": {
+        "calcium": "豊富",
+        "iron": "豊富",
+        "potassium": "豊富"
+      },
+      "benefits": [
+        "栄養密度最高",
+        "抗炎症作用",
+        "デトックス効果"
+      ],
+      "cooking_tips": [
+        "スムージーで手軽に",
+        "マッサージして柔らかく",
+        "チップスで美味しく"
+      ],
+      "emoji": "🥬",
+      "rating": 5,
+      "price_range": "やや高価"
+    },
+    {
+      "id": "carrot_beta_carotene",
+      "name": "人参",
+      "category": "緑黄色野菜",
+      "description": "β-カロテンで目の健康と美肌を同時にケア",
+      "protein_per_100g": 0.6,
+      "carbs_per_100g": 9.3,
+      "fat_per_100g": 0.1,
+      "calories_per_100g": 39,
+      "serving_size": "中サイズ1/2本(75g)",
+      "protein_per_serving": 0.5,
+      "vitamins": {
+        "vitamin_a": "非常に豊富",
+        "vitamin_k": "含有",
+        "vitamin_c": "含有"
+      },
+      "minerals": {
+        "potassium": "含有",
+        "calcium": "含有"
+      },
+      "benefits": [
+        "目の健康維持",
+        "美肌効果",
+        "免疫力向上"
+      ],
+      "cooking_tips": [
+        "油と一緒に調理で吸収UP",
+        "皮ごと使って栄養最大化",
+        "すりおろしで消化良く"
+      ],
+      "emoji": "🥕",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "asparagus_glutathione",
+      "name": "アスパラガス",
+      "category": "緑黄色野菜",
+      "description": "グルタチオンでデトックス、アスパラギン酸で疲労回復",
+      "protein_per_100g": 2.6,
+      "carbs_per_100g": 3.9,
+      "fat_per_100g": 0.2,
+      "calories_per_100g": 22,
+      "serving_size": "5本(100g)",
+      "protein_per_serving": 2.6,
+      "vitamins": {
+        "folate": "豊富",
+        "vitamin_k": "豊富",
+        "vitamin_c": "含有"
+      },
+      "minerals": {
+        "potassium": "豊富",
+        "phosphorus": "含有"
+      },
+      "benefits": [
+        "デトックス効果",
+        "疲労回復",
+        "血管の健康"
+      ],
+      "cooking_tips": [
+        "茹ですぎ注意、2-3分",
+        "根元は皮を剥く",
+        "バター炒めで風味UP"
+      ],
+      "emoji": "🌿",
+      "rating": 4,
+      "price_range": "やや高価"
+    },
+    {
+      "id": "nukazuke_fermented",
+      "name": "ぬか漬け",
+      "category": "発酵食品",
+      "description": "ビタミンB群と植物性乳酸菌で腸活と栄養補給を同時実現",
+      "protein_per_100g": 1.9,
+      "carbs_per_100g": 5.3,
+      "fat_per_100g": 0.1,
+      "calories_per_100g": 25,
+      "serving_size": "小鉢1杯(50g)",
+      "protein_per_serving": 1.0,
+      "vitamins": {
+        "vitamin_b1": "豊富",
+        "vitamin_b2": "含有",
+        "vitamin_c": "含有"
+      },
+      "minerals": {
+        "sodium": "豊富",
+        "potassium": "含有"
+      },
+      "benefits": [
+        "腸内環境改善",
+        "ビタミンB群補給",
+        "塩分で夏バテ防止"
+      ],
+      "cooking_tips": [
+        "そのまま食べて乳酸菌摂取",
+        "野菜の栄養価がアップ",
+        "食事の最初に食べて血糖値安定"
+      ],
+      "emoji": "🥒",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "shiokoji_fermented",
+      "name": "塩麹",
+      "category": "発酵食品",
+      "description": "麹の酵素パワーで消化促進、肉も野菜も旨味UP",
+      "protein_per_100g": 5.8,
+      "carbs_per_100g": 45.9,
+      "fat_per_100g": 1.4,
+      "calories_per_100g": 261,
+      "serving_size": "小さじ1(6g)",
+      "protein_per_serving": 0.3,
+      "vitamins": {
+        "vitamin_b1": "含有",
+        "vitamin_b2": "含有"
+      },
+      "minerals": {
+        "sodium": "非常に豊富",
+        "potassium": "含有"
+      },
+      "benefits": [
+        "消化促進",
+        "旨味増強",
+        "減塩効果"
+      ],
+      "cooking_tips": [
+        "肉の下味に使用",
+        "野菜炒めの調味料に",
+        "ドレッシングに混ぜて"
+      ],
+      "emoji": "🧂",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "apple_fiber",
+      "name": "りんご",
+      "category": "果物",
+      "description": "ペクチンで腸活、ポリフェノールで抗酸化の一石二鳥",
+      "protein_per_100g": 0.2,
+      "carbs_per_100g": 14.6,
+      "fat_per_100g": 0.1,
+      "calories_per_100g": 54,
+      "serving_size": "中サイズ1個(200g)",
+      "protein_per_serving": 0.4,
+      "vitamins": {
+        "vitamin_c": "含有",
+        "vitamin_k": "含有"
+      },
+      "minerals": {
+        "potassium": "含有",
+        "calcium": "含有"
+      },
+      "benefits": [
+        "腸内環境改善",
+        "血糖値安定",
+        "抗酸化作用"
+      ],
+      "cooking_tips": [
+        "皮ごと食べて食物繊維UP",
+        "加熱で甘み増強",
+        "ヨーグルトと合わせて"
+      ],
+      "emoji": "🍎",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "kiwi_vitamin_c",
+      "name": "キウイフルーツ",
+      "category": "果物",
+      "description": "ビタミンC含有量トップクラス、消化酵素で胃腸にも優しい",
+      "protein_per_100g": 1.0,
+      "carbs_per_100g": 13.5,
+      "fat_per_100g": 0.1,
+      "calories_per_100g": 53,
+      "serving_size": "1個(100g)",
+      "protein_per_serving": 1.0,
+      "vitamins": {
+        "vitamin_c": "非常に豊富",
+        "vitamin_e": "含有",
+        "folate": "含有"
+      },
+      "minerals": {
+        "potassium": "豊富",
+        "magnesium": "含有"
+      },
+      "benefits": [
+        "免疫力強化",
+        "消化促進",
+        "美肌効果"
+      ],
+      "cooking_tips": [
+        "完熟で甘み最大",
+        "肉料理の付け合わせに",
+        "スムージーで手軽に"
+      ],
+      "emoji": "🥝",
+      "rating": 4,
+      "price_range": "やや高価"
+    },
+    {
+      "id": "banana_potassium",
+      "name": "バナナ",
+      "category": "果物",
+      "description": "カリウムで血圧調整、即効性エネルギーでスポーツにも最適",
+      "protein_per_100g": 1.1,
+      "carbs_per_100g": 22.5,
+      "fat_per_100g": 0.2,
+      "calories_per_100g": 86,
+      "serving_size": "1本(100g)",
+      "protein_per_serving": 1.1,
+      "vitamins": {
+        "vitamin_b6": "豊富",
+        "vitamin_c": "含有",
+        "folate": "含有"
+      },
+      "minerals": {
+        "potassium": "非常に豊富",
+        "magnesium": "含有"
+      },
+      "benefits": [
+        "血圧調整",
+        "疲労回復",
+        "便秘解消"
+      ],
+      "cooking_tips": [
+        "完熟で抗酸化物質UP",
+        "冷凍でスムージーに",
+        "運動前後の栄養補給"
+      ],
+      "emoji": "🍌",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "dates_natural_sweetener",
+      "name": "デーツ",
+      "category": "果物",
+      "description": "天然の甘味料、食物繊維とミネラルで砂糖の代替に最適",
+      "protein_per_100g": 2.2,
+      "carbs_per_100g": 71.3,
+      "fat_per_100g": 0.2,
+      "calories_per_100g": 266,
+      "serving_size": "2粒(20g)",
+      "protein_per_serving": 0.4,
+      "vitamins": {
+        "vitamin_k": "含有",
+        "folate": "含有"
+      },
+      "minerals": {
+        "potassium": "豊富",
+        "copper": "豊富",
+        "manganese": "豊富"
+      },
+      "benefits": [
+        "自然な甘味",
+        "エネルギー補給",
+        "便秘解消"
+      ],
+      "cooking_tips": [
+        "そのまま食べて自然な甘み",
+        "砂糖の代わりに使用",
+        "ナッツと組み合わせて"
+      ],
+      "emoji": "🌰",
+      "rating": 4,
+      "price_range": "やや高価"
+    },
+    {
+      "id": "iwashi_dha_epa",
+      "name": "イワシ",
+      "category": "青魚",
+      "description": "DHA・EPAの宝庫、小さな体に栄養がぎっしり",
+      "protein_per_100g": 19.8,
+      "carbs_per_100g": 0.7,
+      "fat_per_100g": 9.2,
+      "calories_per_100g": 169,
+      "serving_size": "中サイズ2尾(60g)",
+      "protein_per_serving": 11.9,
+      "vitamins": {
+        "vitamin_d": "非常に豊富",
+        "vitamin_b12": "非常に豊富",
+        "niacin": "豊富"
+      },
+      "minerals": {
+        "calcium": "豊富",
+        "phosphorus": "豊富",
+        "selenium": "豊富"
+      },
+      "benefits": [
+        "脳機能向上",
+        "心血管保護",
+        "骨密度向上"
+      ],
+      "cooking_tips": [
+        "塩焼きで栄養そのまま",
+        "缶詰でも栄養価キープ",
+        "梅煮で臭み消し"
+      ],
+      "emoji": "🐟",
+      "rating": 5,
+      "price_range": "安価"
+    },
+    {
+      "id": "salmon_astaxanthin",
+      "name": "鮭",
+      "category": "魚介類",
+      "description": "アスタキサンチンで美肌効果、オメガ3で脳も活性化",
+      "protein_per_100g": 22.3,
+      "carbs_per_100g": 0.1,
+      "fat_per_100g": 4.1,
+      "calories_per_100g": 133,
+      "serving_size": "1切れ(80g)",
+      "protein_per_serving": 17.8,
+      "vitamins": {
+        "vitamin_d": "非常に豊富",
+        "vitamin_b12": "豊富",
+        "niacin": "豊富"
+      },
+      "minerals": {
+        "selenium": "非常に豊富",
+        "phosphorus": "豊富",
+        "potassium": "含有"
+      },
+      "benefits": [
+        "美肌効果",
+        "脳機能向上",
+        "抗炎症作用"
+      ],
+      "cooking_tips": [
+        "皮も一緒に食べて栄養UP",
+        "塩焼きがシンプルで美味",
+        "刺身なら栄養素そのまま"
+      ],
+      "emoji": "🐟",
+      "rating": 5,
+      "price_range": "やや高価"
+    },
+    {
+      "id": "oyster_zinc",
+      "name": "牡蠣",
+      "category": "貝類",
+      "description": "亜鉛の王様、免疫力と男性機能をダブルサポート",
+      "protein_per_100g": 6.6,
+      "carbs_per_100g": 4.7,
+      "fat_per_100g": 1.4,
+      "calories_per_100g": 60,
+      "serving_size": "中サイズ5個(100g)",
+      "protein_per_serving": 6.6,
+      "vitamins": {
+        "vitamin_b12": "非常に豊富",
+        "folate": "豊富",
+        "vitamin_c": "含有"
+      },
+      "minerals": {
+        "zinc": "非常に豊富",
+        "iron": "豊富",
+        "copper": "豊富"
+      },
+      "benefits": [
+        "免疫力強化",
+        "味覚機能維持",
+        "男性機能サポート"
+      ],
+      "cooking_tips": [
+        "生で栄養素最大",
+        "レモンでビタミンC追加",
+        "加熱しすぎると固くなる"
+      ],
+      "emoji": "🦪",
+      "rating": 5,
+      "price_range": "高価"
+    },
+    {
+      "id": "black_garlic",
+      "name": "黒にんにく",
+      "category": "香味野菜",
+      "description": "発酵でパワーアップ、S-アリルシステインで健康効果倍増",
+      "protein_per_100g": 8.0,
+      "carbs_per_100g": 40.0,
+      "fat_per_100g": 0.8,
+      "calories_per_100g": 174,
+      "serving_size": "1片(6g)",
+      "protein_per_serving": 0.5,
+      "vitamins": {
+        "vitamin_b6": "豊富",
+        "vitamin_c": "含有"
+      },
+      "minerals": {
+        "potassium": "豊富",
+        "phosphorus": "含有"
+      },
+      "benefits": [
+        "抗酸化作用強化",
+        "疲労回復",
+        "血流改善"
+      ],
+      "cooking_tips": [
+        "そのまま食べて甘み楽しむ",
+        "臭いが少なく食べやすい",
+        "料理のアクセントに"
+      ],
+      "emoji": "🧄",
+      "rating": 4,
+      "price_range": "高価"
+    },
+    {
+      "id": "shiso_perilla",
+      "name": "しそ",
+      "category": "香味野菜",
+      "description": "α-リノレン酸とβ-カロテンの和のハーブ",
+      "protein_per_100g": 3.9,
+      "carbs_per_100g": 7.3,
+      "fat_per_100g": 0.1,
+      "calories_per_100g": 37,
+      "serving_size": "10枚(10g)",
+      "protein_per_serving": 0.4,
+      "vitamins": {
+        "vitamin_a": "非常に豊富",
+        "vitamin_k": "非常に豊富",
+        "vitamin_c": "豊富"
+      },
+      "minerals": {
+        "calcium": "豊富",
+        "iron": "豊富"
+      },
+      "benefits": [
+        "抗菌作用",
+        "アレルギー緩和",
+        "血流改善"
+      ],
+      "cooking_tips": [
+        "生で香り最大",
+        "刺身の薬味に",
+        "天ぷらで香ばしく"
+      ],
+      "emoji": "🌿",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "oatmeal_beta_glucan",
+      "name": "オートミール",
+      "category": "低GI食品",
+      "description": "β-グルカンでコレステロール対策、完全栄養穀物",
+      "protein_per_100g": 13.7,
+      "carbs_per_100g": 69.1,
+      "fat_per_100g": 5.7,
+      "calories_per_100g": 380,
+      "serving_size": "1食分(30g)",
+      "protein_per_serving": 4.1,
+      "vitamins": {
+        "vitamin_b1": "豊富",
+        "vitamin_e": "含有",
+        "folate": "含有"
+      },
+      "minerals": {
+        "iron": "豊富",
+        "magnesium": "豊富",
+        "zinc": "豊富"
+      },
+      "benefits": [
+        "コレステロール値改善",
+        "血糖値安定",
+        "満腹感持続"
+      ],
+      "cooking_tips": [
+        "水や牛乳で煮て粥状に",
+        "一晩浸けてオーバーナイトオーツ",
+        "フルーツと合わせて"
+      ],
+      "emoji": "🥣",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "soba_rutin",
+      "name": "そば",
+      "category": "低GI食品",
+      "description": "ルチンで血管強化、低GIで血糖値にも優しい",
+      "protein_per_100g": 12.0,
+      "carbs_per_100g": 54.5,
+      "fat_per_100g": 3.1,
+      "calories_per_100g": 274,
+      "serving_size": "1人前(100g)",
+      "protein_per_serving": 12.0,
+      "vitamins": {
+        "vitamin_b1": "豊富",
+        "vitamin_b2": "含有",
+        "niacin": "含有"
+      },
+      "minerals": {
+        "magnesium": "豊富",
+        "iron": "含有",
+        "zinc": "含有"
+      },
+      "benefits": [
+        "血管強化",
+        "血糖値安定",
+        "疲労回復"
+      ],
+      "cooking_tips": [
+        "十割そばで栄養最大",
+        "つゆは薄めで塩分控えめ",
+        "冷たいそばで食物繊維UP"
+      ],
+      "emoji": "🍜",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "walnut_omega3",
+      "name": "くるみ",
+      "category": "ナッツ類",
+      "description": "植物性オメガ3の王様、脳の健康に最適なナッツ",
+      "protein_per_100g": 15.6,
+      "carbs_per_100g": 11.7,
+      "fat_per_100g": 68.8,
+      "calories_per_100g": 674,
+      "serving_size": "ひとつかみ(28g)",
+      "protein_per_serving": 4.4,
+      "vitamins": {
+        "vitamin_e": "豊富",
+        "folate": "含有",
+        "vitamin_b6": "含有"
+      },
+      "minerals": {
+        "magnesium": "豊富",
+        "phosphorus": "豊富",
+        "manganese": "豊富"
+      },
+      "benefits": [
+        "脳機能向上",
+        "心血管保護",
+        "抗炎症作用"
+      ],
+      "cooking_tips": [
+        "生で食べて栄養そのまま",
+        "軽く炒って香ばしく",
+        "サラダのトッピングに"
+      ],
+      "emoji": "🥜",
+      "rating": 5,
+      "price_range": "やや高価"
+    },
+    {
+      "id": "sesame_lignans",
+      "name": "ごま",
+      "category": "種実類",
+      "description": "セサミンとリグナンで肝機能サポート、小粒に栄養凝縮",
+      "protein_per_100g": 19.8,
+      "carbs_per_100g": 18.4,
+      "fat_per_100g": 51.9,
+      "calories_per_100g": 578,
+      "serving_size": "大さじ1(9g)",
+      "protein_per_serving": 1.8,
+      "vitamins": {
+        "vitamin_e": "豊富",
+        "vitamin_b1": "含有",
+        "folate": "含有"
+      },
+      "minerals": {
+        "calcium": "非常に豊富",
+        "magnesium": "豊富",
+        "iron": "豊富"
+      },
+      "benefits": [
+        "肝機能サポート",
+        "抗酸化作用",
+        "骨密度向上"
+      ],
+      "cooking_tips": [
+        "すりごまで吸収UP",
+        "炒りごまで香ばしく",
+        "料理の仕上げに"
+      ],
+      "emoji": "🌰",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "mozuku_fucoidan",
+      "name": "もずく",
+      "category": "ネバネバ食材",
+      "description": "フコイダンで免疫力UP、沖縄の長寿の秘密",
+      "protein_per_100g": 0.2,
+      "carbs_per_100g": 4.4,
+      "fat_per_100g": 0.2,
+      "calories_per_100g": 4,
+      "serving_size": "1パック(70g)",
+      "protein_per_serving": 0.1,
+      "vitamins": {
+        "vitamin_k": "含有",
+        "folate": "含有"
+      },
+      "minerals": {
+        "iodine": "豊富",
+        "calcium": "含有",
+        "magnesium": "含有"
+      },
+      "benefits": [
+        "免疫力向上",
+        "血糖値安定",
+        "低カロリー"
+      ],
+      "cooking_tips": [
+        "酢の物で定番",
+        "そのまま食べて手軽に",
+        "スープに入れて"
+      ],
+      "emoji": "🌿",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "apple_cider_vinegar",
+      "name": "りんご酢",
+      "category": "発酵調味料",
+      "description": "酢酸とポリフェノールで血糖値コントロール、ダイエットの味方",
+      "protein_per_100g": 0.0,
+      "carbs_per_100g": 0.2,
+      "fat_per_100g": 0.0,
+      "calories_per_100g": 26,
+      "serving_size": "大さじ1(15ml)",
+      "protein_per_serving": 0.0,
+      "vitamins": {
+        "vitamin_c": "含有"
+      },
+      "minerals": {
+        "potassium": "含有"
+      },
+      "benefits": [
+        "血糖値安定",
+        "脂肪燃焼促進",
+        "消化促進"
+      ],
+      "cooking_tips": [
+        "水で薄めて飲む",
+        "ドレッシングのベースに",
+        "食前に摂取で効果UP"
+      ],
+      "emoji": "🍯",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "mct_oil",
+      "name": "MCTオイル",
+      "category": "機能性オイル",
+      "description": "中鎖脂肪酸で即効エネルギー、ケトン体生成をサポート",
+      "protein_per_100g": 0.0,
+      "carbs_per_100g": 0.0,
+      "fat_per_100g": 100.0,
+      "calories_per_100g": 900,
+      "serving_size": "小さじ1(5ml)",
+      "protein_per_serving": 0.0,
+      "vitamins": {},
+      "minerals": {},
+      "benefits": [
+        "即効エネルギー",
+        "脂肪燃焼促進",
+        "脳機能向上"
+      ],
+      "cooking_tips": [
+        "コーヒーに混ぜて",
+        "サラダドレッシングに",
+        "加熱調理は避ける"
+      ],
+      "emoji": "🫒",
+      "rating": 4,
+      "price_range": "高価"
+    },
+    {
+      "id": "cinnamon_spice",
+      "name": "シナモン",
+      "category": "スパイス",
+      "description": "血糖値安定とインスリン感受性向上の甘いスパイス",
+      "protein_per_100g": 3.9,
+      "carbs_per_100g": 80.6,
+      "fat_per_100g": 1.2,
+      "calories_per_100g": 364,
+      "serving_size": "小さじ1/2(1g)",
+      "protein_per_serving": 0.04,
+      "vitamins": {
+        "vitamin_k": "含有"
+      },
+      "minerals": {
+        "calcium": "豊富",
+        "iron": "豊富",
+        "manganese": "非常に豊富"
+      },
+      "benefits": [
+        "血糖値安定",
+        "抗酸化作用",
+        "抗炎症作用"
+      ],
+      "cooking_tips": [
+        "コーヒーに少し振りかけて",
+        "ヨーグルトに混ぜて",
+        "お菓子作りのアクセント"
+      ],
+      "emoji": "🌰",
+      "rating": 4,
+      "price_range": "安価"
+    },
+    {
+      "id": "honey_natural",
+      "name": "ハチミツ",
+      "category": "天然甘味料",
+      "description": "ミネラルと酵素が生きた天然の甘味料、砂糖より栄養豊富",
+      "protein_per_100g": 0.2,
+      "carbs_per_100g": 79.7,
+      "fat_per_100g": 0.0,
+      "calories_per_100g": 294,
+      "serving_size": "大さじ1(21g)",
+      "protein_per_serving": 0.04,
+      "vitamins": {
+        "vitamin_c": "含有",
+        "niacin": "含有"
+      },
+      "minerals": {
+        "potassium": "含有",
+        "calcium": "含有",
+        "iron": "含有"
+      },
+      "benefits": [
+        "天然の甘味",
+        "抗菌作用",
+        "喉の保護"
+      ],
+      "cooking_tips": [
+        "60℃以下で酵素を保持",
+        "砂糖の代わりに使用",
+        "紅茶やヨーグルトに"
+      ],
+      "emoji": "🍯",
+      "rating": 4,
+      "price_range": "やや高価"
+    }
+  ]
+}
