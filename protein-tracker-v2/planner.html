@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プラン作成 - プロテイントラッカー V2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'noto': ['Noto Sans JP', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-noto bg-gray-50 text-gray-900">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="container mx-auto px-4 py-4 max-w-6xl">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <h1 class="text-2xl font-bold text-blue-600">💪 ProteinTracker</h1>
+                    <span class="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded">V2.0</span>
+                </div>
+                <nav class="hidden md:flex space-x-6">
+                    <a href="index.html" class="text-gray-500 hover:text-gray-700">ダッシュボード</a>
+                    <a href="planner.html" class="text-blue-600 font-medium border-b-2 border-blue-600 pb-1">プラン作成</a>
+                    <a href="database.html" class="text-gray-500 hover:text-gray-700">食材DB</a>
+                    <a href="analytics.html" class="text-gray-500 hover:text-gray-700">分析</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Goal Setting Section -->
+        <section class="bg-white rounded-lg shadow-sm p-6 mb-8">
+            <h2 class="text-xl font-bold mb-4">目標設定</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">体重 (kg)</label>
+                    <input type="number" id="weight" value="70" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">活動レベル</label>
+                    <select id="activity" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="1.2">低活動（デスクワーク中心）</option>
+                        <option value="1.4" selected>中活動（軽い運動週1-3回）</option>
+                        <option value="1.6">高活動（激しい運動週3-5回）</option>
+                        <option value="1.8">超高活動（毎日激しい運動）</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">目標タンパク質量 (g)</label>
+                    <input type="number" id="target" value="98" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" readonly>
+                </div>
+            </div>
+            <div class="mt-4 flex space-x-4">
+                <button id="calculateBtn" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                    自動計算
+                </button>
+                <button id="distributeBtn" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                    3食に配分
+                </button>
+            </div>
+        </section>
+
+        <!-- Meal Planning Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+            <!-- Breakfast -->
+            <section class="bg-white rounded-lg shadow-sm p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-bold flex items-center">
+                        <span class="text-2xl mr-2">🌅</span>
+                        朝食
+                    </h3>
+                    <div class="text-right">
+                        <p class="text-sm text-gray-500">目標</p>
+                        <p class="text-lg font-bold text-blue-600" id="breakfastTarget">33g</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3 mb-4" id="breakfastList">
+                    <!-- Food items will be added here -->
+                </div>
+
+                <div class="border-t pt-3">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="font-medium">合計:</span>
+                        <span class="text-lg font-bold" id="breakfastTotal">0g</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mb-3">
+                        <div class="bg-blue-600 h-2 rounded-full" id="breakfastProgress" style="width: 0%"></div>
+                    </div>
+                    <button class="w-full bg-gray-100 text-gray-700 py-2 rounded-lg hover:bg-gray-200 transition-colors" onclick="openFoodModal('breakfast')">
+                        + 食材を追加
+                    </button>
+                </div>
+            </section>
+
+            <!-- Lunch -->
+            <section class="bg-white rounded-lg shadow-sm p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-bold flex items-center">
+                        <span class="text-2xl mr-2">☀️</span>
+                        昼食
+                    </h3>
+                    <div class="text-right">
+                        <p class="text-sm text-gray-500">目標</p>
+                        <p class="text-lg font-bold text-blue-600" id="lunchTarget">33g</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3 mb-4" id="lunchList">
+                    <!-- Food items will be added here -->
+                </div>
+
+                <div class="border-t pt-3">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="font-medium">合計:</span>
+                        <span class="text-lg font-bold" id="lunchTotal">0g</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mb-3">
+                        <div class="bg-blue-600 h-2 rounded-full" id="lunchProgress" style="width: 0%"></div>
+                    </div>
+                    <button class="w-full bg-gray-100 text-gray-700 py-2 rounded-lg hover:bg-gray-200 transition-colors" onclick="openFoodModal('lunch')">
+                        + 食材を追加
+                    </button>
+                </div>
+            </section>
+
+            <!-- Dinner -->
+            <section class="bg-white rounded-lg shadow-sm p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-bold flex items-center">
+                        <span class="text-2xl mr-2">🌙</span>
+                        夕食
+                    </h3>
+                    <div class="text-right">
+                        <p class="text-sm text-gray-500">目標</p>
+                        <p class="text-lg font-bold text-blue-600" id="dinnerTarget">32g</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3 mb-4" id="dinnerList">
+                    <!-- Food items will be added here -->
+                </div>
+
+                <div class="border-t pt-3">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="font-medium">合計:</span>
+                        <span class="text-lg font-bold" id="dinnerTotal">0g</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mb-3">
+                        <div class="bg-blue-600 h-2 rounded-full" id="dinnerProgress" style="width: 0%"></div>
+                    </div>
+                    <button class="w-full bg-gray-100 text-gray-700 py-2 rounded-lg hover:bg-gray-200 transition-colors" onclick="openFoodModal('dinner')">
+                        + 食材を追加
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- Summary and Chart -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Daily Summary -->
+            <section class="bg-white rounded-lg shadow-sm p-6">
+                <h3 class="text-lg font-bold mb-4">1日の合計</h3>
+                <div class="text-center mb-6">
+                    <p class="text-3xl font-bold text-blue-600" id="dailyTotal">0g</p>
+                    <p class="text-sm text-gray-500">/ <span id="dailyTargetDisplay">98g</span> 目標</p>
+                    <div class="w-full bg-gray-200 rounded-full h-3 mt-2">
+                        <div class="bg-blue-600 h-3 rounded-full" id="dailyProgress" style="width: 0%"></div>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-2">達成率: <span id="achievementRate">0%</span></p>
+                </div>
+
+                <div class="space-y-4">
+                    <button class="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors font-medium">
+                        プランを保存
+                    </button>
+                    <button class="w-full bg-gray-600 text-white py-3 rounded-lg hover:bg-gray-700 transition-colors font-medium">
+                        プランを印刷
+                    </button>
+                    <button class="w-full bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition-colors font-medium">
+                        リセット
+                    </button>
+                </div>
+            </section>
+
+            <!-- Nutrition Chart -->
+            <section class="bg-white rounded-lg shadow-sm p-6">
+                <h3 class="text-lg font-bold mb-4">栄養バランス</h3>
+                <div class="h-64">
+                    <canvas id="nutritionChart"></canvas>
+                </div>
+                <div class="grid grid-cols-3 gap-4 mt-4 text-center">
+                    <div>
+                        <p class="text-2xl">🌅</p>
+                        <p class="text-sm text-gray-600">朝食</p>
+                        <p class="font-bold" id="breakfastPercent">0%</p>
+                    </div>
+                    <div>
+                        <p class="text-2xl">☀️</p>
+                        <p class="text-sm text-gray-600">昼食</p>
+                        <p class="font-bold" id="lunchPercent">0%</p>
+                    </div>
+                    <div>
+                        <p class="text-2xl">🌙</p>
+                        <p class="text-sm text-gray-600">夕食</p>
+                        <p class="font-bold" id="dinnerPercent">0%</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Food Selection Modal -->
+    <div id="foodModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-96 overflow-hidden">
+                <div class="p-6 border-b">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-bold">食材を選択</h3>
+                        <button onclick="closeFoodModal()" class="text-gray-500 hover:text-gray-700">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <input type="text" id="foodSearch" placeholder="食材名で検索..." class="w-full mt-3 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div class="p-6 overflow-y-auto max-h-64">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="foodList">
+                        <!-- Food items will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample food data
+        const foods = [
+            { id: 1, name: "鶏胸肉", protein: 23.3, unit: "100g", emoji: "🍗", category: "肉類" },
+            { id: 2, name: "卵", protein: 6.2, unit: "1個", emoji: "🥚", category: "卵類" },
+            { id: 3, name: "牛乳", protein: 3.3, unit: "100ml", emoji: "🥛", category: "乳製品" },
+            { id: 4, name: "サーモン", protein: 22.3, unit: "100g", emoji: "🐟", category: "魚類" },
+            { id: 5, name: "豆腐", protein: 6.6, unit: "100g", emoji: "🍲", category: "豆類" },
+            { id: 6, name: "プロテインシェイク", protein: 25.0, unit: "1杯", emoji: "🥤", category: "サプリ" }
+        ];
+
+        let currentMeal = '';
+        let mealPlans = {
+            breakfast: [],
+            lunch: [],
+            dinner: []
+        };
+
+        // Initialize chart
+        let nutritionChart;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initChart();
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            document.getElementById('calculateBtn').addEventListener('click', calculateTarget);
+            document.getElementById('distributeBtn').addEventListener('click', distributeTarget);
+        }
+
+        function calculateTarget() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const activity = parseFloat(document.getElementById('activity').value);
+            const target = Math.round(weight * activity);
+            document.getElementById('target').value = target;
+            document.getElementById('dailyTargetDisplay').textContent = target + 'g';
+        }
+
+        function distributeTarget() {
+            const target = parseFloat(document.getElementById('target').value);
+            const breakfast = Math.round(target * 0.33);
+            const lunch = Math.round(target * 0.33);
+            const dinner = target - breakfast - lunch;
+
+            document.getElementById('breakfastTarget').textContent = breakfast + 'g';
+            document.getElementById('lunchTarget').textContent = lunch + 'g';
+            document.getElementById('dinnerTarget').textContent = dinner + 'g';
+        }
+
+        function openFoodModal(meal) {
+            currentMeal = meal;
+            document.getElementById('foodModal').classList.remove('hidden');
+            populateFoodList();
+        }
+
+        function closeFoodModal() {
+            document.getElementById('foodModal').classList.add('hidden');
+        }
+
+        function populateFoodList() {
+            const foodList = document.getElementById('foodList');
+            foodList.innerHTML = '';
+
+            foods.forEach(food => {
+                const foodItem = document.createElement('div');
+                foodItem.className = 'border border-gray-200 rounded-lg p-3 hover:bg-gray-50 cursor-pointer';
+                foodItem.onclick = () => addFoodToMeal(food);
+
+                foodItem.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-xl">${food.emoji}</span>
+                            <div>
+                                <p class="font-medium">${food.name}</p>
+                                <p class="text-sm text-gray-500">${food.unit}</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-bold text-blue-600">${food.protein}g</p>
+                            <p class="text-xs text-gray-500">タンパク質</p>
+                        </div>
+                    </div>
+                `;
+
+                foodList.appendChild(foodItem);
+            });
+        }
+
+        function addFoodToMeal(food) {
+            mealPlans[currentMeal].push(food);
+            updateMealDisplay(currentMeal);
+            updateSummary();
+            closeFoodModal();
+        }
+
+        function updateMealDisplay(meal) {
+            const mealList = document.getElementById(meal + 'List');
+            const mealTotal = document.getElementById(meal + 'Total');
+            const mealProgress = document.getElementById(meal + 'Progress');
+            const mealTarget = parseFloat(document.getElementById(meal + 'Target').textContent);
+
+            mealList.innerHTML = '';
+            let total = 0;
+
+            mealPlans[meal].forEach((food, index) => {
+                total += food.protein;
+
+                const foodItem = document.createElement('div');
+                foodItem.className = 'flex items-center justify-between p-2 bg-gray-50 rounded';
+                foodItem.innerHTML = `
+                    <div class="flex items-center space-x-2">
+                        <span>${food.emoji}</span>
+                        <span class="text-sm">${food.name} (${food.unit})</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-sm font-medium">${food.protein}g</span>
+                        <button onclick="removeFoodFromMeal('${meal}', ${index})" class="text-red-500 hover:text-red-700">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                `;
+
+                mealList.appendChild(foodItem);
+            });
+
+            mealTotal.textContent = total.toFixed(1) + 'g';
+            const progress = Math.min((total / mealTarget) * 100, 100);
+            mealProgress.style.width = progress + '%';
+        }
+
+        function removeFoodFromMeal(meal, index) {
+            mealPlans[meal].splice(index, 1);
+            updateMealDisplay(meal);
+            updateSummary();
+        }
+
+        function updateSummary() {
+            const breakfastTotal = mealPlans.breakfast.reduce((sum, food) => sum + food.protein, 0);
+            const lunchTotal = mealPlans.lunch.reduce((sum, food) => sum + food.protein, 0);
+            const dinnerTotal = mealPlans.dinner.reduce((sum, food) => sum + food.protein, 0);
+            const dailyTotal = breakfastTotal + lunchTotal + dinnerTotal;
+            const target = parseFloat(document.getElementById('target').value);
+
+            document.getElementById('dailyTotal').textContent = dailyTotal.toFixed(1) + 'g';
+            document.getElementById('achievementRate').textContent = Math.round((dailyTotal / target) * 100) + '%';
+
+            const dailyProgress = Math.min((dailyTotal / target) * 100, 100);
+            document.getElementById('dailyProgress').style.width = dailyProgress + '%';
+
+            // Update percentages
+            if (dailyTotal > 0) {
+                document.getElementById('breakfastPercent').textContent = Math.round((breakfastTotal / dailyTotal) * 100) + '%';
+                document.getElementById('lunchPercent').textContent = Math.round((lunchTotal / dailyTotal) * 100) + '%';
+                document.getElementById('dinnerPercent').textContent = Math.round((dinnerTotal / dailyTotal) * 100) + '%';
+            }
+
+            // Update chart
+            updateChart(breakfastTotal, lunchTotal, dinnerTotal);
+        }
+
+        function initChart() {
+            const ctx = document.getElementById('nutritionChart').getContext('2d');
+            nutritionChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['朝食', '昼食', '夕食'],
+                    datasets: [{
+                        data: [0, 0, 0],
+                        backgroundColor: [
+                            '#FCD34D',
+                            '#60A5FA',
+                            '#A78BFA'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateChart(breakfast, lunch, dinner) {
+            nutritionChart.data.datasets[0].data = [breakfast, lunch, dinner];
+            nutritionChart.update();
+        }
+
+        // Initialize with default values
+        calculateTarget();
+        distributeTarget();
+    </script>
+</body>
+</html>

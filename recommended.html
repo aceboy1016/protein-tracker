@@ -4,36 +4,350 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>おすすめ食材 | プロテイン管理ツール</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #111827;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #f0fdfa 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* ヘッダー */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 2rem;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111827;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #81c784 0%, #4fc3f7 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav a {
+            color: #111827;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 0.75rem;
+            transition: all 0.3s;
+        }
+
+        .nav a:hover, .nav a.active {
+            background: rgba(129, 199, 132, 0.2);
+            color: #2d5016;
+        }
+
+        /* カード */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        /* フォーム要素 */
+        .form-select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 0.75rem;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            color: #111827;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: #81d4fa;
+            box-shadow: 0 0 0 3px rgba(129, 212, 250, 0.1);
+        }
+
+        /* フィルターセクション */
+        .filters-section {
+            margin-bottom: 2rem;
+        }
+
+        .filter-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-group label {
+            font-weight: 500;
+            color: #111827;
+        }
+
+        /* 食材グリッド */
+        .foods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .food-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .food-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .food-rating {
+            display: flex;
+            gap: 0.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .star {
+            color: #fbbf24;
+            font-weight: bold;
+        }
+
+        .food-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+
+        .food-category {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            background: rgba(129, 199, 132, 0.3);
+            color: #2e7d32;
+        }
+
+        .food-benefits {
+            color: #4a5568;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .food-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.25rem 0;
+        }
+
+        .stat-label {
+            color: #4a5568;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: #111827;
+        }
+
+        /* ヒントセクション */
+        .nutrition-tips {
+            margin-bottom: 2rem;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tip-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .tip-card h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.75rem;
+        }
+
+        .tip-card p {
+            color: #4a5568;
+            margin: 0;
+        }
+
+        /* フッター */
+        .footer {
+            background: rgba(30, 41, 59, 0.9);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #111827;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            color: #4a5568;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #4a5568;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .nav { display: none; }
+            .foods-grid { grid-template-columns: 1fr; }
+            .tips-grid { grid-template-columns: 1fr; }
+            .filter-controls { grid-template-columns: 1fr; }
+            h1 { font-size: 2rem; }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>🥗 おすすめ食材一覧</h1>
-            <nav>
-                <a href="index.html">🏠 ホーム</a>
-                <a href="database.html">📖 食材データベース</a>
-                <a href="planner.html">📊 プラン作成</a>
-                <a href="recommended.html" class="active">🌟 おすすめ食材</a>
-                <a href="restaurants.html">🏪 チェーン店メニュー</a>
-                <a href="admin.html">🛠️ 管理画面</a>
+    <!-- ヘッダー -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">P</div>
+                プロテイン管理ツール
+            </a>
+            <nav class="nav">
+                <a href="index.html">ホーム</a>
+                <a href="database.html">食材データベース</a>
+                <a href="planner.html">プラン作成</a>
+                <a href="recommended.html" class="active">おすすめ食材</a>
+                <a href="restaurants.html">チェーン店メニュー</a>
+                <a href="admin.html">管理画面</a>
             </nav>
         </div>
     </header>
 
-    <main class="container">
-        <section class="intro-section">
-            <h2>💪 栄養バランス抜群のおすすめ食材</h2>
-            <p>タンパク質だけでなく、炭水化物、脂質、ビタミン・ミネラルまで総合的に優秀な食材を厳選しました。<br>
-            各食材の栄養価、健康効果、調理のコツまで詳しく解説しています。</p>
+    <div class="container">
+        <!-- タイトルセクション -->
+        <section class="card" style="text-align: center;">
+            <h1>おすすめ食材一覧</h1>
+            <p class="subtitle">
+                タンパク質だけでなく、炭水化物、脂質、ビタミン・ミネラルまで総合的に優秀な食材を厳選しました。各食材の栄養価、健康効果、調理のコツまで詳しく解説しています。
+            </p>
         </section>
 
-        <section class="filters-section">
+        <!-- フィルターセクション -->
+        <section class="card filters-section">
+            <h2>検索・フィルター</h2>
             <div class="filter-controls">
                 <div class="filter-group">
-                    <label for="categoryFilter">🔍 カテゴリーで絞り込み:</label>
-                    <select id="categoryFilter">
+                    <label for="categoryFilter">カテゴリーで絞り込み:</label>
+                    <select id="categoryFilter" class="form-select">
                         <option value="">すべてのカテゴリー</option>
                         <option value="高タンパク質食材">高タンパク質食材</option>
                         <option value="オメガ3豊富食材">オメガ3豊富食材</option>
@@ -44,22 +358,22 @@
                         <option value="穀物・完全タンパク質">穀物・完全タンパク質</option>
                         <option value="カゼインタンパク質">カゼインタンパク質</option>
                         <option value="手軽な魚介類">手軽な魚介類</option>
-                        <option value="きのこ類">🍄 きのこ類</option>
-                        <option value="海藻類">🌿 海藻類</option>
-                        <option value="緑黄色野菜">🥦 緑黄色野菜</option>
-                        <option value="全粒穀物">🍚 全粒穀物</option>
-                        <option value="ベリー類">🫐 ベリー類</option>
-                        <option value="青魚">🐟 青魚</option>
-                        <option value="香味野菜">🧄 香味野菜</option>
-                        <option value="低GI食品">🍠 低GI食品</option>
-                        <option value="スーパーシード">🌰 スーパーシード</option>
-                        <option value="ネバネバ食材">🌶️ ネバネバ食材</option>
-                        <option value="良質オイル">🫒 良質オイル</option>
+                        <option value="きのこ類">きのこ類</option>
+                        <option value="海藻類">海藻類</option>
+                        <option value="緑黄色野菜">緑黄色野菜</option>
+                        <option value="全粒穀物">全粒穀物</option>
+                        <option value="ベリー類">ベリー類</option>
+                        <option value="青魚">青魚</option>
+                        <option value="香味野菜">香味野菜</option>
+                        <option value="低GI食品">低GI食品</option>
+                        <option value="スーパーシード">スーパーシード</option>
+                        <option value="ネバネバ食材">ネバネバ食材</option>
+                        <option value="良質オイル">良質オイル</option>
                     </select>
                 </div>
                 <div class="filter-group">
-                    <label for="priceFilter">💰 価格帯で絞り込み:</label>
-                    <select id="priceFilter">
+                    <label for="priceFilter">価格帯で絞り込み:</label>
+                    <select id="priceFilter" class="form-select">
                         <option value="">すべての価格帯</option>
                         <option value="安価">安価</option>
                         <option value="やや高価">やや高価</option>
@@ -67,11 +381,11 @@
                     </select>
                 </div>
                 <div class="filter-group">
-                    <label for="ratingFilter">⭐ 評価で絞り込み:</label>
-                    <select id="ratingFilter">
+                    <label for="ratingFilter">評価で絞り込み:</label>
+                    <select id="ratingFilter" class="form-select">
                         <option value="">すべての評価</option>
-                        <option value="5">⭐⭐⭐⭐⭐ (5つ星)</option>
-                        <option value="4">⭐⭐⭐⭐ (4つ星)</option>
+                        <option value="5">★★★★★ (5つ星)</option>
+                        <option value="4">★★★★ (4つ星)</option>
                     </select>
                 </div>
             </div>
@@ -81,33 +395,33 @@
             <!-- 食材カードがここに動的に挿入されます -->
         </section>
 
+        <!-- 栄養摂取のコツ -->
         <section class="nutrition-tips">
-            <h2>🧠 栄養摂取のコツ</h2>
+            <h2>栄養摂取のコツ</h2>
             <div class="tips-grid">
                 <div class="tip-card">
-                    <h3>🎯 バランスの基本</h3>
+                    <h3>バランスの基本</h3>
                     <p>タンパク質：炭水化物：脂質の比率は、一般的に3:6:1が理想的です。運動量や目標に応じて調整しましょう。</p>
                 </div>
                 <div class="tip-card">
-                    <h3>⏰ 摂取タイミング</h3>
+                    <h3>摂取タイミング</h3>
                     <p>タンパク質は運動後30分以内、炭水化物は運動前2-3時間前の摂取が効果的です。</p>
                 </div>
                 <div class="tip-card">
-                    <h3>🌈 色とりどりの食材</h3>
+                    <h3>色とりどりの食材</h3>
                     <p>様々な色の食材を摂ることで、多種多様なビタミン・ミネラルを効率よく摂取できます。</p>
                 </div>
                 <div class="tip-card">
-                    <h3>💧 水分も重要</h3>
+                    <h3>水分も重要</h3>
                     <p>栄養素の吸収や代謝には十分な水分が必要です。体重×30-35mlを目安に水分摂取しましょう。</p>
                 </div>
             </div>
         </section>
-    </main>
+    </div>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 プロテイン管理ツール - 健康的なタンパク質摂取をサポート</p>
-        </div>
+    <!-- フッター -->
+    <footer class="footer">
+        <p>&copy; 2024 プロテイン管理ツール - 文部科学省「日本食品標準成分表2020年版」準拠</p>
     </footer>
 
     <script src="js/recommended.js"></script>

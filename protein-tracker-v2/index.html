@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プロテイン管理ツール</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #111827;
+            margin: 0;
+            padding: 0;
+            /* チーム未来と同じ薄いティール背景 */
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #f0fdfa 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* ヘッダー */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 2rem;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111827;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #81c784 0%, #4fc3f7 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav a {
+            color: #111827;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 0.75rem;
+            transition: all 0.3s;
+        }
+
+        .nav a:hover, .nav a.active {
+            background: rgba(129, 199, 132, 0.2);
+            color: #2d5016;
+        }
+
+        /* カード */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            transition: box-shadow 0.3s ease;
+        }
+
+        /* 統計グリッド */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: #111827;
+            font-weight: 500;
+        }
+
+        .stat-change {
+            font-size: 0.875rem;
+            margin-top: 0.75rem;
+            padding: 0.375rem 0.75rem;
+            border-radius: 1rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        /* 淡い色の定義 */
+        .stat-card:nth-child(1) .stat-icon {
+            background: linear-gradient(135deg, #a8e6cf 0%, #81c784 100%);
+        }
+        .stat-card:nth-child(1) .stat-value { color: #66bb6a; }
+
+        .stat-card:nth-child(2) .stat-icon {
+            background: linear-gradient(135deg, #bee3f8 0%, #81d4fa 100%);
+        }
+        .stat-card:nth-child(2) .stat-value { color: #42a5f5; }
+
+        .stat-card:nth-child(3) .stat-icon {
+            background: linear-gradient(135deg, #fed7aa 0%, #ffb74d 100%);
+        }
+        .stat-card:nth-child(3) .stat-value { color: #ff9800; }
+
+        .stat-card:nth-child(4) .stat-icon {
+            background: linear-gradient(135deg, #fecaca 0%, #f8bbd9 100%);
+        }
+        .stat-card:nth-child(4) .stat-value { color: #e91e63; }
+
+        .positive { background: rgba(129, 199, 132, 0.2); color: #2e7d32; }
+        .negative { background: rgba(239, 154, 154, 0.2); color: #c62828; }
+        .neutral { background: rgba(176, 190, 197, 0.2); color: #546e7a; }
+
+        /* テーブル */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        thead th {
+            background: rgba(248, 250, 252, 0.8);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: #546e7a;
+            border-bottom: 2px solid rgba(224, 224, 224, 0.5);
+        }
+
+        tbody tr {
+            border-bottom: 1px solid rgba(240, 240, 240, 0.5);
+        }
+
+        tbody tr:hover {
+            background: rgba(248, 250, 252, 0.5);
+        }
+
+        tbody td {
+            padding: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .amount-cell {
+            text-align: right;
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ボタン（淡い色調） */
+        .btn {
+            padding: 0.875rem 1.75rem;
+            border-radius: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #81d4fa 0%, #64b5f6 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #64b5f6 0%, #42a5f5 100%);
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #a8e6cf 0%, #81c784 100%);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: linear-gradient(135deg, #81c784 0%, #66bb6a 100%);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #64b5f6;
+            border: 2px solid #81d4fa;
+        }
+
+        .btn-outline:hover {
+            background: linear-gradient(135deg, #81d4fa 0%, #64b5f6 100%);
+            color: white;
+        }
+
+        /* アレルギータグ（淡い色調） */
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        .tag-red { background: rgba(239, 154, 154, 0.3); color: #c62828; }
+        .tag-orange { background: rgba(255, 183, 77, 0.3); color: #e65100; }
+        .tag-yellow { background: rgba(255, 213, 79, 0.3); color: #f57f17; }
+
+        /* チャートコンテナ */
+        .chart-container {
+            height: 400px;
+            position: relative;
+            margin: 2rem 0;
+        }
+
+        /* フッター */
+        .footer {
+            background: rgba(30, 41, 59, 0.9);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .nav { display: none; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .card { padding: 1.5rem; }
+            .stat-card { padding: 1.5rem; }
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #111827;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #111827;
+        }
+
+        .subtitle {
+            font-size: 0.875rem;
+            color: #4a5568;
+            margin-bottom: 1.5rem;
+        }
+
+        /* アイコン文字 */
+        .icon-text {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <div class="logo-icon">P</div>
+                プロテイン管理ツール
+            </a>
+            <nav class="nav">
+                <a href="#" class="active">ホーム</a>
+                <a href="#">食材データベース</a>
+                <a href="#">プラン作成</a>
+                <a href="#">おすすめ食材</a>
+                <a href="#">チェーン店メニュー</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- 統計カード -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <span class="icon-text">P</span>
+                </div>
+                <div class="stat-value">42.5g</div>
+                <div class="stat-label">今日の摂取量</div>
+                <div class="stat-change positive">+12% vs 昨日</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <span class="icon-text">%</span>
+                </div>
+                <div class="stat-value">68%</div>
+                <div class="stat-label">目標達成率</div>
+                <div class="stat-change neutral">目標まで残り22g</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <span class="icon-text">W</span>
+                </div>
+                <div class="stat-value">38.2g</div>
+                <div class="stat-label">週間平均</div>
+                <div class="stat-change positive">前週比 +2.1g</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <span class="icon-text">D</span>
+                </div>
+                <div class="stat-value">15日</div>
+                <div class="stat-label">継続日数</div>
+                <div class="stat-change positive">記録更新中</div>
+            </div>
+        </div>
+
+        <!-- グラフセクション -->
+        <div class="card">
+            <h2>月間摂取量推移</h2>
+            <p class="subtitle">タンパク質摂取量の変動（10月）</p>
+            <div class="chart-container">
+                <canvas id="monthlyChart"></canvas>
+            </div>
+        </div>
+
+        <!-- 今日の記録テーブル -->
+        <div class="card">
+            <h2>今日の食事記録</h2>
+            <p class="subtitle">食材別タンパク質摂取量</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>時間</th>
+                        <th>食材名</th>
+                        <th>分量</th>
+                        <th class="amount-cell">タンパク質量</th>
+                        <th class="amount-cell">カロリー</th>
+                        <th>分類</th>
+                        <th>アレルギー</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>08:30</td>
+                        <td>卵（2個）</td>
+                        <td>100g</td>
+                        <td class="amount-cell" style="color: #66bb6a; font-weight: 600;">12.4g</td>
+                        <td class="amount-cell">152kcal</td>
+                        <td>朝食</td>
+                        <td><span class="tag tag-red">卵</span></td>
+                    </tr>
+                    <tr>
+                        <td>12:45</td>
+                        <td>鶏胸肉</td>
+                        <td>80g</td>
+                        <td class="amount-cell" style="color: #66bb6a; font-weight: 600;">18.6g</td>
+                        <td class="amount-cell">86kcal</td>
+                        <td>昼食</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>15:20</td>
+                        <td>プロテインシェイク</td>
+                        <td>1杯</td>
+                        <td class="amount-cell" style="color: #66bb6a; font-weight: 600;">25.0g</td>
+                        <td class="amount-cell">120kcal</td>
+                        <td>間食</td>
+                        <td><span class="tag tag-orange">乳</span></td>
+                    </tr>
+                    <tr>
+                        <td>19:00</td>
+                        <td>サーモン</td>
+                        <td>100g</td>
+                        <td class="amount-cell" style="color: #66bb6a; font-weight: 600;">22.3g</td>
+                        <td class="amount-cell">139kcal</td>
+                        <td>夕食</td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- PFCバランス -->
+        <div class="card">
+            <h2>PFCバランス（カロリー）</h2>
+            <p class="subtitle">本日の栄養バランス</p>
+            <div class="chart-container" style="height: 300px;">
+                <canvas id="pfcChart"></canvas>
+            </div>
+        </div>
+
+        <!-- アクションボタン -->
+        <div class="card">
+            <h2>記録を追加</h2>
+            <p class="subtitle">新しい食事を記録してください</p>
+
+            <div style="display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;">
+                <button class="btn btn-primary">食事を記録</button>
+                <button class="btn btn-success">プランを作成</button>
+                <button class="btn btn-outline">データをエクスポート</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <p>© 2024 プロテイン管理ツール - チェーン店栄養情報は各店舗公式サイトに基づいています</p>
+    </footer>
+
+    <script>
+        // 月間推移グラフ（淡い色調）
+        const ctx1 = document.getElementById('monthlyChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: ['10/1', '10/5', '10/10', '10/15', '10/19'],
+                datasets: [{
+                    label: 'タンパク質摂取量',
+                    data: [45.2, 52.1, 48.7, 55.8, 42.5],
+                    borderColor: '#64b5f6',
+                    backgroundColor: 'rgba(100, 181, 246, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    pointBackgroundColor: '#64b5f6',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 2,
+                    pointRadius: 6
+                }, {
+                    label: '目標ライン',
+                    data: [60, 60, 60, 60, 60],
+                    borderColor: '#f8bbd9',
+                    borderDash: [8, 4],
+                    borderWidth: 2,
+                    pointRadius: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(240, 240, 240, 0.5)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: 'rgba(240, 240, 240, 0.5)'
+                        }
+                    }
+                }
+            }
+        });
+
+        // PFCバランス（淡いパステルカラー）
+        const ctx2 = document.getElementById('pfcChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                labels: ['タンパク質', '炭水化物', '脂質'],
+                datasets: [{
+                    data: [30, 45, 25],
+                    backgroundColor: [
+                        '#81d4fa',  // 淡いブルー
+                        '#ffb74d',  // 淡いオレンジ
+                        '#f8bbd9'   // 淡いピンク
+                    ],
+                    borderWidth: 0,
+                    cutout: '60%'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            usePointStyle: true
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

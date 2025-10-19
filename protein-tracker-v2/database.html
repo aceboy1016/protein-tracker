@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>食材データベース - プロテイントラッカー V2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'noto': ['Noto Sans JP', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-noto bg-gray-50 text-gray-900">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="container mx-auto px-4 py-4 max-w-6xl">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <h1 class="text-2xl font-bold text-blue-600">💪 ProteinTracker</h1>
+                    <span class="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded">V2.0</span>
+                </div>
+                <nav class="hidden md:flex space-x-6">
+                    <a href="index.html" class="text-gray-500 hover:text-gray-700">ダッシュボード</a>
+                    <a href="planner.html" class="text-gray-500 hover:text-gray-700">プラン作成</a>
+                    <a href="database.html" class="text-blue-600 font-medium border-b-2 border-blue-600 pb-1">食材DB</a>
+                    <a href="analytics.html" class="text-gray-500 hover:text-gray-700">分析</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Search and Filter Section -->
+        <section class="bg-white rounded-lg shadow-sm p-6 mb-8">
+            <h2 class="text-xl font-bold mb-4">食材を検索</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <input type="text" id="searchInput" placeholder="食材名で検索..." class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <select id="categoryFilter" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="">すべてのカテゴリー</option>
+                        <option value="肉類">肉類</option>
+                        <option value="魚類">魚類</option>
+                        <option value="卵類">卵類</option>
+                        <option value="乳製品">乳製品</option>
+                        <option value="豆類">豆類</option>
+                        <option value="サプリ">サプリメント</option>
+                    </select>
+                </div>
+                <div>
+                    <select id="sortBy" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="name">名前順</option>
+                        <option value="protein-desc">タンパク質量（高い順）</option>
+                        <option value="protein-asc">タンパク質量（低い順）</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Food Grid -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="foodGrid">
+            <!-- Food cards will be populated here -->
+        </section>
+
+        <!-- Food Detail Modal -->
+        <div id="foodDetailModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+            <div class="flex items-center justify-center min-h-screen p-4">
+                <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
+                    <div class="p-6 border-b">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-lg font-bold" id="modalTitle">食材詳細</h3>
+                            <button onclick="closeDetailModal()" class="text-gray-500 hover:text-gray-700">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6" id="modalContent">
+                        <!-- Content will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Extended food data
+        const foods = [
+            { id: 1, name: "鶏胸肉（皮なし）", protein: 23.3, unit: "100g", emoji: "🍗", category: "肉類", calories: 108, fat: 1.5, carbs: 0 },
+            { id: 2, name: "卵（全卵）", protein: 6.2, unit: "1個（50g）", emoji: "🥚", category: "卵類", calories: 76, fat: 5.2, carbs: 0.2 },
+            { id: 3, name: "牛乳（普通）", protein: 3.3, unit: "100ml", emoji: "🥛", category: "乳製品", calories: 67, fat: 3.8, carbs: 4.8 },
+            { id: 4, name: "サーモン（刺身）", protein: 22.3, unit: "100g", emoji: "🐟", category: "魚類", calories: 139, fat: 4.1, carbs: 0.1 },
+            { id: 5, name: "豆腐（木綿）", protein: 6.6, unit: "100g", emoji: "🍲", category: "豆類", calories: 72, fat: 4.2, carbs: 1.6 },
+            { id: 6, name: "プロテインシェイク", protein: 25.0, unit: "1杯（30g）", emoji: "🥤", category: "サプリ", calories: 120, fat: 1.0, carbs: 3.0 },
+            { id: 7, name: "牛肉（赤身）", protein: 21.2, unit: "100g", emoji: "🥩", category: "肉類", calories: 182, fat: 9.6, carbs: 0.2 },
+            { id: 8, name: "ツナ缶（水煮）", protein: 25.4, unit: "1缶（70g）", emoji: "🥫", category: "魚類", calories: 71, fat: 0.7, carbs: 0.1 },
+            { id: 9, name: "ギリシャヨーグルト", protein: 10.0, unit: "100g", emoji: "🥛", category: "乳製品", calories: 59, fat: 0.4, carbs: 4.0 },
+            { id: 10, name: "納豆", protein: 16.5, unit: "1パック（50g）", emoji: "🫘", category: "豆類", calories: 100, fat: 5.0, carbs: 6.1 },
+            { id: 11, name: "豚ヒレ肉", protein: 22.8, unit: "100g", emoji: "🐷", category: "肉類", calories: 115, fat: 1.9, carbs: 0.2 },
+            { id: 12, name: "えび", protein: 18.4, unit: "100g", emoji: "🦐", category: "魚類", calories: 83, fat: 0.6, carbs: 0.1 }
+        ];
+
+        let filteredFoods = [...foods];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            displayFoods(foods);
+            setupEventListeners();
+        });
+
+        function setupEventListeners() {
+            document.getElementById('searchInput').addEventListener('input', filterFoods);
+            document.getElementById('categoryFilter').addEventListener('change', filterFoods);
+            document.getElementById('sortBy').addEventListener('change', filterFoods);
+        }
+
+        function filterFoods() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const category = document.getElementById('categoryFilter').value;
+            const sortBy = document.getElementById('sortBy').value;
+
+            filteredFoods = foods.filter(food => {
+                const matchesSearch = food.name.toLowerCase().includes(searchTerm);
+                const matchesCategory = category === '' || food.category === category;
+                return matchesSearch && matchesCategory;
+            });
+
+            // Sort foods
+            filteredFoods.sort((a, b) => {
+                switch (sortBy) {
+                    case 'name':
+                        return a.name.localeCompare(b.name);
+                    case 'protein-desc':
+                        return b.protein - a.protein;
+                    case 'protein-asc':
+                        return a.protein - b.protein;
+                    default:
+                        return 0;
+                }
+            });
+
+            displayFoods(filteredFoods);
+        }
+
+        function displayFoods(foodList) {
+            const foodGrid = document.getElementById('foodGrid');
+            foodGrid.innerHTML = '';
+
+            if (foodList.length === 0) {
+                foodGrid.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <p class="text-gray-500">検索条件に一致する食材が見つかりませんでした。</p>
+                    </div>
+                `;
+                return;
+            }
+
+            foodList.forEach(food => {
+                const foodCard = document.createElement('div');
+                foodCard.className = 'bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow cursor-pointer';
+                foodCard.onclick = () => showFoodDetail(food);
+
+                const proteinPercentage = Math.min((food.protein / 30) * 100, 100); // Assuming 30g is max for visual
+
+                foodCard.innerHTML = `
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-3xl">${food.emoji}</span>
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">${food.category}</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">${food.name}</h3>
+                    <p class="text-sm text-gray-500 mb-3">${food.unit}</p>
+
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">タンパク質</span>
+                            <span class="font-bold text-blue-600">${food.protein}g</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-blue-600 h-2 rounded-full" style="width: ${proteinPercentage}%"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-gray-500">
+                            <span>カロリー: ${food.calories}kcal</span>
+                            <span>脂質: ${food.fat}g</span>
+                        </div>
+                    </div>
+
+                    <button class="w-full mt-4 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm">
+                        詳細を見る
+                    </button>
+                `;
+
+                foodGrid.appendChild(foodCard);
+            });
+        }
+
+        function showFoodDetail(food) {
+            document.getElementById('modalTitle').textContent = food.name;
+
+            const modalContent = document.getElementById('modalContent');
+            modalContent.innerHTML = `
+                <div class="text-center mb-6">
+                    <span class="text-6xl mb-4 block">${food.emoji}</span>
+                    <h4 class="text-xl font-bold">${food.name}</h4>
+                    <p class="text-gray-500">${food.unit}あたり</p>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="bg-blue-50 rounded-lg p-4">
+                        <h5 class="font-semibold text-blue-800 mb-2">栄養成分</h5>
+                        <div class="grid grid-cols-2 gap-3 text-sm">
+                            <div class="flex justify-between">
+                                <span>タンパク質:</span>
+                                <span class="font-bold text-blue-600">${food.protein}g</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>カロリー:</span>
+                                <span class="font-bold">${food.calories}kcal</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>脂質:</span>
+                                <span class="font-bold">${food.fat}g</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>炭水化物:</span>
+                                <span class="font-bold">${food.carbs}g</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <h5 class="font-semibold text-gray-800 mb-2">カテゴリー</h5>
+                        <span class="inline-block bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm">${food.category}</span>
+                    </div>
+
+                    <div class="bg-green-50 rounded-lg p-4">
+                        <h5 class="font-semibold text-green-800 mb-2">プロテイン効率</h5>
+                        <div class="flex items-center">
+                            <div class="flex-1">
+                                <div class="w-full bg-green-200 rounded-full h-3">
+                                    <div class="bg-green-600 h-3 rounded-full" style="width: ${Math.min((food.protein / food.calories) * 1000, 100)}%"></div>
+                                </div>
+                            </div>
+                            <span class="ml-3 text-sm font-medium">${(food.protein / food.calories * 100).toFixed(1)}g/100kcal</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 space-y-2">
+                    <button class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                        プランに追加
+                    </button>
+                    <button class="w-full bg-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-300 transition-colors">
+                        お気に入りに追加
+                    </button>
+                </div>
+            `;
+
+            document.getElementById('foodDetailModal').classList.remove('hidden');
+        }
+
+        function closeDetailModal() {
+            document.getElementById('foodDetailModal').classList.add('hidden');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('foodDetailModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeDetailModal();
+            }
+        });
+    </script>
+</body>
+</html>

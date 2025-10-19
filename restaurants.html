@@ -4,49 +4,350 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>チェーン店メニュー | プロテイン管理ツール</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/restaurants.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #111827;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #f0fdfa 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* ヘッダー */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 2rem;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111827;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #81c784 0%, #4fc3f7 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav a {
+            color: #111827;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 0.75rem;
+            transition: all 0.3s;
+        }
+
+        .nav a:hover, .nav a.active {
+            background: rgba(129, 199, 132, 0.2);
+            color: #2d5016;
+        }
+
+        /* カード */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        /* ボタン */
+        .btn, .btn-primary, .btn-secondary {
+            padding: 0.875rem 1.75rem;
+            border-radius: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #81d4fa 0%, #64b5f6 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #64b5f6 0%, #42a5f5 100%);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #a8e6cf 0%, #81c784 100%);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #81c784 0%, #66bb6a 100%);
+        }
+
+        /* フォーム要素 */
+        .form-select, .search-input, .filter-select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 0.75rem;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            color: #111827;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .form-select:focus, .search-input:focus, .filter-select:focus {
+            outline: none;
+            border-color: #81d4fa;
+            box-shadow: 0 0 0 3px rgba(129, 212, 250, 0.1);
+        }
+
+        /* モーダル */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content-large {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 1.5rem;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .modal-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-footer {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #4a5568;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.5);
+            color: #111827;
+        }
+
+        .menu-detail-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+        }
+
+        .menu-image-section img {
+            width: 100%;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .restaurant-info {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(129, 199, 132, 0.1);
+            border-radius: 1rem;
+        }
+
+        .restaurant-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 0.5rem;
+        }
+
+        .main-nutrients {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .nutrient-card {
+            text-align: center;
+            padding: 1rem;
+            border-radius: 1rem;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .nutrient-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+        }
+
+        .nutrient-label {
+            font-size: 0.875rem;
+            color: #4a5568;
+        }
+
+        .nutrition-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .nutrition-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .nutrition-item .label {
+            color: #4a5568;
+        }
+
+        .nutrition-item .value {
+            font-weight: 600;
+            color: #111827;
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .nav { display: none; }
+            h1 { font-size: 2rem; }
+            .menu-detail-content { grid-template-columns: 1fr; }
+            .main-nutrients { grid-template-columns: repeat(2, 1fr); }
+            .modal-content-large { width: 95%; margin: 5% auto; }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>🏪 チェーン店メニュー</h1>
-            <nav>
-                <a href="index.html">🏠 ホーム</a>
-                <a href="database.html">📖 食材データベース</a>
-                <a href="planner.html">📊 プラン作成</a>
-                <a href="recommended.html">🌟 おすすめ食材</a>
-                <a href="restaurants.html" class="active">🏪 チェーン店メニュー</a>
-                <a href="admin.html">🛠️ 管理画面</a>
+    <!-- ヘッダー -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">P</div>
+                プロテイン管理ツール
+            </a>
+            <nav class="nav">
+                <a href="index.html">ホーム</a>
+                <a href="database.html">食材データベース</a>
+                <a href="planner.html">プラン作成</a>
+                <a href="recommended.html">おすすめ食材</a>
+                <a href="restaurants.html" class="active">チェーン店メニュー</a>
+                <a href="admin.html">管理画面</a>
             </nav>
         </div>
     </header>
 
-    <main class="container">
-        <section class="intro-section">
-            <h2>🍽️ チェーン店・レストランの栄養情報</h2>
-            <p>人気チェーン店のメニューのPFCバランス（タンパク質・脂質・炭水化物）と栄養情報を一覧で確認できます。<br>
-            外食時の栄養管理や、健康的なメニュー選びの参考にご活用ください。</p>
+    <div class="container">
+        <!-- タイトルセクション -->
+        <section class="card" style="text-align: center;">
+            <h1>チェーン店メニュー</h1>
+            <p style="color: #4a5568; max-width: 600px; margin: 0 auto;">
+                人気チェーン店のメニューのPFCバランス（タンパク質・脂質・炭水化物）と栄養情報を一覧で確認できます。外食時の栄養管理や、健康的なメニュー選びの参考にご活用ください。
+            </p>
         </section>
 
         <!-- 検索・フィルターセクション -->
-        <section class="filters-section">
-            <div class="filter-controls">
+        <section class="card filters-section">
+            <h2>検索・フィルター</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
                 <div class="filter-group">
-                    <label for="searchMenu">🔍 メニュー検索:</label>
+                    <label for="searchMenu" style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #111827;">メニュー検索:</label>
                     <input type="text" id="searchMenu" placeholder="メニュー名を入力..." class="search-input">
                 </div>
 
                 <div class="filter-group">
-                    <label for="restaurantFilter">🏪 チェーン店で絞り込み:</label>
+                    <label for="restaurantFilter" style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #111827;">チェーン店で絞り込み:</label>
                     <select id="restaurantFilter" class="filter-select">
                         <option value="">すべてのチェーン店</option>
                     </select>
                 </div>
 
                 <div class="filter-group">
-                    <label for="categoryFilter">🍽️ カテゴリーで絞り込み:</label>
+                    <label for="categoryFilter" style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #111827;">カテゴリーで絞り込み:</label>
                     <select id="categoryFilter" class="filter-select">
                         <option value="">すべてのカテゴリー</option>
                         <option value="サラダ">サラダ</option>
@@ -59,7 +360,7 @@
                 </div>
 
                 <div class="filter-group">
-                    <label for="proteinFilter">💪 タンパク質量で絞り込み:</label>
+                    <label for="proteinFilter" style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #111827;">タンパク質量で絞り込み:</label>
                     <select id="proteinFilter" class="filter-select">
                         <option value="">すべて</option>
                         <option value="high">高タンパク質 (20g以上)</option>
@@ -69,7 +370,7 @@
                 </div>
 
                 <div class="filter-group">
-                    <label for="calorieFilter">🔥 カロリーで絞り込み:</label>
+                    <label for="calorieFilter" style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #111827;">カロリーで絞り込み:</label>
                     <select id="calorieFilter" class="filter-select">
                         <option value="">すべて</option>
                         <option value="low">低カロリー (300kcal未満)</option>
@@ -79,7 +380,7 @@
                 </div>
 
                 <div class="filter-group">
-                    <label for="dietaryFilter">🌱 食事制限で絞り込み:</label>
+                    <label for="dietaryFilter" style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #111827;">食事制限で絞り込み:</label>
                     <select id="dietaryFilter" class="filter-select">
                         <option value="">すべて</option>
                         <option value="vegetarian">ベジタリアン対応</option>
@@ -89,9 +390,9 @@
                 </div>
             </div>
 
-            <div class="sort-controls">
-                <label for="sortBy">📊 並び替え:</label>
-                <select id="sortBy" class="filter-select">
+            <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                <label for="sortBy" style="font-weight: 500; color: #111827;">並び替え:</label>
+                <select id="sortBy" class="filter-select" style="width: auto; min-width: 200px;">
                     <option value="name">メニュー名順</option>
                     <option value="protein_desc">タンパク質量（多い順）</option>
                     <option value="protein_asc">タンパク質量（少ない順）</option>
@@ -105,57 +406,58 @@
         </section>
 
         <!-- 統計情報 -->
-        <section class="stats-section">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <h3>📊 登録店舗数</h3>
-                    <span class="stat-number" id="restaurantCount">-</span>
+        <section class="card">
+            <h2>統計情報</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                <div style="text-align: center; padding: 1.5rem; background: rgba(129, 199, 132, 0.1); border-radius: 1rem;">
+                    <h3 style="color: #111827; margin-bottom: 0.5rem;">登録店舗数</h3>
+                    <span style="font-size: 2rem; font-weight: 700; color: #66bb6a;" id="restaurantCount">-</span>
                 </div>
-                <div class="stat-card">
-                    <h3>🍽️ 総メニュー数</h3>
-                    <span class="stat-number" id="menuCount">-</span>
+                <div style="text-align: center; padding: 1.5rem; background: rgba(129, 212, 250, 0.1); border-radius: 1rem;">
+                    <h3 style="color: #111827; margin-bottom: 0.5rem;">総メニュー数</h3>
+                    <span style="font-size: 2rem; font-weight: 700; color: #42a5f5;" id="menuCount">-</span>
                 </div>
-                <div class="stat-card">
-                    <h3>💪 平均タンパク質</h3>
-                    <span class="stat-number" id="avgProtein">-</span>
+                <div style="text-align: center; padding: 1.5rem; background: rgba(255, 213, 79, 0.1); border-radius: 1rem;">
+                    <h3 style="color: #111827; margin-bottom: 0.5rem;">平均タンパク質</h3>
+                    <span style="font-size: 2rem; font-weight: 700; color: #f57f17;" id="avgProtein">-</span>
                 </div>
-                <div class="stat-card">
-                    <h3>🔥 平均カロリー</h3>
-                    <span class="stat-number" id="avgCalories">-</span>
+                <div style="text-align: center; padding: 1.5rem; background: rgba(239, 154, 154, 0.1); border-radius: 1rem;">
+                    <h3 style="color: #111827; margin-bottom: 0.5rem;">平均カロリー</h3>
+                    <span style="font-size: 2rem; font-weight: 700; color: #c62828;" id="avgCalories">-</span>
                 </div>
             </div>
         </section>
 
         <!-- メニュー一覧 -->
-        <section class="menus-section">
-            <div class="section-header">
-                <h2>🍽️ メニュー一覧</h2>
-                <div class="view-toggle">
-                    <button id="gridView" class="view-btn active">📋 カード表示</button>
-                    <button id="tableView" class="view-btn">📊 テーブル表示</button>
+        <section class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2>メニュー一覧</h2>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button id="gridView" class="btn-secondary active">カード表示</button>
+                    <button id="tableView" class="btn-secondary">テーブル表示</button>
                 </div>
             </div>
 
             <!-- カード表示 -->
-            <div id="menusGrid" class="menus-grid">
+            <div id="menusGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
                 <!-- メニューカードがここに動的に挿入されます -->
             </div>
 
             <!-- テーブル表示 -->
-            <div id="menusTable" class="menus-table-container" style="display: none;">
-                <table class="menus-table">
+            <div id="menusTable" style="display: none; overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; background: rgba(255, 255, 255, 0.95); border-radius: 1rem; overflow: hidden;">
                     <thead>
-                        <tr>
-                            <th>チェーン店</th>
-                            <th>メニュー名</th>
-                            <th>カテゴリー</th>
-                            <th>価格</th>
-                            <th>カロリー</th>
-                            <th>タンパク質</th>
-                            <th>炭水化物</th>
-                            <th>脂質</th>
-                            <th>食物繊維</th>
-                            <th>対応</th>
+                        <tr style="background: rgba(129, 199, 132, 0.2);">
+                            <th style="padding: 1rem; text-align: left; font-weight: 600; color: #111827;">チェーン店</th>
+                            <th style="padding: 1rem; text-align: left; font-weight: 600; color: #111827;">メニュー名</th>
+                            <th style="padding: 1rem; text-align: left; font-weight: 600; color: #111827;">カテゴリー</th>
+                            <th style="padding: 1rem; text-align: left; font-weight: 600; color: #111827;">価格</th>
+                            <th style="padding: 1rem; text-align: left; font-weight: 600; color: #111827;">カロリー</th>
+                            <th style="padding: 1rem; text-align: left; font-weight: 600; color: #111827;">タンパク質</th>
+                            <th style="padding: 1rem; text-align: left; font-weight: 600; color: #111827;">炭水化物</th>
+                            <th style="padding: 1rem; text-align: left; font-weight: 600; color: #111827;">脂質</th>
+                            <th style="padding: 1rem; text-align: left; font-weight: 600; color: #111827;">食物繊維</th>
+                            <th style="padding: 1rem; text-align: left; font-weight: 600; color: #111827;">対応</th>
                         </tr>
                     </thead>
                     <tbody id="menusTableBody">
@@ -166,21 +468,21 @@
         </section>
 
         <!-- 栄養分析セクション -->
-        <section class="analysis-section">
-            <h2>📈 栄養分析</h2>
-            <div class="chart-container">
+        <section class="card">
+            <h2>栄養分析</h2>
+            <div style="text-align: center;">
                 <canvas id="nutritionChart"></canvas>
             </div>
         </section>
 
         <!-- お気に入り機能 -->
-        <section class="favorites-section" style="display: none;">
-            <h2>⭐ お気に入りメニュー</h2>
-            <div id="favoritesGrid" class="menus-grid">
+        <section class="card favorites-section" style="display: none;">
+            <h2>お気に入りメニュー</h2>
+            <div id="favoritesGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
                 <!-- お気に入りメニューがここに表示されます -->
             </div>
         </section>
-    </main>
+    </div>
 
     <!-- メニュー詳細モーダル -->
     <div id="menuModal" class="modal">
@@ -214,27 +516,23 @@
                         </div>
 
                         <div class="nutrition-detail">
-                            <h5>🧪 栄養成分（1食分）</h5>
+                            <h5>栄養成分（1食分）</h5>
 
                             <!-- メイン栄養素 -->
                             <div class="main-nutrients">
                                 <div class="nutrient-card calories">
-                                    <div class="nutrient-icon">🔥</div>
                                     <div class="nutrient-value" id="detailCalories"></div>
                                     <div class="nutrient-label">カロリー</div>
                                 </div>
                                 <div class="nutrient-card protein">
-                                    <div class="nutrient-icon">💪</div>
                                     <div class="nutrient-value" id="detailProtein"></div>
                                     <div class="nutrient-label">タンパク質</div>
                                 </div>
                                 <div class="nutrient-card carbs">
-                                    <div class="nutrient-icon">🌾</div>
                                     <div class="nutrient-value" id="detailCarbs"></div>
                                     <div class="nutrient-label">炭水化物</div>
                                 </div>
                                 <div class="nutrient-card fat">
-                                    <div class="nutrient-icon">🥑</div>
                                     <div class="nutrient-value" id="detailFat"></div>
                                     <div class="nutrient-label">脂質</div>
                                 </div>
@@ -243,7 +541,7 @@
                             <!-- 詳細栄養素 -->
                             <div class="detailed-nutrients">
                                 <div class="nutrient-section">
-                                    <h6>📊 詳細成分</h6>
+                                    <h6>詳細成分</h6>
                                     <div class="nutrition-grid">
                                         <div class="nutrition-item">
                                             <span class="label">食物繊維</span>
@@ -273,7 +571,7 @@
                                 </div>
 
                                 <div class="nutrient-section">
-                                    <h6>🧪 ミネラル</h6>
+                                    <h6>ミネラル</h6>
                                     <div class="nutrition-grid">
                                         <div class="nutrition-item">
                                             <span class="label">カルシウム</span>
@@ -314,7 +612,7 @@
                                 </div>
 
                                 <div class="nutrient-section">
-                                    <h6>🍊 ビタミン</h6>
+                                    <h6>ビタミン</h6>
                                     <div class="nutrition-grid">
                                         <div class="nutrition-item">
                                             <span class="label">ビタミンA</span>
@@ -377,26 +675,26 @@
 
                             <!-- 栄養成分バランスチャート -->
                             <div class="nutrition-balance-chart">
-                                <h6>📈 栄養バランス分析</h6>
+                                <h6>栄養バランス分析</h6>
                                 <canvas id="detailedNutritionChart" width="400" height="300"></canvas>
                             </div>
 
                             <!-- 1日の推奨摂取量との比較 -->
                             <div class="daily-values-comparison">
-                                <h6>📊 1日の推奨摂取量との比較</h6>
+                                <h6>1日の推奨摂取量との比較</h6>
                                 <canvas id="dailyValueChart" width="400" height="300"></canvas>
                             </div>
                         </div>
 
                         <div class="dietary-info">
-                            <h5>🌱 食事制限対応</h5>
+                            <h5>食事制限対応</h5>
                             <div class="dietary-tags" id="dietaryTags">
                                 <!-- 食事制限タグがここに表示されます -->
                             </div>
                         </div>
 
                         <div class="allergen-info">
-                            <h5>⚠️ アレルギー情報</h5>
+                            <h5>アレルギー情報</h5>
                             <div class="allergen-list" id="allergenList">
                                 <!-- アレルギー情報がここに表示されます -->
                             </div>
@@ -411,16 +709,15 @@
 
             <div class="modal-footer">
                 <button class="btn-secondary" onclick="closeMenuModal()">閉じる</button>
-                <button class="btn-primary" onclick="addToFavorites()">⭐ お気に入り追加</button>
-                <button class="btn-primary" onclick="addToPlan()">📊 プランに追加</button>
+                <button class="btn-primary" onclick="addToFavorites()">お気に入り追加</button>
+                <button class="btn-primary" onclick="addToPlan()">プランに追加</button>
             </div>
         </div>
     </div>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 プロテイン管理ツール - チェーン店栄養情報は各店舗公式サイトに基づいています</p>
-        </div>
+    <!-- フッター -->
+    <footer class="footer">
+        <p>&copy; 2024 プロテイン管理ツール - チェーン店栄養情報は各店舗公式サイトに基づいています</p>
     </footer>
 
     <script src="js/restaurant-data-embedded.js"></script>

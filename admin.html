@@ -4,35 +4,307 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>管理画面 | プロテイン管理ツール</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #111827;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #f0fdfa 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* ヘッダー */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 2rem;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111827;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #81c784 0%, #4fc3f7 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav a {
+            color: #111827;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 0.75rem;
+            transition: all 0.3s;
+        }
+
+        .nav a:hover, .nav a.active {
+            background: rgba(129, 199, 132, 0.2);
+            color: #2d5016;
+        }
+
+        /* 管理ダッシュボード */
+        .admin-dashboard {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .admin-sidebar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            height: fit-content;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .admin-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .admin-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-nav a {
+            display: block;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            color: #4a5568;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .admin-nav a:hover, .admin-nav a.active {
+            background: rgba(129, 199, 132, 0.2);
+            color: #2d5016;
+        }
+
+        .admin-content {
+            min-height: 600px;
+        }
+
+        .admin-tab {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .admin-tab.active {
+            display: block;
+        }
+
+        .tab-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .tab-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        /* ボタン */
+        .btn-primary, .btn-secondary, .btn-danger, .btn-small {
+            padding: 0.875rem 1.75rem;
+            border-radius: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #81d4fa 0%, #64b5f6 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #64b5f6 0%, #42a5f5 100%);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #a8e6cf 0%, #81c784 100%);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #81c784 0%, #66bb6a 100%);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ffab91 0%, #ff8a65 100%);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #ff8a65 0%, #ff7043 100%);
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            background: rgba(129, 199, 132, 0.2);
+            color: #2d5016;
+        }
+
+        /* フォーム要素 */
+        .search-input, .filter-select, input, select, textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 0.75rem;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            color: #111827;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus, .filter-select:focus, input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #81d4fa;
+            box-shadow: 0 0 0 3px rgba(129, 212, 250, 0.1);
+        }
+
+        /* フィルター */
+        .admin-filters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* テーブル */
+        .foods-table-container, .menus-table-container {
+            overflow-x: auto;
+            border-radius: 1rem;
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .foods-table, .menus-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .foods-table th, .foods-table td, .menus-table th, .menus-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .foods-table th, .menus-table th {
+            background: rgba(129, 199, 132, 0.2);
+            font-weight: 600;
+            color: #111827;
+        }
+
+        /* グリッド */
+        .categories-grid, .restaurants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .nav { display: none; }
+            .admin-dashboard { grid-template-columns: 1fr; }
+            .admin-sidebar { order: 2; }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>🛠️ 管理画面</h1>
-            <nav>
-                <a href="index.html">🏠 ホーム</a>
-                <a href="database.html">📖 食材データベース</a>
-                <a href="planner.html">📊 プラン作成</a>
-                <a href="recommended.html">🌟 おすすめ食材</a>
-                <a href="admin.html" class="active">🛠️ 管理画面</a>
+    <!-- ヘッダー -->
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">P</div>
+                プロテイン管理ツール
+            </a>
+            <nav class="nav">
+                <a href="index.html">ホーム</a>
+                <a href="database.html">食材データベース</a>
+                <a href="planner.html">プラン作成</a>
+                <a href="recommended.html">おすすめ食材</a>
+                <a href="restaurants.html">チェーン店メニュー</a>
+                <a href="admin.html" class="active">管理画面</a>
             </nav>
         </div>
     </header>
 
-    <main class="container">
+    <div class="container">
         <div class="admin-dashboard">
             <!-- 管理メニュー -->
             <aside class="admin-sidebar">
                 <nav class="admin-nav">
                     <ul>
-                        <li><a href="#foods" class="nav-link active" data-tab="foods">📝 食材管理</a></li>
-                        <li><a href="#categories" class="nav-link" data-tab="categories">🏷️ カテゴリー管理</a></li>
-                        <li><a href="#restaurants" class="nav-link" data-tab="restaurants">🏪 レストラン管理</a></li>
-                        <li><a href="#menus" class="nav-link" data-tab="menus">🍽️ メニュー管理</a></li>
-                        <li><a href="#import-export" class="nav-link" data-tab="import-export">📤 インポート/エクスポート</a></li>
-                        <li><a href="#settings" class="nav-link" data-tab="settings">⚙️ 設定</a></li>
+                        <li><a href="#foods" class="nav-link active" data-tab="foods">食材管理</a></li>
+                        <li><a href="#categories" class="nav-link" data-tab="categories">カテゴリー管理</a></li>
+                        <li><a href="#restaurants" class="nav-link" data-tab="restaurants">レストラン管理</a></li>
+                        <li><a href="#menus" class="nav-link" data-tab="menus">メニュー管理</a></li>
+                        <li><a href="#import-export" class="nav-link" data-tab="import-export">インポート/エクスポート</a></li>
+                        <li><a href="#settings" class="nav-link" data-tab="settings">設定</a></li>
                     </ul>
                 </nav>
             </aside>
@@ -42,9 +314,9 @@
                 <!-- 食材管理タブ -->
                 <section id="tab-foods" class="admin-tab active">
                     <div class="tab-header">
-                        <h2>📝 食材管理</h2>
+                        <h2>食材管理</h2>
                         <button class="btn-primary" onclick="showAddFoodModal()">
-                            ➕ 新しい食材を追加
+                            新しい食材を追加
                         </button>
                     </div>
 
@@ -78,9 +350,9 @@
                 <!-- カテゴリー管理タブ -->
                 <section id="tab-categories" class="admin-tab">
                     <div class="tab-header">
-                        <h2>🏷️ カテゴリー管理</h2>
+                        <h2>カテゴリー管理</h2>
                         <button class="btn-primary" onclick="showAddCategoryModal()">
-                            ➕ 新しいカテゴリーを追加
+                            新しいカテゴリーを追加
                         </button>
                     </div>
 
@@ -92,9 +364,9 @@
                 <!-- レストラン管理タブ -->
                 <section id="tab-restaurants" class="admin-tab">
                     <div class="tab-header">
-                        <h2>🏪 レストラン管理</h2>
+                        <h2>レストラン管理</h2>
                         <button class="btn-primary" onclick="showAddRestaurantModal()">
-                            ➕ 新しいレストランを追加
+                            新しいレストランを追加
                         </button>
                     </div>
 
@@ -118,9 +390,9 @@
                 <!-- メニュー管理タブ -->
                 <section id="tab-menus" class="admin-tab">
                     <div class="tab-header">
-                        <h2>🍽️ メニュー管理</h2>
+                        <h2>メニュー管理</h2>
                         <button class="btn-primary" onclick="showAddMenuModal()">
-                            ➕ 新しいメニューを追加
+                            新しいメニューを追加
                         </button>
                     </div>
 
@@ -164,24 +436,24 @@
                 <!-- インポート/エクスポートタブ -->
                 <section id="tab-import-export" class="admin-tab">
                     <div class="tab-header">
-                        <h2>📤 インポート/エクスポート</h2>
+                        <h2>インポート/エクスポート</h2>
                     </div>
 
-                    <div class="import-export-section">
-                        <div class="export-section">
-                            <h3>📤 エクスポート</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                        <div style="background: rgba(255, 255, 255, 0.8); padding: 2rem; border-radius: 1rem;">
+                            <h3>エクスポート</h3>
                             <p>現在の食材データをJSONファイルでダウンロードできます。</p>
                             <button class="btn-secondary" onclick="exportData()">
-                                📥 データをエクスポート
+                                データをエクスポート
                             </button>
                         </div>
 
-                        <div class="import-section">
-                            <h3>📥 インポート</h3>
+                        <div style="background: rgba(255, 255, 255, 0.8); padding: 2rem; border-radius: 1rem;">
+                            <h3>インポート</h3>
                             <p>JSONファイルから食材データを一括インポートできます。</p>
                             <input type="file" id="importFile" accept=".json" style="display: none;">
                             <button class="btn-secondary" onclick="document.getElementById('importFile').click()">
-                                📤 データをインポート
+                                データをインポート
                             </button>
                         </div>
                     </div>
@@ -190,12 +462,12 @@
                 <!-- 設定タブ -->
                 <section id="tab-settings" class="admin-tab">
                     <div class="tab-header">
-                        <h2>⚙️ 設定</h2>
+                        <h2>設定</h2>
                     </div>
 
                     <!-- 自動更新システム -->
-                    <div class="auto-update-section">
-                        <h3>🔄 自動更新システム</h3>
+                    <div style="background: rgba(255, 255, 255, 0.8); padding: 2rem; border-radius: 1rem; margin-bottom: 2rem;">
+                        <h3>自動更新システム</h3>
                         <p>チェーン店の新メニューと実際の写真を自動で取得・更新します</p>
 
                         <div class="update-status">
