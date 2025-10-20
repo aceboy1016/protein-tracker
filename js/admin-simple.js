@@ -212,31 +212,9 @@ function editRestaurant(restaurantId) {
     // ロゴプレビュー設定
     updateLogoPreview(restaurant.logoFile || restaurant.logo);
 
-    // モーダル強制表示
+    // モーダル表示
     const modal = document.getElementById('restaurantModal');
     modal.style.display = 'block';
-    modal.style.position = 'fixed';
-    modal.style.top = '0';
-    modal.style.left = '0';
-    modal.style.width = '100%';
-    modal.style.height = '100%';
-    modal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-    modal.style.zIndex = '1000';
-
-    // モーダルコンテンツのスタイル設定
-    const modalContent = modal.querySelector('.modal-content');
-    if (modalContent) {
-        modalContent.style.position = 'relative';
-        modalContent.style.top = '50%';
-        modalContent.style.left = '50%';
-        modalContent.style.transform = 'translate(-50%, -50%)';
-        modalContent.style.backgroundColor = 'white';
-        modalContent.style.padding = '2rem';
-        modalContent.style.borderRadius = '1rem';
-        modalContent.style.maxWidth = '600px';
-        modalContent.style.maxHeight = '80vh';
-        modalContent.style.overflow = 'auto';
-    }
 
     console.log('編集モーダル表示完了');
 }
@@ -401,31 +379,9 @@ function showAddRestaurantModal() {
     document.getElementById('restaurantForm').reset();
     updateLogoPreview(null);
 
-    // モーダル強制表示
+    // モーダル表示
     const modal = document.getElementById('restaurantModal');
     modal.style.display = 'block';
-    modal.style.position = 'fixed';
-    modal.style.top = '0';
-    modal.style.left = '0';
-    modal.style.width = '100%';
-    modal.style.height = '100%';
-    modal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-    modal.style.zIndex = '1000';
-
-    // モーダルコンテンツのスタイル設定
-    const modalContent = modal.querySelector('.modal-content');
-    if (modalContent) {
-        modalContent.style.position = 'relative';
-        modalContent.style.top = '50%';
-        modalContent.style.left = '50%';
-        modalContent.style.transform = 'translate(-50%, -50%)';
-        modalContent.style.backgroundColor = 'white';
-        modalContent.style.padding = '2rem';
-        modalContent.style.borderRadius = '1rem';
-        modalContent.style.maxWidth = '600px';
-        modalContent.style.maxHeight = '80vh';
-        modalContent.style.overflow = 'auto';
-    }
 
     console.log('新規追加モーダル表示完了');
 }
@@ -626,12 +582,6 @@ function showMenuModal(menu = null) {
     const modal = document.getElementById('menuModal');
     if (modal) {
         modal.style.display = 'block';
-        modal.style.position = 'fixed';
-        modal.style.top = '0';
-        modal.style.left = '0';
-        modal.style.width = '100%';
-        modal.style.height = '100%';
-        modal.style.zIndex = '10000';
     }
 }
 
