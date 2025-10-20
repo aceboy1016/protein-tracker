@@ -260,7 +260,7 @@ function createMenuCard(menu, restaurant) {
             >
         <div class="menu-card-content">
             <div class="restaurant-badge">
-                <img src="${restaurant.logo}" alt="${restaurant.name}" class="restaurant-logo-small"
+                <img src="${restaurant.logoFile || restaurant.logo}" alt="${restaurant.name}" class="restaurant-logo-small"
                      onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiBmaWxsPSIjRjBGMEYwIi8+Cjx0ZXh0IHg9IjEwIiB5PSIxNCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjEyIiBmaWxsPSIjNjY2NjY2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7wn4+qPC90ZXh0Pgo8L3N2Zz4='"
                 >
                 <span>${restaurant.name}</span>
@@ -319,7 +319,7 @@ function createMenuTableRow(menu, restaurant) {
 
     row.innerHTML = `
         <td class="restaurant-cell">
-            <img src="${restaurant.logo}" alt="${restaurant.name}"
+            <img src="${restaurant.logoFile || restaurant.logo}" alt="${restaurant.name}"
                  onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCAzMCAzMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMwIiBoZWlnaHQ9IjMwIiBmaWxsPSIjRjBGMEYwIi8+Cjx0ZXh0IHg9IjE1IiB5PSIyMCIgZm9udC1mYW1pbHk9IkFyaWFsLCBzYW5zLXNlcmlmIiBmb250LXNpemU9IjE2IiBmaWxsPSIjNjY2NjY2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7wn4+qPC90ZXh0Pgo8L3N2Zz4='"
             >
             <span>${restaurant.name}</span>
@@ -438,7 +438,7 @@ function showMenuDetail(menuId) {
     // 基本情報の設定
     document.getElementById('menuModalTitle').textContent = menu.name;
     document.getElementById('menuDetailImage').src = menu.image;
-    document.getElementById('restaurantLogo').src = restaurant.logo;
+    document.getElementById('restaurantLogo').src = restaurant.logoFile || restaurant.logo;
     document.getElementById('restaurantName').textContent = restaurant.name;
     document.getElementById('restaurantCategory').textContent = restaurant.category;
     document.getElementById('menuDetailName').textContent = menu.name;
