@@ -604,6 +604,10 @@ input:checked + .toggle-slider:before {
     height: 60px;
     border-radius: 50%;
     object-fit: cover;
+    object-position: center;
+    background: #f0f0f0;
+    flex-shrink: 0;
+    display: block;
 }
 
 .restaurant-info h3 {
@@ -686,6 +690,10 @@ input:checked + .toggle-slider:before {
     height: 30px;
     border-radius: 50%;
     object-fit: cover;
+    object-position: center;
+    background: #f0f0f0;
+    flex-shrink: 0;
+    display: block;
 }
 
 /* 栄養成分フォームグリッド */

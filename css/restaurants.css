@@ -180,6 +180,10 @@
     height: 20px;
     border-radius: 50%;
     object-fit: cover;
+    object-position: center;
+    background: #f0f0f0;
+    flex-shrink: 0;
+    display: block;
 }
 
 .menu-card h3 {
@@ -318,6 +322,10 @@
     height: 30px;
     border-radius: 50%;
     object-fit: cover;
+    object-position: center;
+    background: #f0f0f0;
+    flex-shrink: 0;
+    display: block;
 }
 
 /* モーダル詳細表示 */
@@ -354,6 +362,10 @@
     height: 60px;
     border-radius: 50%;
     object-fit: cover;
+    object-position: center;
+    background: #f0f0f0;
+    flex-shrink: 0;
+    display: block;
 }
 
 .restaurant-details h4 {
