@@ -4,7 +4,7 @@ const RESTAURANT_DATA = {
     {
       "id": "crispy_salad",
       "name": "Crispy Salad Works",
-      "logo": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=100&h=100&fit=crop",
+      "logo": "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=100&h=100&fit=crop&crop=center",
       "category": "サラダ専門店",
       "description": "新鮮野菜とタンパク質豊富な具材で作るカスタムサラダ",
       "website": "https://crispy-salad.com",
@@ -15,7 +15,7 @@ const RESTAURANT_DATA = {
     {
       "id": "subway",
       "name": "サブウェイ",
-      "logo": "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=100&h=100&fit=crop",
+      "logo": "https://images.unsplash.com/photo-1555992336-03a23c1a6188?w=100&h=100&fit=crop&crop=center",
       "category": "サンドイッチチェーン",
       "description": "カスタマイズ可能なサブマリンサンドイッチ",
       "website": "https://subway.co.jp",
@@ -26,7 +26,7 @@ const RESTAURANT_DATA = {
     {
       "id": "yoshinoya",
       "name": "吉野家",
-      "logo": "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=100&h=100&fit=crop",
+      "logo": "https://images.unsplash.com/photo-1547756536-cde3673fa5d5?w=100&h=100&fit=crop&crop=center",
       "category": "牛丼チェーン",
       "description": "手軽に食べられる牛丼・定食メニュー",
       "website": "https://yoshinoya.com",
@@ -37,7 +37,7 @@ const RESTAURANT_DATA = {
     {
       "id": "mos_burger",
       "name": "モスバーガー",
-      "logo": "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=100&h=100&fit=crop",
+      "logo": "https://images.unsplash.com/photo-1553979459-d2229ba7433a?w=100&h=100&fit=crop&crop=center",
       "category": "ハンバーガーチェーン",
       "description": "新鮮野菜を使った手作りハンバーガー",
       "website": "https://mos.jp",
@@ -48,7 +48,7 @@ const RESTAURANT_DATA = {
     {
       "id": "starbucks",
       "name": "スターバックス",
-      "logo": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=100&h=100&fit=crop",
+      "logo": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=100&h=100&fit=crop&crop=center",
       "category": "カフェチェーン",
       "description": "コーヒーとフードメニュー",
       "website": "https://starbucks.co.jp",
