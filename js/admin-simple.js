@@ -695,29 +695,46 @@ function saveMenu(event) {
 
     console.log('画像処理完了:', { imageFile: imageFile.substring(0, 50), imageUrl, finalImage: finalImage.substring(0, 50) });
 
+    // DOM要素の安全な取得
+    const getElementValue = (id) => {
+        const element = document.getElementById(id);
+        if (!element) {
+            console.warn(`要素が見つかりません: ${id}`);
+            return '';
+        }
+        return element.value || '';
+    };
+
+    const getElementChecked = (id) => {
+        const element = document.getElementById(id);
+        return element ? (element.checked || false) : false;
+    };
+
     const menu = {
         id: editingMenuId || 'menu_' + Date.now(),
-        name: document.getElementById('menuName').value,
-        restaurant_id: document.getElementById('menuRestaurant').value,
-        category: document.getElementById('menuCategory').value,
-        description: document.getElementById('menuDescription').value,
-        price: parseInt(document.getElementById('menuPrice').value) || 0,
-        size: document.getElementById('menuSize').value,
+        name: getElementValue('menuName'),
+        restaurant_id: getElementValue('menuRestaurant'),
+        category: getElementValue('menuCategory'),
+        description: getElementValue('menuDescription'),
+        price: parseInt(getElementValue('menuPrice')) || 0,
+        size: getElementValue('menuSize'),
         image: finalImage,
         nutrition: {
-            calories: parseInt(document.getElementById('calories').value) || 0,
-            protein: parseFloat(document.getElementById('protein').value) || 0,
-            carbs: parseFloat(document.getElementById('carbs').value) || 0,
-            fat: parseFloat(document.getElementById('fat').value) || 0,
-            fiber: parseFloat(document.getElementById('fiber').value) || 0,
-            sodium: parseInt(document.getElementById('sodium').value) || 0,
-            sugar: parseFloat(document.getElementById('sugar').value) || 0
+            calories: parseInt(getElementValue('calories')) || 0,
+            protein: parseFloat(getElementValue('protein')) || 0,
+            carbs: parseFloat(getElementValue('carbs')) || 0,
+            fat: parseFloat(getElementValue('fat')) || 0,
+            fiber: parseFloat(getElementValue('fiber')) || 0,
+            sodium: parseInt(getElementValue('sodium')) || 0,
+            sugar: parseFloat(getElementValue('sugar')) || 0
         },
-        is_vegetarian: document.getElementById('is_vegetarian')?.checked || false,
-        is_vegan: document.getElementById('is_vegan')?.checked || false,
-        is_gluten_free: document.getElementById('is_gluten_free')?.checked || false,
+        is_vegetarian: getElementChecked('is_vegetarian'),
+        is_vegan: getElementChecked('is_vegan'),
+        is_gluten_free: getElementChecked('is_gluten_free'),
         last_updated: new Date().toISOString()
     };
+
+    console.log('作成されたメニューオブジェクト:', menu);
 
     if (editingMenuId) {
         // 編集
