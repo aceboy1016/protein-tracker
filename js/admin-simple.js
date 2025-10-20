@@ -597,13 +597,13 @@ function showMenuModal(menu = null) {
 
         // 栄養情報
         if (menu.nutrition) {
-            setFormValue('calories', menu.nutrition.calories);
-            setFormValue('protein', menu.nutrition.protein);
-            setFormValue('carbs', menu.nutrition.carbs);
-            setFormValue('fat', menu.nutrition.fat);
-            setFormValue('fiber', menu.nutrition.fiber);
-            setFormValue('sodium', menu.nutrition.sodium);
-            setFormValue('sugar', menu.nutrition.sugar);
+            setFormValue('menuCalories', menu.nutrition.calories);
+            setFormValue('menuProtein', menu.nutrition.protein);
+            setFormValue('menuCarbs', menu.nutrition.carbs);
+            setFormValue('menuFat', menu.nutrition.fat);
+            setFormValue('menuFiber', menu.nutrition.fiber);
+            setFormValue('menuSodium', menu.nutrition.sodium);
+            // menuSugarフィールドは存在しないのでスキップ
         }
 
         // 食事制限
@@ -720,13 +720,13 @@ function saveMenu(event) {
         size: getElementValue('menuSize'),
         image: finalImage,
         nutrition: {
-            calories: parseInt(getElementValue('calories')) || 0,
-            protein: parseFloat(getElementValue('protein')) || 0,
-            carbs: parseFloat(getElementValue('carbs')) || 0,
-            fat: parseFloat(getElementValue('fat')) || 0,
-            fiber: parseFloat(getElementValue('fiber')) || 0,
-            sodium: parseInt(getElementValue('sodium')) || 0,
-            sugar: parseFloat(getElementValue('sugar')) || 0
+            calories: parseInt(getElementValue('menuCalories')) || 0,
+            protein: parseFloat(getElementValue('menuProtein')) || 0,
+            carbs: parseFloat(getElementValue('menuCarbs')) || 0,
+            fat: parseFloat(getElementValue('menuFat')) || 0,
+            fiber: parseFloat(getElementValue('menuFiber')) || 0,
+            sodium: parseInt(getElementValue('menuSodium')) || 0,
+            sugar: 0 // menuSugarフィールドは存在しない
         },
         is_vegetarian: getElementChecked('is_vegetarian'),
         is_vegan: getElementChecked('is_vegan'),
