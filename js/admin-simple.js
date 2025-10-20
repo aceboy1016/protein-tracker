@@ -4,6 +4,7 @@
 let restaurantsData = [];
 let menusData = [];
 let editingRestaurantId = null;
+let editingMenuId = null;
 
 // 初期化
 document.addEventListener('DOMContentLoaded', function() {
@@ -280,6 +281,12 @@ function setupForms() {
         restaurantForm.addEventListener('submit', saveRestaurant);
     }
 
+    // メニューフォーム
+    const menuForm = document.getElementById('menuForm');
+    if (menuForm) {
+        menuForm.addEventListener('submit', saveMenu);
+    }
+
     // ロゴファイル入力
     const logoFileInput = document.getElementById('restaurantLogoFile');
     if (logoFileInput) {
@@ -547,7 +554,14 @@ function resetAllData() {
 
 // メニュー管理用のダミー関数
 function editMenu(menuId) {
-    alert(`メニュー編集機能は現在実装中です (ID: ${menuId})`);
+    const menu = menusData.find(m => m.id === menuId);
+    if (!menu) {
+        alert('メニューが見つかりません');
+        return;
+    }
+
+    editingMenuId = menuId;
+    showMenuModal(menu);
 }
 
 function deleteMenu(menuId) {
@@ -566,7 +580,134 @@ function deleteMenu(menuId) {
 }
 
 function showAddMenuModal() {
-    alert('メニュー追加機能は現在実装中です');
+    editingMenuId = null;
+    showMenuModal();
+}
+
+function showMenuModal(menu = null) {
+    // フォーム初期化
+    const form = document.getElementById('menuForm');
+    if (form) form.reset();
+
+    // モーダルタイトル設定
+    const title = document.getElementById('menuModalTitle');
+    if (title) {
+        title.textContent = menu ? 'メニューを編集' : '新しいメニューを追加';
+    }
+
+    if (menu) {
+        // 編集モードの場合、フォームに値を設定
+        setFormValue('menuName', menu.name);
+        setFormValue('menuRestaurant', menu.restaurant_id);
+        setFormValue('menuCategory', menu.category);
+        setFormValue('menuDescription', menu.description);
+        setFormValue('menuPrice', menu.price);
+        setFormValue('menuSize', menu.size);
+        setFormValue('menuImage', menu.image);
+
+        // 栄養情報
+        if (menu.nutrition) {
+            setFormValue('calories', menu.nutrition.calories);
+            setFormValue('protein', menu.nutrition.protein);
+            setFormValue('carbs', menu.nutrition.carbs);
+            setFormValue('fat', menu.nutrition.fat);
+            setFormValue('fiber', menu.nutrition.fiber);
+            setFormValue('sodium', menu.nutrition.sodium);
+            setFormValue('sugar', menu.nutrition.sugar);
+        }
+
+        // 食事制限
+        setCheckboxValue('is_vegetarian', menu.is_vegetarian);
+        setCheckboxValue('is_vegan', menu.is_vegan);
+        setCheckboxValue('is_gluten_free', menu.is_gluten_free);
+    }
+
+    // モーダル表示
+    const modal = document.getElementById('menuModal');
+    if (modal) {
+        modal.style.display = 'block';
+        modal.style.position = 'fixed';
+        modal.style.top = '0';
+        modal.style.left = '0';
+        modal.style.width = '100%';
+        modal.style.height = '100%';
+        modal.style.zIndex = '10000';
+    }
+}
+
+function setFormValue(id, value) {
+    const element = document.getElementById(id);
+    if (element && value !== undefined && value !== null) {
+        element.value = value;
+    }
+}
+
+function setCheckboxValue(id, value) {
+    const element = document.getElementById(id);
+    if (element && typeof value === 'boolean') {
+        element.checked = value;
+    }
+}
+
+function closeMenuModal() {
+    const modal = document.getElementById('menuModal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+    editingMenuId = null;
+}
+
+function saveMenu(event) {
+    event.preventDefault();
+
+    console.log('メニュー保存開始');
+
+    const menu = {
+        id: editingMenuId || 'menu_' + Date.now(),
+        name: document.getElementById('menuName').value,
+        restaurant_id: document.getElementById('menuRestaurant').value,
+        category: document.getElementById('menuCategory').value,
+        description: document.getElementById('menuDescription').value,
+        price: parseInt(document.getElementById('menuPrice').value) || 0,
+        size: document.getElementById('menuSize').value,
+        image: document.getElementById('menuImage').value,
+        nutrition: {
+            calories: parseInt(document.getElementById('calories').value) || 0,
+            protein: parseFloat(document.getElementById('protein').value) || 0,
+            carbs: parseFloat(document.getElementById('carbs').value) || 0,
+            fat: parseFloat(document.getElementById('fat').value) || 0,
+            fiber: parseFloat(document.getElementById('fiber').value) || 0,
+            sodium: parseInt(document.getElementById('sodium').value) || 0,
+            sugar: parseFloat(document.getElementById('sugar').value) || 0
+        },
+        is_vegetarian: document.getElementById('is_vegetarian')?.checked || false,
+        is_vegan: document.getElementById('is_vegan')?.checked || false,
+        is_gluten_free: document.getElementById('is_gluten_free')?.checked || false,
+        last_updated: new Date().toISOString()
+    };
+
+    if (editingMenuId) {
+        // 編集
+        const index = menusData.findIndex(m => m.id === editingMenuId);
+        if (index !== -1) {
+            menusData[index] = menu;
+        }
+    } else {
+        // 新規追加
+        menusData.push(menu);
+    }
+
+    // localStorage に保存
+    saveRestaurantDataToStorage();
+
+    // 表示更新
+    updateDisplaysAfterSave();
+    closeMenuModal();
+
+    const message = editingMenuId ? 'メニューを更新しました' : 'メニューを追加しました';
+    alert(message);
+
+    console.log('メニュー保存完了');
 }
 
 console.log('admin-simple.js読み込み完了');
