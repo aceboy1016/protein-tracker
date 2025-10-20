@@ -262,7 +262,11 @@ function setupForms() {
     // メニューフォーム
     const menuForm = document.getElementById('menuForm');
     if (menuForm) {
+        console.log('メニューフォーム要素見つかりました:', menuForm);
         menuForm.addEventListener('submit', saveMenu);
+        console.log('メニューフォームのsubmitイベントリスナー設定完了');
+    } else {
+        console.error('menuForm要素が見つかりません!');
     }
 
     // ロゴファイル入力
@@ -560,7 +564,14 @@ window.showAddMenuModal = function() {
 function showMenuModal(menu = null) {
     // フォーム初期化
     const form = document.getElementById('menuForm');
-    if (form) form.reset();
+    if (form) {
+        form.reset();
+
+        // フォームのsubmitイベントを再設定（確実に動作させるため）
+        form.removeEventListener('submit', saveMenu);
+        form.addEventListener('submit', saveMenu);
+        console.log('メニューフォームのsubmitイベント再設定完了');
+    }
 
     // レストラン選択肢を先に設定
     populateRestaurantSelect();
@@ -663,18 +674,26 @@ window.closeMenuModal = function() {
 };
 
 function saveMenu(event) {
-    event.preventDefault();
+    console.log('saveMenu関数が呼ばれました!');
+    console.log('event:', event);
+
+    if (event) {
+        event.preventDefault();
+        console.log('preventDefault実行完了');
+    }
 
     console.log('メニュー保存開始');
 
     // 画像の処理（ファイル優先、なければURL）
-    const imageFile = document.getElementById('menuImagePreviewImg').src;
-    const imageUrl = document.getElementById('menuImage').value;
+    const imageFile = document.getElementById('menuImagePreviewImg')?.src || '';
+    const imageUrl = document.getElementById('menuImage')?.value || '';
     let finalImage = imageUrl;
 
     if (imageFile && imageFile.startsWith('data:')) {
         finalImage = imageFile; // ファイルアップロード優先
     }
+
+    console.log('画像処理完了:', { imageFile: imageFile.substring(0, 50), imageUrl, finalImage: finalImage.substring(0, 50) });
 
     const menu = {
         id: editingMenuId || 'menu_' + Date.now(),
