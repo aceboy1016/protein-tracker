@@ -50,18 +50,27 @@ function setupTabs() {
 function loadRestaurantData() {
     console.log('レストランデータ読み込み開始');
 
-    // 埋め込みデータをチェック
-    if (typeof RESTAURANT_DATA !== 'undefined' && RESTAURANT_DATA.restaurants) {
-        restaurantsData = RESTAURANT_DATA.restaurants;
-        menusData = RESTAURANT_DATA.menus || [];
-        console.log('埋め込みデータから読み込み完了:', restaurantsData.length, 'レストラン');
-        displayRestaurants();
+    // 1. 最優先：localStorageから編集済みデータをチェック
+    const storedData = JSON.parse(localStorage.getItem('restaurantData') || '{}');
+
+    if (storedData.restaurants && storedData.restaurants.length > 0) {
+        restaurantsData = storedData.restaurants;
+        menusData = storedData.menus || [];
+        console.log('localStorageから読み込み完了:', restaurantsData.length, 'レストラン');
     } else {
-        console.warn('埋め込みデータが見つかりません');
-        restaurantsData = [];
-        menusData = [];
-        displayRestaurants();
+        // 2. フォールバック：埋め込みデータから読み込み
+        if (typeof RESTAURANT_DATA !== 'undefined' && RESTAURANT_DATA.restaurants) {
+            restaurantsData = RESTAURANT_DATA.restaurants;
+            menusData = RESTAURANT_DATA.menus || [];
+            console.log('埋め込みデータから読み込み完了:', restaurantsData.length, 'レストラン');
+        } else {
+            console.warn('データが見つかりません');
+            restaurantsData = [];
+            menusData = [];
+        }
     }
+
+    displayRestaurants();
 }
 
 // レストラン表示
@@ -254,6 +263,10 @@ function deleteRestaurant(restaurantId) {
     const index = restaurantsData.findIndex(r => r.id === restaurantId);
     if (index !== -1) {
         restaurantsData.splice(index, 1);
+
+        // localStorage に保存（重要！）
+        saveRestaurantDataToStorage();
+
         updateDisplaysAfterSave();
         alert('レストランを削除しました');
     }
@@ -349,6 +362,9 @@ function saveRestaurant(event) {
         restaurantsData.push(restaurant);
     }
 
+    // localStorage に保存（重要！）
+    saveRestaurantDataToStorage();
+
     // 表示更新
     updateDisplaysAfterSave();
     closeRestaurantModal();
@@ -356,7 +372,7 @@ function saveRestaurant(event) {
     const message = editingRestaurantId ? 'レストランを更新しました' : 'レストランを追加しました';
     alert(message);
 
-    console.log('レストラン保存完了');
+    console.log('レストラン保存完了 - localStorageに永続化済み');
 }
 
 // レストランモーダルを閉じる
@@ -485,6 +501,23 @@ function updateDisplaysAfterSave() {
     displayMenus();
 }
 
+// localStorageにデータを永続化
+function saveRestaurantDataToStorage() {
+    const dataToSave = {
+        restaurants: restaurantsData,
+        menus: menusData,
+        lastUpdated: new Date().toISOString()
+    };
+
+    try {
+        localStorage.setItem('restaurantData', JSON.stringify(dataToSave));
+        console.log('データをlocalStorageに保存しました:', dataToSave.restaurants.length, 'レストラン');
+    } catch (error) {
+        console.error('localStorage保存エラー:', error);
+        alert('データの保存に失敗しました。ブラウザの容量が不足している可能性があります。');
+    }
+}
+
 // 未実装の関数をダミーで追加（エラー防止）
 function showAddFoodModal() {
     alert('食材管理機能は現在実装中です');
@@ -502,6 +535,11 @@ function resetAllData() {
     if (confirm('すべてのデータをリセットしますか？')) {
         restaurantsData = [];
         menusData = [];
+
+        // localStorageもクリア
+        localStorage.removeItem('restaurantData');
+        console.log('localStorageからデータを削除しました');
+
         updateDisplaysAfterSave();
         alert('データをリセットしました');
     }
@@ -518,6 +556,10 @@ function deleteMenu(menuId) {
     const index = menusData.findIndex(m => m.id === menuId);
     if (index !== -1) {
         menusData.splice(index, 1);
+
+        // localStorage に保存（重要！）
+        saveRestaurantDataToStorage();
+
         updateDisplaysAfterSave();
         alert('メニューを削除しました');
     }
