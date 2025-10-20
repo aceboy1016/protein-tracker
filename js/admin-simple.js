@@ -581,12 +581,27 @@ function showMenuModal(menu = null) {
         setCheckboxValue('is_gluten_free', menu.is_gluten_free);
     }
 
-    // モーダル表示
+    // モーダル表示（強制的にスタイル設定）
     const modal = document.getElementById('menuModal');
     console.log('メニューモーダル要素:', modal);
     if (modal) {
         modal.style.display = 'block';
-        console.log('メニューモーダル表示設定完了');
+        modal.style.position = 'fixed';
+        modal.style.top = '0';
+        modal.style.left = '0';
+        modal.style.width = '100%';
+        modal.style.height = '100%';
+        modal.style.zIndex = '9999';
+        modal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        modal.style.visibility = 'visible';
+        modal.style.opacity = '1';
+        console.log('メニューモーダル強制表示設定完了');
+        console.log('モーダルスタイル確認:', {
+            display: modal.style.display,
+            position: modal.style.position,
+            zIndex: modal.style.zIndex,
+            visibility: modal.style.visibility
+        });
     } else {
         console.error('menuModal要素が見つかりません');
         alert('メニューモーダルが見つかりません。ページをリロードしてください。');
