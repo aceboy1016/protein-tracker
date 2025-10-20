@@ -906,6 +906,15 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="menuImageFile">または画像ファイルを選択</label>
+                        <input type="file" id="menuImageFile" accept="image/*">
+                        <div id="menuImagePreview" class="image-preview" style="display: none; margin-top: 0.5rem;">
+                            <img id="menuImagePreviewImg" style="max-width: 150px; max-height: 150px; border-radius: 8px; object-fit: cover;">
+                            <p id="menuImagePreviewText" style="color: #666; font-size: 0.9rem; margin: 0.5rem 0 0 0;">プレビュー</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label for="menuPrice">価格（円）*</label>
                         <input type="number" id="menuPrice" min="0" required>
                     </div>
