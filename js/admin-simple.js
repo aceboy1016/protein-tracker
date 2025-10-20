@@ -562,6 +562,9 @@ function showMenuModal(menu = null) {
     const form = document.getElementById('menuForm');
     if (form) form.reset();
 
+    // レストラン選択肢を先に設定
+    populateRestaurantSelect();
+
     // モーダルタイトル設定
     const title = document.getElementById('menuModalTitle');
     if (title) {
@@ -750,6 +753,25 @@ function updateMenuImagePreview(imageUrl) {
     } else {
         previewDiv.style.display = 'none';
     }
+}
+
+// レストラン選択肢を設定
+function populateRestaurantSelect() {
+    const select = document.getElementById('menuRestaurant');
+    if (!select) return;
+
+    // 既存のオプションをクリア（最初のオプションは残す）
+    while (select.children.length > 1) {
+        select.removeChild(select.lastChild);
+    }
+
+    // レストランデータから選択肢を追加
+    restaurantsData.forEach(restaurant => {
+        const option = document.createElement('option');
+        option.value = restaurant.id;
+        option.textContent = restaurant.name;
+        select.appendChild(option);
+    });
 }
 
 console.log('admin-simple.js読み込み完了');
