@@ -395,9 +395,14 @@
                 <section id="tab-menus" class="admin-tab">
                     <div class="tab-header">
                         <h2>メニュー管理</h2>
-                        <button class="btn-primary" onclick="showAddMenuModal()">
-                            新しいメニューを追加
-                        </button>
+                        <div style="display: flex; gap: 1rem;">
+                            <button class="btn-primary" onclick="showAddMenuModal()">
+                                新しいメニューを追加
+                            </button>
+                            <button class="btn-secondary" onclick="importYoshinoyaMenus()" style="background: #ff6b35; color: white;">
+                                🚀 吉野家メニュー一括インポート
+                            </button>
+                        </div>
                     </div>
 
                     <div class="admin-filters">
