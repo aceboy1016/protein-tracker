@@ -510,13 +510,16 @@ function resetAllData() {
 
 // メニュー管理用のダミー関数
 function editMenu(menuId) {
+    console.log('editMenu呼び出し - menuId:', menuId);
     const menu = menusData.find(m => m.id === menuId);
+    console.log('見つかったメニュー:', menu);
     if (!menu) {
         alert('メニューが見つかりません');
         return;
     }
 
     editingMenuId = menuId;
+    console.log('showMenuModal呼び出し開始');
     showMenuModal(menu);
 }
 
@@ -580,8 +583,13 @@ function showMenuModal(menu = null) {
 
     // モーダル表示
     const modal = document.getElementById('menuModal');
+    console.log('メニューモーダル要素:', modal);
     if (modal) {
         modal.style.display = 'block';
+        console.log('メニューモーダル表示設定完了');
+    } else {
+        console.error('menuModal要素が見つかりません');
+        alert('メニューモーダルが見つかりません。ページをリロードしてください。');
     }
 }
 
