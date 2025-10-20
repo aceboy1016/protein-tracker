@@ -27,18 +27,28 @@ async function loadRestaurantData() {
     grid.innerHTML = '<div class="loading">データを読み込み中</div>';
 
     try {
-        // 埋め込みデータを使用（確実な動作のため）
-        console.log('埋め込みデータを使用中...');
+        // 1. 最優先：管理画面で編集されたデータをlocalStorageから読み込み
+        const storedData = JSON.parse(localStorage.getItem('restaurantData') || '{}');
 
-        if (!RESTAURANT_DATA || !RESTAURANT_DATA.restaurants || !RESTAURANT_DATA.menus) {
-            throw new Error('埋め込みデータが見つかりません');
+        if (storedData.restaurants && storedData.restaurants.length > 0) {
+            // localStorageにデータがある場合（管理画面で編集済み）
+            restaurantsData = storedData.restaurants;
+            menusData = storedData.menus || [];
+            console.log('管理画面編集データから読み込み完了:', restaurantsData.length, 'レストラン');
+        } else {
+            // 2. フォールバック：埋め込みデータを使用
+            console.log('埋め込みデータを使用中...');
+
+            if (!RESTAURANT_DATA || !RESTAURANT_DATA.restaurants || !RESTAURANT_DATA.menus) {
+                throw new Error('埋め込みデータが見つかりません');
+            }
+
+            restaurantsData = RESTAURANT_DATA.restaurants;
+            menusData = RESTAURANT_DATA.menus;
+
+            // データをlocalStorageに保存
+            saveRestaurantData();
         }
-
-        restaurantsData = RESTAURANT_DATA.restaurants;
-        menusData = RESTAURANT_DATA.menus;
-
-        // データをlocalStorageに保存
-        saveRestaurantData();
 
         console.log('データ取得成功:', menusData.length, '件のメニュー');
         console.log('レストランデータ:', restaurantsData);
