@@ -278,6 +278,20 @@ function setupForms() {
             updateLogoPreview(this.value);
         });
     }
+
+    // メニュー画像ファイル入力
+    const menuImageFileInput = document.getElementById('menuImageFile');
+    if (menuImageFileInput) {
+        menuImageFileInput.addEventListener('change', handleMenuImageFileUpload);
+    }
+
+    // メニュー画像URL入力
+    const menuImageUrlInput = document.getElementById('menuImage');
+    if (menuImageUrlInput) {
+        menuImageUrlInput.addEventListener('input', function() {
+            updateMenuImagePreview(this.value);
+        });
+    }
 }
 
 // ロゴファイルアップロード処理
@@ -564,6 +578,9 @@ function showMenuModal(menu = null) {
         setFormValue('menuSize', menu.size);
         setFormValue('menuImage', menu.image);
 
+        // 画像プレビュー設定
+        updateMenuImagePreview(menu.image);
+
         // 栄養情報
         if (menu.nutrition) {
             setFormValue('calories', menu.nutrition.calories);
@@ -592,9 +609,21 @@ function showMenuModal(menu = null) {
         modal.style.width = '100%';
         modal.style.height = '100%';
         modal.style.zIndex = '9999';
-        modal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        modal.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+        modal.style.backdropFilter = 'blur(5px)';
         modal.style.visibility = 'visible';
         modal.style.opacity = '1';
+
+        // モーダルコンテンツのスタイリング改善
+        const modalContent = modal.querySelector('.modal-content-large');
+        if (modalContent) {
+            modalContent.style.maxHeight = '85vh';
+            modalContent.style.overflowY = 'auto';
+            modalContent.style.margin = '2% auto';
+            modalContent.style.boxShadow = '0 20px 60px rgba(0, 0, 0, 0.3)';
+            modalContent.style.border = 'none';
+            modalContent.style.borderRadius = '16px';
+        }
         console.log('メニューモーダル強制表示設定完了');
         console.log('モーダルスタイル確認:', {
             display: modal.style.display,
@@ -635,6 +664,15 @@ function saveMenu(event) {
 
     console.log('メニュー保存開始');
 
+    // 画像の処理（ファイル優先、なければURL）
+    const imageFile = document.getElementById('menuImagePreviewImg').src;
+    const imageUrl = document.getElementById('menuImage').value;
+    let finalImage = imageUrl;
+
+    if (imageFile && imageFile.startsWith('data:')) {
+        finalImage = imageFile; // ファイルアップロード優先
+    }
+
     const menu = {
         id: editingMenuId || 'menu_' + Date.now(),
         name: document.getElementById('menuName').value,
@@ -643,7 +681,7 @@ function saveMenu(event) {
         description: document.getElementById('menuDescription').value,
         price: parseInt(document.getElementById('menuPrice').value) || 0,
         size: document.getElementById('menuSize').value,
-        image: document.getElementById('menuImage').value,
+        image: finalImage,
         nutrition: {
             calories: parseInt(document.getElementById('calories').value) || 0,
             protein: parseFloat(document.getElementById('protein').value) || 0,
@@ -681,6 +719,37 @@ function saveMenu(event) {
     alert(message);
 
     console.log('メニュー保存完了');
+}
+
+// メニュー画像ファイルアップロード処理
+function handleMenuImageFileUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const dataUrl = e.target.result;
+        updateMenuImagePreview(dataUrl);
+
+        // URLフィールドをクリア（ファイル優先）
+        document.getElementById('menuImage').value = '';
+    };
+    reader.readAsDataURL(file);
+}
+
+// メニュー画像プレビュー更新
+function updateMenuImagePreview(imageUrl) {
+    const previewDiv = document.getElementById('menuImagePreview');
+    const previewImg = document.getElementById('menuImagePreviewImg');
+    const previewText = document.getElementById('menuImagePreviewText');
+
+    if (imageUrl) {
+        previewImg.src = imageUrl;
+        previewDiv.style.display = 'block';
+        previewText.textContent = 'プレビュー';
+    } else {
+        previewDiv.style.display = 'none';
+    }
 }
 
 console.log('admin-simple.js読み込み完了');
