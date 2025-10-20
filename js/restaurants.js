@@ -543,7 +543,7 @@ function closeMenuModal() {
         window.menuChart.destroy();
         window.menuChart = null;
     }
-    if (window.detailedNutritionChart) {
+    if (window.detailedNutritionChart && typeof window.detailedNutritionChart.destroy === 'function') {
         window.detailedNutritionChart.destroy();
         window.detailedNutritionChart = null;
     }
@@ -723,13 +723,14 @@ function createDetailedNutritionChart(menu) {
     }
     const ctx = canvas.getContext('2d');
 
-    if (window.detailedNutritionChart) {
+    if (window.detailedNutritionChart && typeof window.detailedNutritionChart.destroy === 'function') {
         window.detailedNutritionChart.destroy();
     }
 
     const nutrition = menu.nutrition;
 
-    window.detailedNutritionChart = new Chart(ctx, {
+    try {
+        window.detailedNutritionChart = new Chart(ctx, {
         type: 'radar',
         data: {
             labels: ['ビタミンA', 'ビタミンC', 'ビタミンE', 'カルシウム', '鉄', 'マグネシウム', '亜鉛'],
@@ -772,6 +773,10 @@ function createDetailedNutritionChart(menu) {
             }
         }
     });
+    } catch (error) {
+        console.error('Chart作成エラー:', error);
+        window.detailedNutritionChart = null;
+    }
 }
 
 // 日次摂取量比較チャート
@@ -784,7 +789,7 @@ function createDailyValueChart(menu) {
     }
     const ctx = canvas.getContext('2d');
 
-    if (window.dailyValueChart) {
+    if (window.dailyValueChart && typeof window.dailyValueChart.destroy === 'function') {
         window.dailyValueChart.destroy();
     }
 
