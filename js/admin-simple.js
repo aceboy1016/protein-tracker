@@ -810,4 +810,4 @@ function populateRestaurantSelect() {
     });
 }
 
-console.log('admin-simple.js読み込み完了');
+console.log('admin-simple.js読み込み完了 - 最新版 2025-10-20 16:30 - NULL SAFE VERSION');
