@@ -508,8 +508,8 @@ function resetAllData() {
     }
 }
 
-// メニュー管理用のダミー関数
-function editMenu(menuId) {
+// メニュー管理関数（グローバルスコープ）
+window.editMenu = function(menuId) {
     console.log('editMenu呼び出し - menuId:', menuId);
     const menu = menusData.find(m => m.id === menuId);
     console.log('見つかったメニュー:', menu);
@@ -521,9 +521,9 @@ function editMenu(menuId) {
     editingMenuId = menuId;
     console.log('showMenuModal呼び出し開始');
     showMenuModal(menu);
-}
+};
 
-function deleteMenu(menuId) {
+window.deleteMenu = function(menuId) {
     if (!confirm('このメニューを削除しますか？')) return;
 
     const index = menusData.findIndex(m => m.id === menuId);
@@ -536,12 +536,12 @@ function deleteMenu(menuId) {
         updateDisplaysAfterSave();
         alert('メニューを削除しました');
     }
-}
+};
 
-function showAddMenuModal() {
+window.showAddMenuModal = function() {
     editingMenuId = null;
     showMenuModal();
-}
+};
 
 function showMenuModal(menu = null) {
     // フォーム初期化
@@ -607,13 +607,13 @@ function setCheckboxValue(id, value) {
     }
 }
 
-function closeMenuModal() {
+window.closeMenuModal = function() {
     const modal = document.getElementById('menuModal');
     if (modal) {
         modal.style.display = 'none';
     }
     editingMenuId = null;
-}
+};
 
 function saveMenu(event) {
     event.preventDefault();
