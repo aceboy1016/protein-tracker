@@ -889,4 +889,72 @@ function importYoshinoyaMenus() {
 // グローバル関数として登録
 window.importYoshinoyaMenus = importYoshinoyaMenus;
 
+// サブウェイメニュー一括インポート関数
+function importSubwayMenus() {
+    const subwayMenus = [
+        // サンドイッチメニュー
+        {id: 'subway_blt', restaurant_id: 'subway', name: 'BLT', category: 'サンドイッチ', description: 'ベーコン、レタス、トマトの定番サンドイッチ', price: 460, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1553909489-cd47e0ef937f?w=300&h=200&fit=crop', nutrition: {calories: 376, protein: 17.6, carbs: 41.5, fat: 15.6, fiber: 0, sodium: 2200}, allergens: ['卵', '乳', '小麦', '豚肉']},
+        {id: 'subway_shrimp_avocado', restaurant_id: 'subway', name: 'えびアボカド', category: 'サンドイッチ', description: 'プリプリのえびとアボカドの組み合わせ', price: 500, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1553909489-cd47e0ef937f?w=300&h=200&fit=crop', nutrition: {calories: 338, protein: 15.6, carbs: 41.3, fat: 12.3, fiber: 0, sodium: 1800}, allergens: ['えび', '卵', '乳', '小麦']},
+        {id: 'subway_roast_beef', restaurant_id: 'subway', name: 'ローストビーフ', category: 'サンドイッチ', description: 'ジューシーなローストビーフサンドイッチ', price: 520, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1553909489-cd47e0ef937f?w=300&h=200&fit=crop', nutrition: {calories: 316, protein: 19.3, carbs: 40.0, fat: 8.8, fiber: 0, sodium: 1900}, allergens: ['小麦', '牛肉']},
+        {id: 'subway_teriyaki_chicken', restaurant_id: 'subway', name: 'てり焼きチキン', category: 'サンドイッチ', description: '甘辛いてり焼きソースのチキンサンド', price: 480, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1553909489-cd47e0ef937f?w=300&h=200&fit=crop', nutrition: {calories: 352, protein: 22.8, carbs: 45.1, fat: 9.0, fiber: 0, sodium: 2100}, allergens: ['卵', '乳', '小麦', '大豆', '鶏肉', 'りんご']},
+        {id: 'subway_prosciutto_mascarpone', restaurant_id: 'subway', name: '生ハム＆マスカルポーネ', category: 'サンドイッチ', description: '生ハムとマスカルポーネチーズの贅沢サンド', price: 550, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1553909489-cd47e0ef937f?w=300&h=200&fit=crop', nutrition: {calories: 358, protein: 19.0, carbs: 38.9, fat: 14.1, fiber: 0, sodium: 2600}, allergens: ['乳', '小麦', '豚肉']},
+        {id: 'subway_avocado_bacon', restaurant_id: 'subway', name: 'アボカドベーコン', category: 'サンドイッチ', description: 'アボカドとベーコンの最強コンビ', price: 490, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1553909489-cd47e0ef937f?w=300&h=200&fit=crop', nutrition: {calories: 411, protein: 15.7, carbs: 38.6, fat: 21.6, fiber: 0, sodium: 2000}, allergens: ['卵', '乳', '小麦', '豚肉']},
+        {id: 'subway_roast_chicken', restaurant_id: 'subway', name: 'ローストチキン', category: 'サンドイッチ', description: 'シンプルなローストチキンサンド', price: 430, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1553909489-cd47e0ef937f?w=300&h=200&fit=crop', nutrition: {calories: 291, protein: 22.3, carbs: 38.1, fat: 5.5, fiber: 0, sodium: 1600}, allergens: ['小麦', '鶏肉']},
+        {id: 'subway_egg', restaurant_id: 'subway', name: 'たまご', category: 'サンドイッチ', description: 'ふわふわたまごのサンドイッチ', price: 420, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1553909489-cd47e0ef937f?w=300&h=200&fit=crop', nutrition: {calories: 387, protein: 15.2, carbs: 39.7, fat: 18.7, fiber: 0, sodium: 1600}, allergens: ['卵', '乳', '小麦']},
+        {id: 'subway_tuna', restaurant_id: 'subway', name: 'ツナ', category: 'サンドイッチ', description: 'クリーミーなツナサラダサンド', price: 450, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1553909489-cd47e0ef937f?w=300&h=200&fit=crop', nutrition: {calories: 370, protein: 15.5, carbs: 39.8, fat: 16.3, fiber: 0, sodium: 1800}, allergens: ['卵', '小麦', 'さば', '大豆']},
+        {id: 'subway_turkey_breast', restaurant_id: 'subway', name: 'ターキーブレスト', category: 'サンドイッチ', description: 'ヘルシーなターキーブレストサンド', price: 440, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1553909489-cd47e0ef937f?w=300&h=200&fit=crop', nutrition: {calories: 266, protein: 19.4, carbs: 38.1, fat: 4.0, fiber: 0, sodium: 2000}, allergens: ['小麦', '鶏肉']},
+        {id: 'subway_ham', restaurant_id: 'subway', name: 'ハム', category: 'サンドイッチ', description: 'クラシックなハムサンドイッチ', price: 410, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1553909489-cd47e0ef937f?w=300&h=200&fit=crop', nutrition: {calories: 271, protein: 16.6, carbs: 40.7, fat: 4.7, fiber: 0, sodium: 2200}, allergens: ['小麦', '豚肉']},
+        {id: 'subway_salad_chicken', restaurant_id: 'subway', name: 'サラダチキン', category: 'サンドイッチ', description: 'あっさりサラダチキンサンド', price: 440, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1553909489-cd47e0ef937f?w=300&h=200&fit=crop', nutrition: {calories: 267, protein: 22.9, carbs: 34.4, fat: 4.1, fiber: 0, sodium: 2000}, allergens: ['卵', '乳', '小麦', '大豆', '鶏肉']},
+        {id: 'subway_veggie_delight', restaurant_id: 'subway', name: 'ベジーデライト', category: 'サンドイッチ', description: '野菜たっぷりのヘルシーサンド', price: 350, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1553909489-cd47e0ef937f?w=300&h=200&fit=crop', nutrition: {calories: 216, protein: 8.1, carbs: 39.5, fat: 2.8, fiber: 0, sodium: 1400}, allergens: ['小麦']},
+        {id: 'subway_avocado_veggie', restaurant_id: 'subway', name: 'アボカドベジー', category: 'サンドイッチ', description: 'アボカド入りベジタリアンサンド', price: 390, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1553909489-cd47e0ef937f?w=300&h=200&fit=crop', nutrition: {calories: 289, protein: 9.0, carbs: 39.9, fat: 10.1, fiber: 0, sodium: 1400}, allergens: ['小麦']},
+        {id: 'subway_cheese_roast_chicken', restaurant_id: 'subway', name: 'チーズローストチキン', category: 'サンドイッチ', description: 'チーズたっぷりローストチキン', price: 480, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1553909489-cd47e0ef937f?w=300&h=200&fit=crop', nutrition: {calories: 344, protein: 26.5, carbs: 36.6, fat: 10.1, fiber: 0, sodium: 2300}, allergens: ['乳', '小麦', '鶏肉']},
+
+        // サラダメニュー
+        {id: 'subway_blt_salad', restaurant_id: 'subway', name: 'BLT サラダ', category: 'サラダ', description: 'BLTの具材をサラダで楽しむ', price: 360, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&h=200&fit=crop', nutrition: {calories: 185, protein: 13.5, carbs: 3.5, fat: 13.0, fiber: 0, sodium: 1400}, allergens: ['乳', '豚肉']},
+        {id: 'subway_shrimp_avocado_salad', restaurant_id: 'subway', name: 'えびアボカド サラダ', category: 'サラダ', description: 'えびアボカドの具材をサラダで', price: 400, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&h=200&fit=crop', nutrition: {calories: 147, protein: 11.5, carbs: 3.3, fat: 9.7, fiber: 0, sodium: 1000}, allergens: ['えび', '卵']},
+        {id: 'subway_roast_beef_salad', restaurant_id: 'subway', name: 'ローストビーフ サラダ', category: 'サラダ', description: 'ローストビーフの具材をサラダで', price: 420, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&h=200&fit=crop', nutrition: {calories: 125, protein: 15.2, carbs: 2.0, fat: 6.2, fiber: 0, sodium: 1100}, allergens: ['牛肉']},
+        {id: 'subway_teriyaki_chicken_salad', restaurant_id: 'subway', name: 'てり焼きチキン サラダ', category: 'サラダ', description: 'てり焼きチキンの具材をサラダで', price: 380, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&h=200&fit=crop', nutrition: {calories: 123, protein: 18.7, carbs: 3.8, fat: 3.6, fiber: 0, sodium: 1100}, allergens: ['卵', '乳', '小麦', '大豆', '鶏肉', 'りんご']},
+        {id: 'subway_salad_chicken_salad', restaurant_id: 'subway', name: 'サラダチキン サラダ', category: 'サラダ', description: 'サラダチキンの具材をサラダで', price: 340, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&h=200&fit=crop', nutrition: {calories: 76, protein: 14.8, carbs: 0.8, fat: 1.5, fiber: 0, sodium: 1200}, allergens: ['卵', '乳', '小麦', '大豆', '鶏肉']},
+
+        // サイドメニュー
+        {id: 'subway_oven_potato_s', restaurant_id: 'subway', name: 'オーブンポテト (S)', category: 'サイド', description: 'カリッと焼き上げたポテト', price: 200, size: 'S', image: 'https://images.unsplash.com/photo-1518013431117-eb1465fa5752?w=300&h=200&fit=crop', nutrition: {calories: 162, protein: 2.6, carbs: 19.9, fat: 8.0, fiber: 0, sodium: 800}, allergens: ['小麦', '大豆']},
+        {id: 'subway_chicken_nuggets', restaurant_id: 'subway', name: 'チキンナゲット (5個)', category: 'サイド', description: 'サクサクのチキンナゲット', price: 250, size: '5個', image: 'https://images.unsplash.com/photo-1562967914-608f82629710?w=300&h=200&fit=crop', nutrition: {calories: 180, protein: 11.2, carbs: 10.3, fat: 10.4, fiber: 0, sodium: 800}, allergens: ['小麦', '大豆', '鶏肉']},
+        {id: 'subway_cookie_chocolate', restaurant_id: 'subway', name: 'チョコチップクッキー', category: 'デザート', description: 'チョコチップたっぷりのクッキー', price: 150, size: '1枚', image: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=300&h=200&fit=crop', nutrition: {calories: 220, protein: 3, carbs: 30, fat: 10, fiber: 0, sodium: 200}, allergens: ['卵', '乳', '小麦', '大豆']},
+        {id: 'subway_anko_mascarpone', restaurant_id: 'subway', name: 'あんこ＆マスカルポーネ', category: 'デザート', description: 'あんことマスカルポーネの和洋折衷デザート', price: 180, size: '1個', image: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=300&h=200&fit=crop', nutrition: {calories: 198, protein: 4.8, carbs: 31.6, fat: 5.8, fiber: 0, sodium: 500}, allergens: ['乳', '小麦', '大豆']}
+    ];
+
+    console.log('サブウェイメニューインポート開始:', subwayMenus.length, '件');
+
+    // レストランIDの確認とサブウェイレストラン追加（存在しない場合）
+    if (!restaurantsData.find(r => r.id === 'subway')) {
+        const subwayRestaurant = {
+            id: 'subway',
+            name: 'サブウェイ',
+            category: 'サンドイッチ',
+            logo: 'https://images.unsplash.com/photo-1594007644511-f3ed07bd9f10?w=150&h=150&fit=crop',
+            description: '新鮮な野菜とお好みの具材でカスタマイズできるサンドイッチチェーン'
+        };
+        restaurantsData.push(subwayRestaurant);
+        console.log('サブウェイレストラン追加完了');
+    }
+
+    // 既存のサブウェイメニューを削除
+    menusData = menusData.filter(menu => menu.restaurant_id !== 'subway');
+
+    // 新しいサブウェイメニューを追加
+    menusData.push(...subwayMenus);
+
+    // データ保存
+    saveRestaurantDataToStorage();
+
+    // 表示更新
+    updateDisplaysAfterSave();
+
+    alert(`サブウェイメニュー ${subwayMenus.length} 件を正常にインポートしました！`);
+    console.log('サブウェイメニューインポート完了:', subwayMenus.length, '件');
+}
+
+// グローバル関数として登録
+window.importSubwayMenus = importSubwayMenus;
+
 console.log('🎯 ULTRATHINK SUCCESS: admin-simple-v2.js読み込み完了 - NUTRITION FIELD FIXED - menuCalories/menuProtein対応版');
