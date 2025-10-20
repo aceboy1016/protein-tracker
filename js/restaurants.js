@@ -59,7 +59,6 @@ async function loadRestaurantData() {
         populateRestaurantFilter();
         displayMenus();
         updateStatistics();
-        createNutritionChart();
 
     } catch (error) {
         console.error('データの読み込みに失敗しました:', error);
@@ -351,80 +350,6 @@ function updateStatistics() {
     document.getElementById('avgCalories').textContent = `${avgCalories}kcal`;
 }
 
-// 栄養分析チャートの作成
-function createNutritionChart() {
-    const ctx = document.getElementById('nutritionChart').getContext('2d');
-
-    // カテゴリー別平均栄養素
-    const categories = [...new Set(menusData.map(menu => menu.category))];
-    const categoryData = categories.map(category => {
-        const categoryMenus = menusData.filter(menu => menu.category === category);
-        const avgProtein = categoryMenus.reduce((sum, menu) => sum + menu.nutrition.protein, 0) / categoryMenus.length;
-        const avgCarbs = categoryMenus.reduce((sum, menu) => sum + menu.nutrition.carbs, 0) / categoryMenus.length;
-        const avgFat = categoryMenus.reduce((sum, menu) => sum + menu.nutrition.fat, 0) / categoryMenus.length;
-
-        return { category, avgProtein, avgCarbs, avgFat };
-    });
-
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: categories,
-            datasets: [
-                {
-                    label: 'タンパク質 (g)',
-                    data: categoryData.map(item => item.avgProtein.toFixed(1)),
-                    backgroundColor: 'rgba(54, 162, 235, 0.8)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: '炭水化物 (g)',
-                    data: categoryData.map(item => item.avgCarbs.toFixed(1)),
-                    backgroundColor: 'rgba(255, 206, 86, 0.8)',
-                    borderColor: 'rgba(255, 206, 86, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: '脂質 (g)',
-                    data: categoryData.map(item => item.avgFat.toFixed(1)),
-                    backgroundColor: 'rgba(255, 99, 132, 0.8)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: '栄養素量 (g)'
-                    }
-                },
-                x: {
-                    title: {
-                        display: true,
-                        text: 'メニューカテゴリー'
-                    }
-                }
-            },
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'カテゴリー別平均栄養素含有量'
-                },
-                legend: {
-                    display: true,
-                    position: 'top'
-                }
-            }
-        }
-    });
-}
 
 // メニュー詳細モーダルの表示
 function showMenuDetail(menuId) {
@@ -482,85 +407,18 @@ function showMenuDetail(menuId) {
         allergenList.innerHTML = '<span style="color: #666;">アレルギー情報なし</span>';
     }
 
-    // 個別栄養チャートの作成
-    createMenuNutritionChart(menu);
 
     // チャートは後でタイムアウトで作成
 
     // モーダル表示
     document.getElementById('menuModal').style.display = 'block';
 
-    // モーダルが表示された後にチャートを作成（DOMが準備できてから）
-    setTimeout(() => {
-        createDetailedNutritionChart(menu);
-        createDailyValueChart(menu);
-    }, 100);
 }
 
-// 個別メニューの栄養チャート
-function createMenuNutritionChart(menu) {
-    const ctx = document.getElementById('menuNutritionChart').getContext('2d');
-
-    // 既存のチャートがあれば破棄
-    if (window.menuChart) {
-        window.menuChart.destroy();
-    }
-
-    window.menuChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['タンパク質', '炭水化物', '脂質'],
-            datasets: [{
-                data: [
-                    menu.nutrition.protein * 4, // タンパク質のカロリー
-                    menu.nutrition.carbs * 4,   // 炭水化物のカロリー
-                    menu.nutrition.fat * 9      // 脂質のカロリー
-                ],
-                backgroundColor: [
-                    'rgba(54, 162, 235, 0.8)',
-                    'rgba(255, 206, 86, 0.8)',
-                    'rgba(255, 99, 132, 0.8)'
-                ],
-                borderColor: [
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(255, 99, 132, 1)'
-                ],
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'PFCバランス（カロリー比）'
-                },
-                legend: {
-                    display: true,
-                    position: 'bottom'
-                }
-            }
-        }
-    });
-}
 
 // メニュー詳細モーダルを閉じる
 function closeMenuModal() {
     document.getElementById('menuModal').style.display = 'none';
-    if (window.menuChart) {
-        window.menuChart.destroy();
-        window.menuChart = null;
-    }
-    if (window.detailedNutritionChart && typeof window.detailedNutritionChart.destroy === 'function') {
-        window.detailedNutritionChart.destroy();
-        window.detailedNutritionChart = null;
-    }
-    if (window.dailyValueChart) {
-        window.dailyValueChart.destroy();
-        window.dailyValueChart = null;
-    }
 }
 
 // お気に入りに追加
@@ -723,158 +581,7 @@ function calculateDailyValues(menu) {
     safeSetElement('seleniumDV', `${((nutrition.selenium || 0) / 30 * 100).toFixed(1)}%`);
 }
 
-// 詳細栄養チャート（ビタミン・ミネラル）
-function createDetailedNutritionChart(menu) {
-    console.log('Creating detailed nutrition chart for:', menu.name);
-    const canvas = document.getElementById('detailedNutritionChart');
-    if (!canvas) {
-        console.error('detailedNutritionChart canvas not found');
-        return;
-    }
-    const ctx = canvas.getContext('2d');
 
-    if (window.detailedNutritionChart && typeof window.detailedNutritionChart.destroy === 'function') {
-        window.detailedNutritionChart.destroy();
-    }
-
-    const nutrition = menu.nutrition;
-
-    try {
-        window.detailedNutritionChart = new Chart(ctx, {
-        type: 'radar',
-        data: {
-            labels: ['ビタミンA', 'ビタミンC', 'ビタミンE', 'カルシウム', '鉄', 'マグネシウム', '亜鉛'],
-            datasets: [{
-                label: '栄養素含有量（%DV）',
-                data: [
-                    ((nutrition.vitamin_a || 0) / 900 * 100),
-                    ((nutrition.vitamin_c || 0) / 100 * 100),
-                    ((nutrition.vitamin_e || 0) / 6.5 * 100),
-                    ((nutrition.calcium || 0) / 750 * 100),
-                    ((nutrition.iron || 0) / 7.5 * 100),
-                    ((nutrition.magnesium || 0) / 370 * 100),
-                    ((nutrition.zinc || 0) / 11 * 100)
-                ],
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                r: {
-                    beginAtZero: true,
-                    max: 100,
-                    ticks: {
-                        stepSize: 20,
-                        callback: function(value) {
-                            return value + '%';
-                        }
-                    }
-                }
-            },
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'ビタミン・ミネラル含有量（日次摂取基準比）'
-                }
-            }
-        }
-    });
-    } catch (error) {
-        console.error('Chart作成エラー:', error);
-        window.detailedNutritionChart = null;
-    }
-}
-
-// 日次摂取量比較チャート
-function createDailyValueChart(menu) {
-    console.log('Creating daily value chart for:', menu.name);
-    const canvas = document.getElementById('dailyValueChart');
-    if (!canvas) {
-        console.error('dailyValueChart canvas not found');
-        return;
-    }
-    const ctx = canvas.getContext('2d');
-
-    if (window.dailyValueChart && typeof window.dailyValueChart.destroy === 'function') {
-        window.dailyValueChart.destroy();
-    }
-
-    const nutrition = menu.nutrition;
-
-    // 主要栄養素の日次摂取量パーセンテージ
-    const dailyPercentages = [
-        (nutrition.calories / 2650 * 100),
-        (nutrition.protein / 65 * 100),
-        (nutrition.fat / 74 * 100),
-        (nutrition.carbs / 396 * 100),
-        ((nutrition.fiber || 0) / 21 * 100),
-        ((nutrition.sodium || 0) / 2700 * 100)
-    ];
-
-    window.dailyValueChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['カロリー', 'タンパク質', '脂質', '炭水化物', '食物繊維', 'ナトリウム'],
-            datasets: [{
-                label: '日次摂取基準に対する割合（%）',
-                data: dailyPercentages,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.8)',
-                    'rgba(54, 162, 235, 0.8)',
-                    'rgba(255, 206, 86, 0.8)',
-                    'rgba(75, 192, 192, 0.8)',
-                    'rgba(153, 102, 255, 0.8)',
-                    'rgba(255, 159, 64, 0.8)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    max: 100,
-                    ticks: {
-                        callback: function(value) {
-                            return value + '%';
-                        }
-                    },
-                    title: {
-                        display: true,
-                        text: '日次摂取基準に対する割合（%）'
-                    }
-                }
-            },
-            plugins: {
-                title: {
-                    display: true,
-                    text: '主要栄養素の日次摂取基準比較'
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            return context.parsed.y.toFixed(1) + '%';
-                        }
-                    }
-                }
-            }
-        }
-    });
-}
 
 // モーダルのクリックイベント（外側クリックで閉じる）
 document.addEventListener('click', function(e) {

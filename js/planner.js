@@ -12,7 +12,6 @@ class MealPlanner {
             lunch: [],
             dinner: []
         };
-        this.charts = {};
         this.init();
     }
 
@@ -21,7 +20,6 @@ class MealPlanner {
         this.setupEventListeners();
         this.populateFoodSelectors();
         this.initTemplates();
-        this.initCharts();
         // チャート初期化後に表示を更新
         setTimeout(() => {
             this.updateDisplay();
@@ -203,7 +201,6 @@ class MealPlanner {
     updateDisplay() {
         this.updateSummary();
         this.updateMealCards();
-        this.updateCharts();
     }
 
     updateSummary() {
@@ -273,104 +270,9 @@ class MealPlanner {
         document.getElementById(mealType + 'Amount').textContent = `${mealProtein.toFixed(1)}g / ${target}g`;
     }
 
-    initCharts() {
-        try {
-            this.initMealChart();
-            this.initProgressChart();
-            console.log('Charts initialized successfully');
-        } catch (error) {
-            console.error('Error initializing charts:', error);
-        }
-    }
 
-    initMealChart() {
-        const canvas = document.getElementById('mealChart');
-        if (!canvas) {
-            console.warn('Meal chart canvas not found');
-            return;
-        }
 
-        const ctx = canvas.getContext('2d');
-        this.charts.meal = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ['朝食', '昼食', '夕食'],
-                datasets: [{
-                    data: [0, 0, 0],
-                    backgroundColor: ['#fef3c7', '#fed7aa', '#fde68a']
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom'
-                    }
-                }
-            }
-        });
-    }
 
-    initProgressChart() {
-        const canvas = document.getElementById('progressChart');
-        if (!canvas) {
-            console.warn('Progress chart canvas not found');
-            return;
-        }
-
-        const ctx = canvas.getContext('2d');
-        this.charts.progress = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: ['達成済み', '残り'],
-                datasets: [{
-                    data: [0, 100],
-                    backgroundColor: ['#4ade80', '#e5e7eb']
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom'
-                    }
-                }
-            }
-        });
-    }
-
-    updateCharts() {
-        // チャートが初期化されているかチェック
-        if (!this.charts.meal || !this.charts.progress) {
-            console.log('Charts not initialized yet, skipping update');
-            return;
-        }
-
-        try {
-            // 食事別チャートの更新
-            const mealData = [
-                this.calculateMealProtein('breakfast'),
-                this.calculateMealProtein('lunch'),
-                this.calculateMealProtein('dinner')
-            ];
-            if (this.charts.meal.data && this.charts.meal.data.datasets[0]) {
-                this.charts.meal.data.datasets[0].data = mealData;
-                this.charts.meal.update();
-            }
-
-            // 達成度チャートの更新
-            const total = this.calculateTotalProtein();
-            const achievement = Math.min(100, (total / this.currentTarget) * 100);
-            if (this.charts.progress.data && this.charts.progress.data.datasets[0]) {
-                this.charts.progress.data.datasets[0].data = [achievement, 100 - achievement];
-                this.charts.progress.update();
-            }
-        } catch (error) {
-            console.error('Error updating charts:', error);
-        }
-    }
 
     resetPlan() {
         if (confirm('プランをリセットしますか？')) {

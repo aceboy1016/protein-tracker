@@ -1209,37 +1209,6 @@ footer {
   padding: 1.5rem;
 }
 
-.chart-legend {
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-size: 0.875rem;
-}
-
-.legend-color {
-  width: 1rem;
-  height: 1rem;
-  border-radius: 0.25rem;
-}
-
-.legend-color.protein {
-  background: rgba(59, 130, 246, 0.8);
-}
-
-.legend-color.carbs {
-  background: rgba(16, 185, 129, 0.8);
-}
-
-.legend-color.fat {
-  background: rgba(245, 158, 11, 0.8);
-}
 
 /* 通知スタイル */
 .notification {

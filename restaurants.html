@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -528,13 +527,6 @@
             </div>
         </section>
 
-        <!-- 栄養分析セクション -->
-        <section class="card">
-            <h2>栄養分析</h2>
-            <div style="text-align: center;">
-                <canvas id="nutritionChart"></canvas>
-            </div>
-        </section>
 
         <!-- お気に入り機能 -->
         <section class="card favorites-section" style="display: none;">
@@ -734,17 +726,7 @@
                                 </div>
                             </div>
 
-                            <!-- 栄養成分バランスチャート -->
-                            <div class="nutrition-balance-chart">
-                                <h6>栄養バランス分析</h6>
-                                <canvas id="detailedNutritionChart" width="400" height="300"></canvas>
-                            </div>
 
-                            <!-- 1日の推奨摂取量との比較 -->
-                            <div class="daily-values-comparison">
-                                <h6>1日の推奨摂取量との比較</h6>
-                                <canvas id="dailyValueChart" width="400" height="300"></canvas>
-                            </div>
                         </div>
 
                         <div class="dietary-info">
@@ -761,9 +743,6 @@
                             </div>
                         </div>
 
-                        <div class="chart-section">
-                            <canvas id="menuNutritionChart" width="300" height="200"></canvas>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -781,7 +760,7 @@
         <p>&copy; 2024 プロテイン管理ツール - チェーン店栄養情報は各店舗公式サイトに基づいています</p>
     </footer>
 
-    <script src="js/restaurant-data-embedded.js"></script>
-    <script src="js/restaurants.js"></script>
+    <script src="js/restaurant-data-embedded.js?v=1020-1748"></script>
+    <script src="js/restaurants.js?v=1020-1748"></script>
 </body>
 </html>

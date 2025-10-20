@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -170,7 +169,7 @@
             </section>
         </div>
 
-        <!-- Summary and Chart -->
+        <!-- Summary -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <!-- Daily Summary -->
             <section class="bg-white rounded-lg shadow-sm p-6">
@@ -197,12 +196,9 @@
                 </div>
             </section>
 
-            <!-- Nutrition Chart -->
+            <!-- Nutrition Summary -->
             <section class="bg-white rounded-lg shadow-sm p-6">
                 <h3 class="text-lg font-bold mb-4">栄養バランス</h3>
-                <div class="h-64">
-                    <canvas id="nutritionChart"></canvas>
-                </div>
                 <div class="grid grid-cols-3 gap-4 mt-4 text-center">
                     <div>
                         <p class="text-2xl">🌅</p>
@@ -266,11 +262,8 @@
             dinner: []
         };
 
-        // Initialize chart
-        let nutritionChart;
 
         document.addEventListener('DOMContentLoaded', function() {
-            initChart();
             setupEventListeners();
         });
 
@@ -407,42 +400,9 @@
                 document.getElementById('dinnerPercent').textContent = Math.round((dinnerTotal / dailyTotal) * 100) + '%';
             }
 
-            // Update chart
-            updateChart(breakfastTotal, lunchTotal, dinnerTotal);
         }
 
-        function initChart() {
-            const ctx = document.getElementById('nutritionChart').getContext('2d');
-            nutritionChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['朝食', '昼食', '夕食'],
-                    datasets: [{
-                        data: [0, 0, 0],
-                        backgroundColor: [
-                            '#FCD34D',
-                            '#60A5FA',
-                            '#A78BFA'
-                        ],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    }
-                }
-            });
-        }
 
-        function updateChart(breakfast, lunch, dinner) {
-            nutritionChart.data.datasets[0].data = [breakfast, lunch, dinner];
-            nutritionChart.update();
-        }
 
         // Initialize with default values
         calculateTarget();

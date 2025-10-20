@@ -7,7 +7,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -296,12 +295,6 @@
         .tag-orange { background: rgba(255, 183, 77, 0.3); color: #e65100; }
         .tag-yellow { background: rgba(255, 213, 79, 0.3); color: #f57f17; }
 
-        /* チャートコンテナ */
-        .chart-container {
-            height: 400px;
-            position: relative;
-            margin: 2rem 0;
-        }
 
         /* フッター */
         .footer {
@@ -403,14 +396,6 @@
             </div>
         </div>
 
-        <!-- グラフセクション -->
-        <div class="card">
-            <h2>月間摂取量推移</h2>
-            <p class="subtitle">タンパク質摂取量の変動（10月）</p>
-            <div class="chart-container">
-                <canvas id="monthlyChart"></canvas>
-            </div>
-        </div>
 
         <!-- 今日の記録テーブル -->
         <div class="card">
@@ -470,14 +455,6 @@
             </table>
         </div>
 
-        <!-- PFCバランス -->
-        <div class="card">
-            <h2>PFCバランス（カロリー）</h2>
-            <p class="subtitle">本日の栄養バランス</p>
-            <div class="chart-container" style="height: 300px;">
-                <canvas id="pfcChart"></canvas>
-            </div>
-        </div>
 
         <!-- アクションボタン -->
         <div class="card">
@@ -497,89 +474,5 @@
         <p>© 2024 プロテイン管理ツール - チェーン店栄養情報は各店舗公式サイトに基づいています</p>
     </footer>
 
-    <script>
-        // 月間推移グラフ（淡い色調）
-        const ctx1 = document.getElementById('monthlyChart').getContext('2d');
-        new Chart(ctx1, {
-            type: 'line',
-            data: {
-                labels: ['10/1', '10/5', '10/10', '10/15', '10/19'],
-                datasets: [{
-                    label: 'タンパク質摂取量',
-                    data: [45.2, 52.1, 48.7, 55.8, 42.5],
-                    borderColor: '#64b5f6',
-                    backgroundColor: 'rgba(100, 181, 246, 0.1)',
-                    borderWidth: 3,
-                    tension: 0.4,
-                    pointBackgroundColor: '#64b5f6',
-                    pointBorderColor: '#ffffff',
-                    pointBorderWidth: 2,
-                    pointRadius: 6
-                }, {
-                    label: '目標ライン',
-                    data: [60, 60, 60, 60, 60],
-                    borderColor: '#f8bbd9',
-                    borderDash: [8, 4],
-                    borderWidth: 2,
-                    pointRadius: 0
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'top'
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: {
-                            color: 'rgba(240, 240, 240, 0.5)'
-                        }
-                    },
-                    x: {
-                        grid: {
-                            color: 'rgba(240, 240, 240, 0.5)'
-                        }
-                    }
-                }
-            }
-        });
-
-        // PFCバランス（淡いパステルカラー）
-        const ctx2 = document.getElementById('pfcChart').getContext('2d');
-        new Chart(ctx2, {
-            type: 'doughnut',
-            data: {
-                labels: ['タンパク質', '炭水化物', '脂質'],
-                datasets: [{
-                    data: [30, 45, 25],
-                    backgroundColor: [
-                        '#81d4fa',  // 淡いブルー
-                        '#ffb74d',  // 淡いオレンジ
-                        '#f8bbd9'   // 淡いピンク
-                    ],
-                    borderWidth: 0,
-                    cutout: '60%'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            padding: 20,
-                            usePointStyle: true
-                        }
-                    }
-                }
-            }
-        });
-    </script>
 </body>
 </html>

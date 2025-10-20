@@ -314,9 +314,6 @@ function showFoodDetail(foodId) {
                         <button class="btn-primary" onclick="addToPlanner('${food.id}')">
                             📊 プランナーに追加
                         </button>
-                        <button class="btn-secondary" onclick="showNutritionChart('${food.id}')">
-                            📈 栄養チャート
-                        </button>
                     </div>
                 </div>
             </div>
@@ -372,85 +369,7 @@ function addToPlanner(foodId) {
     }
 }
 
-// 栄養チャート表示
-function showNutritionChart(foodId) {
-    const food = recommendedFoods.find(f => f.id === foodId);
-    if (!food) return;
 
-    // モーダルを作成
-    const modal = document.createElement('div');
-    modal.className = 'nutrition-modal';
-    modal.innerHTML = `
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>${food.emoji} ${food.name} の栄養チャート</h3>
-                <button class="close-btn" onclick="closeModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <canvas id="nutritionChart" width="400" height="400"></canvas>
-                <div class="chart-legend">
-                    <div class="legend-item">
-                        <span class="legend-color protein"></span>
-                        <span>タンパク質: ${food.protein_per_100g}g</span>
-                    </div>
-                    <div class="legend-item">
-                        <span class="legend-color carbs"></span>
-                        <span>炭水化物: ${food.carbs_per_100g}g</span>
-                    </div>
-                    <div class="legend-item">
-                        <span class="legend-color fat"></span>
-                        <span>脂質: ${food.fat_per_100g}g</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-
-    document.body.appendChild(modal);
-
-    // チャートを描画
-    const ctx = document.getElementById('nutritionChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['タンパク質', '炭水化物', '脂質'],
-            datasets: [{
-                data: [
-                    food.protein_per_100g * 4, // タンパク質のカロリー
-                    food.carbs_per_100g * 4,   // 炭水化物のカロリー
-                    food.fat_per_100g * 9      // 脂質のカロリー
-                ],
-                backgroundColor: [
-                    'rgba(59, 130, 246, 0.8)',  // タンパク質 - 青
-                    'rgba(16, 185, 129, 0.8)',  // 炭水化物 - 緑
-                    'rgba(245, 158, 11, 0.8)'   // 脂質 - 黄
-                ],
-                borderWidth: 2,
-                borderColor: '#fff'
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: false
-                },
-                title: {
-                    display: true,
-                    text: 'カロリー構成比 (100gあたり)'
-                }
-            }
-        }
-    });
-}
-
-// モーダルを閉じる
-function closeModal() {
-    const modal = document.querySelector('.nutrition-modal');
-    if (modal) {
-        modal.remove();
-    }
-}
 
 // 通知表示
 function showNotification(message, type = 'info') {
