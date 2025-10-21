@@ -160,11 +160,28 @@ class AutoUpdateSystem {
                 menus: [
                     {
                         id: 'subway_protein_wrap_new',
+                        restaurant_id: 'subway',
                         name: 'プロテインラップ',
                         description: 'ターキー&チキンの高タンパクラップ',
                         category: 'ラップ',
                         price: 580,
-                        nutrition: { calories: 320, protein: 25, carbs: 28, fat: 12, fiber: 4, sodium: 980 },
+                        size: 'レギュラー',
+                        nutrition: {
+                            calories: 320, protein: 25, carbs: 28, fat: 12, fiber: 4, sodium: 980,
+                            sugar: 5.2, saturated_fat: 3.5, trans_fat: 0.0, cholesterol: 65,
+                            calcium: 95, iron: 2.5, potassium: 420, vitamin_a: 480, vitamin_c: 12,
+                            vitamin_d: 2.0, vitamin_e: 4.2, vitamin_k: 15, thiamin: 0.18,
+                            riboflavin: 0.25, niacin: 9.5, vitamin_b6: 0.55, folate: 38,
+                            vitamin_b12: 2.2, phosphorus: 195, magnesium: 52, zinc: 2.5, selenium: 22
+                        },
+                        allergens: ['小麦', '乳', '大豆', '鶏肉'],
+                        is_vegetarian: false,
+                        is_vegan: false,
+                        is_gluten_free: false,
+                        available: true,
+                        seasonal: false,
+                        added_date: '2024-12-01',
+                        last_updated: '2024-12-01',
                         image: 'https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=300&h=200&fit=crop',
                         is_new: true
                     }
