@@ -957,4 +957,137 @@ function importSubwayMenus() {
 // グローバル関数として登録
 window.importSubwayMenus = importSubwayMenus;
 
+// 大戸屋メニュー一括インポート関数
+function importOotoyaMenus() {
+    const ootoyaMenus = [
+        // コラボメニュー
+        {id: 'ootoya_karasuno_power', restaurant_id: 'ootoya', name: '【第1弾】烏野高校：飛ぶ準備は、ここから！「瞬発力ブースト飯」', category: 'コラボ定食', description: 'ハイキュー!!コラボメニュー：瞬発力をサポートする高エネルギー定食', price: 1480, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?w=300&h=200&fit=crop', nutrition: {calories: 1209, protein: 54.4, carbs: 118.5, fat: 51.1, fiber: 7.9, sodium: 7100, sugar: 15.0, saturated_fat: 15.2, trans_fat: 0.0, cholesterol: 145, calcium: 180, iron: 4.8, potassium: 920, vitamin_a: 850, vitamin_c: 25, vitamin_d: 3.5, vitamin_e: 8.2, vitamin_k: 18, thiamin: 0.28, riboflavin: 0.42, niacin: 15.8, vitamin_b6: 0.85, folate: 68, vitamin_b12: 3.2, phosphorus: 385, magnesium: 95, zinc: 4.8, selenium: 35}, allergens: ['小麦', '卵', '乳', '大豆', '鶏肉'], is_vegetarian: false, is_vegan: false, is_gluten_free: false, available: true, seasonal: true, added_date: '2024-10-01', last_updated: '2024-12-01'},
+
+        {id: 'ootoya_aoba_balance', restaurant_id: 'ootoya', name: '【第1弾】青葉城西高校：絶妙コンビネーションで奏でる「相乗効果バランス飯」', category: 'コラボ定食', description: 'ハイキュー!!コラボメニュー：栄養バランスを重視した定食', price: 1480, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?w=300&h=200&fit=crop', nutrition: {calories: 1195, protein: 35.3, carbs: 131.6, fat: 53.5, fiber: 15.4, sodium: 6300, sugar: 18.2, saturated_fat: 16.8, trans_fat: 0.0, cholesterol: 95, calcium: 220, iron: 5.2, potassium: 1150, vitamin_a: 1200, vitamin_c: 45, vitamin_d: 2.8, vitamin_e: 12.5, vitamin_k: 35, thiamin: 0.32, riboflavin: 0.38, niacin: 12.2, vitamin_b6: 0.95, folate: 85, vitamin_b12: 2.8, phosphorus: 420, magnesium: 125, zinc: 3.8, selenium: 28}, allergens: ['小麦', '卵', '乳', '大豆'], is_vegetarian: false, is_vegan: false, is_gluten_free: false, available: true, seasonal: true, added_date: '2024-10-01', last_updated: '2024-12-01'},
+
+        {id: 'ootoya_shiratorizawa_power', restaurant_id: 'ootoya', name: '【第1弾】白鳥沢学園高校：シンプルな強さは、積み重ね「パワーチャージ飯」', category: 'コラボ定食', description: 'ハイキュー!!コラボメニュー：シンプルで力強い定食', price: 1480, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?w=300&h=200&fit=crop', nutrition: {calories: 1100, protein: 46.1, carbs: 99.5, fat: 31.1, fiber: 3.3, sodium: 4400, sugar: 12.8, saturated_fat: 9.5, trans_fat: 0.0, cholesterol: 125, calcium: 150, iron: 4.2, potassium: 850, vitamin_a: 680, vitamin_c: 18, vitamin_d: 3.2, vitamin_e: 6.8, vitamin_k: 12, thiamin: 0.25, riboflavin: 0.35, niacin: 14.5, vitamin_b6: 0.78, folate: 52, vitamin_b12: 3.8, phosphorus: 345, magnesium: 85, zinc: 4.2, selenium: 32}, allergens: ['小麦', '卵', '大豆', '鶏肉'], is_vegetarian: false, is_vegan: false, is_gluten_free: false, available: true, seasonal: true, added_date: '2024-10-01', last_updated: '2024-12-01'},
+
+        // メイン定食
+        {id: 'ootoya_sanma_charcoal', restaurant_id: 'ootoya', name: '生さんまの炭火焼き', category: '定食', description: '脂ののった生さんまを炭火でじっくり焼き上げた定食', price: 1380, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1544943910-4c1dc44aab44?w=300&h=200&fit=crop', nutrition: {calories: 990, protein: 43.2, carbs: 77.0, fat: 51.0, fiber: 4.2, sodium: 6400, sugar: 8.5, saturated_fat: 12.8, trans_fat: 0.0, cholesterol: 85, calcium: 125, iron: 3.8, potassium: 680, vitamin_a: 450, vitamin_c: 12, vitamin_d: 15.5, vitamin_e: 8.5, vitamin_k: 8, thiamin: 0.18, riboflavin: 0.28, niacin: 12.8, vitamin_b6: 0.65, folate: 42, vitamin_b12: 8.5, phosphorus: 285, magnesium: 75, zinc: 2.8, selenium: 45}, allergens: ['魚'], is_vegetarian: false, is_vegan: false, is_gluten_free: true, available: true, seasonal: true, added_date: '2024-09-01', last_updated: '2024-12-01'},
+
+        {id: 'ootoya_oyster_ankake', restaurant_id: 'ootoya', name: '牡蠣の酸辣あんかけ焼きそば', category: '麺類', description: '大粒の牡蠣と野菜を酸辣あんで仕上げた焼きそば', price: 1280, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1582867776454-2a8b2cbd4ab0?w=300&h=200&fit=crop', nutrition: {calories: 950, protein: 26.8, carbs: 105.1, fat: 42.8, fiber: 7.5, sodium: 12000, sugar: 12.5, saturated_fat: 8.5, trans_fat: 0.0, cholesterol: 95, calcium: 185, iron: 12.5, potassium: 850, vitamin_a: 680, vitamin_c: 28, vitamin_d: 2.8, vitamin_e: 6.5, vitamin_k: 18, thiamin: 0.22, riboflavin: 0.28, niacin: 8.5, vitamin_b6: 0.45, folate: 85, vitamin_b12: 18.5, phosphorus: 285, magnesium: 125, zinc: 8.5, selenium: 42}, allergens: ['小麦', '卵', '魚介'], is_vegetarian: false, is_vegan: false, is_gluten_free: false, available: true, seasonal: false, added_date: '2024-11-01', last_updated: '2024-12-01'},
+
+        {id: 'ootoya_chicken_oyako', restaurant_id: 'ootoya', name: '炭火焼き鶏の親子重', category: '重', description: '炭火で香ばしく焼いた鶏肉の親子重', price: 1180, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1604413191989-cb001e3c30d8?w=300&h=200&fit=crop', nutrition: {calories: 967, protein: 50.3, carbs: 104.9, fat: 37.8, fiber: 4.9, sodium: 7200, sugar: 15.2, saturated_fat: 11.5, trans_fat: 0.0, cholesterol: 385, calcium: 95, iron: 4.2, potassium: 520, vitamin_a: 820, vitamin_c: 8, vitamin_d: 2.8, vitamin_e: 4.5, vitamin_k: 12, thiamin: 0.28, riboflavin: 0.52, niacin: 18.5, vitamin_b6: 0.85, folate: 68, vitamin_b12: 2.8, phosphorus: 385, magnesium: 68, zinc: 3.8, selenium: 35}, allergens: ['卵', '小麦', '大豆', '鶏肉'], is_vegetarian: false, is_vegan: false, is_gluten_free: false, available: true, seasonal: false, added_date: '2024-01-01', last_updated: '2024-12-01'},
+
+        {id: 'ootoya_pork_miso_stir_fry', restaurant_id: 'ootoya', name: '豚と野菜の味噌炒め', category: '定食', description: '豚肉と季節野菜を特製味噌ダレで炒めた定食', price: 1080, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=300&h=200&fit=crop', nutrition: {calories: 887, protein: 44.8, carbs: 74.0, fat: 40.6, fiber: 7.4, sodium: 5800, sugar: 9.5, saturated_fat: 12.5, trans_fat: 0.0, cholesterol: 125, calcium: 125, iron: 3.8, potassium: 890, vitamin_a: 950, vitamin_c: 42, vitamin_d: 1.5, vitamin_e: 5.8, vitamin_k: 28, thiamin: 0.85, riboflavin: 0.28, niacin: 12.5, vitamin_b6: 0.68, folate: 85, vitamin_b12: 2.2, phosphorus: 285, magnesium: 95, zinc: 3.5, selenium: 28}, allergens: ['小麦', '大豆', '豚肉'], is_vegetarian: false, is_vegan: false, is_gluten_free: false, available: true, seasonal: false, added_date: '2024-01-01', last_updated: '2024-12-01'},
+
+        {id: 'ootoya_chicken_kaasan', restaurant_id: 'ootoya', name: 'チキンかあさん煮定食', category: '定食', description: '鶏肉を優しい味付けで煮込んだ家庭的な定食', price: 980, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1604413191989-cb001e3c30d8?w=300&h=200&fit=crop', nutrition: {calories: 831, protein: 54.5, carbs: 89.4, fat: 27.4, fiber: 5.5, sodium: 5400, sugar: 12.8, saturated_fat: 8.5, trans_fat: 0.0, cholesterol: 145, calcium: 95, iron: 3.2, potassium: 680, vitamin_a: 580, vitamin_c: 18, vitamin_d: 1.8, vitamin_e: 4.2, vitamin_k: 15, thiamin: 0.22, riboflavin: 0.35, niacin: 16.8, vitamin_b6: 0.75, folate: 52, vitamin_b12: 2.5, phosphorus: 345, magnesium: 78, zinc: 3.2, selenium: 32}, allergens: ['小麦', '大豆', '鶏肉'], is_vegetarian: false, is_vegan: false, is_gluten_free: false, available: true, seasonal: false, added_date: '2024-01-01', last_updated: '2024-12-01'},
+
+        // 魚メニュー
+        {id: 'ootoya_saba_miso', restaurant_id: 'ootoya', name: 'さばの味噌煮定食', category: '定食', description: '脂ののったさばを特製味噌で煮込んだ定食', price: 1180, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1544943910-4c1dc44aab44?w=300&h=200&fit=crop', nutrition: {calories: 957, protein: 46.0, carbs: 89.6, fat: 46.8, fiber: 5.4, sodium: 5400, sugar: 15.2, saturated_fat: 12.8, trans_fat: 0.0, cholesterol: 95, calcium: 185, iron: 3.8, potassium: 680, vitamin_a: 450, vitamin_c: 12, vitamin_d: 8.5, vitamin_e: 5.8, vitamin_k: 8, thiamin: 0.18, riboflavin: 0.35, niacin: 12.5, vitamin_b6: 0.55, folate: 42, vitamin_b12: 12.5, phosphorus: 285, magnesium: 85, zinc: 2.8, selenium: 45}, allergens: ['魚', '大豆'], is_vegetarian: false, is_vegan: false, is_gluten_free: true, available: true, seasonal: false, added_date: '2024-01-01', last_updated: '2024-12-01'},
+
+        // 丼・重
+        {id: 'ootoya_tofu_tororo_don', restaurant_id: 'ootoya', name: '手造り豆腐のトロロ丼', category: '丼', description: '手作り豆腐とトロロの優しい丼', price: 780, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?w=300&h=200&fit=crop', nutrition: {calories: 618, protein: 29.3, carbs: 86.4, fat: 16.5, fiber: 6.4, sodium: 3900, sugar: 8.5, saturated_fat: 2.8, trans_fat: 0.0, cholesterol: 0, calcium: 285, iron: 4.2, potassium: 680, vitamin_a: 125, vitamin_c: 8, vitamin_d: 0, vitamin_e: 8.5, vitamin_k: 45, thiamin: 0.18, riboflavin: 0.22, niacin: 2.8, vitamin_b6: 0.28, folate: 95, vitamin_b12: 0.0, phosphorus: 285, magnesium: 125, zinc: 2.8, selenium: 12}, allergens: ['大豆'], is_vegetarian: true, is_vegan: true, is_gluten_free: true, available: true, seasonal: false, added_date: '2024-01-01', last_updated: '2024-12-01'},
+
+        {id: 'ootoya_bakudan_don', restaurant_id: 'ootoya', name: 'ばくだん丼', category: '丼', description: 'まぐろ、納豆、オクラなどの具材を盛り込んだ丼', price: 880, size: 'レギュラー', image: 'https://images.unsplash.com/photo-1553621042-f6e147245754?w=300&h=200&fit=crop', nutrition: {calories: 602, protein: 35.4, carbs: 70.8, fat: 18.7, fiber: 6.5, sodium: 3800, sugar: 6.8, saturated_fat: 4.2, trans_fat: 0.0, cholesterol: 45, calcium: 125, iron: 4.8, potassium: 750, vitamin_a: 580, vitamin_c: 15, vitamin_d: 8.5, vitamin_e: 6.5, vitamin_k: 85, thiamin: 0.18, riboflavin: 0.28, niacin: 8.5, vitamin_b6: 0.45, folate: 125, vitamin_b12: 8.5, phosphorus: 285, magnesium: 85, zinc: 2.8, selenium: 35}, allergens: ['魚', '大豆', '卵'], is_vegetarian: false, is_vegan: false, is_gluten_free: true, available: true, seasonal: false, added_date: '2024-01-01', last_updated: '2024-12-01'}
+    ];
+
+    console.log('大戸屋メニューインポート開始:', ootoyaMenus.length, '件');
+
+    // レストランIDの確認と大戸屋レストラン追加（存在しない場合）
+    if (!restaurantsData.find(r => r.id === 'ootoya')) {
+        const ootoyaRestaurant = {
+            id: 'ootoya',
+            name: '大戸屋',
+            category: '定食・丼',
+            logo: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?w=150&h=150&fit=crop',
+            description: '和風の定食と丼を中心とした、栄養バランスの取れた食事を提供するレストランチェーン'
+        };
+        restaurantsData.push(ootoyaRestaurant);
+        console.log('大戸屋レストラン追加完了');
+    }
+
+    // 既存の大戸屋メニューを削除
+    menusData = menusData.filter(menu => menu.restaurant_id !== 'ootoya');
+
+    // 新しい大戸屋メニューを追加
+    menusData.push(...ootoyaMenus);
+
+    // データ保存
+    saveRestaurantDataToStorage();
+
+    // 表示更新
+    updateDisplaysAfterSave();
+
+    alert(`大戸屋メニュー ${ootoyaMenus.length} 件を正常にインポートしました！`);
+    console.log('大戸屋メニューインポート完了:', ootoyaMenus.length, '件');
+}
+
+// グローバル関数として登録
+window.importOotoyaMenus = importOotoyaMenus;
+
+// やよい軒メニュー一括インポート関数
+function importYayoikenMenus() {
+    const yayoikenMenus = [
+        // 肉系メイン定食
+        {id: 'yayoiken_ginger_pork', restaurant_id: 'yayoiken', name: 'しょうが焼定食', category: '定食', description: '豚の生姜焼きをメインとした定番定食', price: 690, size: 'レギュラー', image: 'https://www.yayoiken.com/files/menu_img/sp_533s.jpg', nutrition: {calories: 746, protein: 24.7, carbs: 72.6, fat: 28.5, fiber: 4.8, sodium: 4300, sugar: 8.5, saturated_fat: 9.2, trans_fat: 0.0, cholesterol: 85, calcium: 95, iron: 2.8, potassium: 680, vitamin_a: 420, vitamin_c: 15, vitamin_d: 1.5, vitamin_e: 4.2, vitamin_k: 12, thiamin: 0.85, riboflavin: 0.25, niacin: 8.5, vitamin_b6: 0.45, folate: 42, vitamin_b12: 2.2, phosphorus: 285, magnesium: 68, zinc: 3.2, selenium: 25}, allergens: ['小麦', '大豆', '豚肉'], is_vegetarian: false, is_vegan: false, is_gluten_free: false, available: true, seasonal: false, added_date: '2024-01-01', last_updated: '2024-12-01'},
+
+        {id: 'yayoiken_meat_veggie_stir_fry', restaurant_id: 'yayoiken', name: '肉野菜炒め定食', category: '定食', description: '豚肉と野菜たっぷりの炒め物定食', price: 630, size: 'レギュラー', image: 'https://www.yayoiken.com/files/menu_img/sp_534s.jpg', nutrition: {calories: 574, protein: 24.7, carbs: 70.7, fat: 17.5, fiber: 6.8, sodium: 5000, sugar: 12.5, saturated_fat: 5.2, trans_fat: 0.0, cholesterol: 65, calcium: 125, iron: 3.2, potassium: 850, vitamin_a: 950, vitamin_c: 45, vitamin_d: 1.2, vitamin_e: 6.5, vitamin_k: 35, thiamin: 0.65, riboflavin: 0.28, niacin: 8.2, vitamin_b6: 0.55, folate: 85, vitamin_b12: 1.8, phosphorus: 285, magnesium: 85, zinc: 2.8, selenium: 22}, allergens: ['小麦', '大豆', '豚肉'], is_vegetarian: false, is_vegan: false, is_gluten_free: false, available: true, seasonal: false, added_date: '2024-01-01', last_updated: '2024-12-01'},
+
+        {id: 'yayoiken_chicken_nanban', restaurant_id: 'yayoiken', name: 'チキン南蛮定食', category: '定食', description: 'タルタルソースたっぷりのチキン南蛮定食', price: 790, size: 'レギュラー', image: 'https://www.yayoiken.com/files/menu_img/sp_535s.jpg', nutrition: {calories: 1067, protein: 31.4, carbs: 104.0, fat: 55.6, fiber: 5.2, sodium: 5700, sugar: 15.8, saturated_fat: 14.2, trans_fat: 0.0, cholesterol: 185, calcium: 125, iron: 3.5, potassium: 580, vitamin_a: 680, vitamin_c: 12, vitamin_d: 2.8, vitamin_e: 8.5, vitamin_k: 15, thiamin: 0.22, riboflavin: 0.42, niacin: 15.8, vitamin_b6: 0.68, folate: 58, vitamin_b12: 2.8, phosphorus: 345, magnesium: 75, zinc: 3.5, selenium: 32}, allergens: ['小麦', '卵', '乳', '大豆', '鶏肉'], is_vegetarian: false, is_vegan: false, is_gluten_free: false, available: true, seasonal: false, added_date: '2024-01-01', last_updated: '2024-12-01'},
+
+        {id: 'yayoiken_karaage', restaurant_id: 'yayoiken', name: 'から揚げ定食', category: '定食', description: 'ジューシーな鶏の唐揚げ定食', price: 690, size: 'レギュラー', image: 'https://www.yayoiken.com/files/menu_img/sp_536s.jpg', nutrition: {calories: 968, protein: 42.4, carbs: 82.2, fat: 54.4, fiber: 4.5, sodium: 4900, sugar: 12.5, saturated_fat: 12.8, trans_fat: 0.0, cholesterol: 145, calcium: 85, iron: 3.2, potassium: 580, vitamin_a: 450, vitamin_c: 8, vitamin_d: 2.2, vitamin_e: 6.5, vitamin_k: 12, thiamin: 0.25, riboflavin: 0.35, niacin: 18.5, vitamin_b6: 0.75, folate: 48, vitamin_b12: 2.5, phosphorus: 385, magnesium: 68, zinc: 3.8, selenium: 35}, allergens: ['小麦', '卵', '乳', '大豆', '鶏肉'], is_vegetarian: false, is_vegan: false, is_gluten_free: false, available: true, seasonal: false, added_date: '2024-01-01', last_updated: '2024-12-01'},
+
+        {id: 'yayoiken_special_karaage', restaurant_id: 'yayoiken', name: '特から揚げ定食', category: '定食', description: '大きめの鶏の唐揚げをボリュームアップした定食', price: 790, size: 'レギュラー', image: 'https://www.yayoiken.com/files/menu_img/sp_537s.jpg', nutrition: {calories: 1152, protein: 54.4, carbs: 89.0, fat: 63.2, fiber: 5.2, sodium: 5700, sugar: 14.8, saturated_fat: 15.2, trans_fat: 0.0, cholesterol: 185, calcium: 95, iron: 3.8, potassium: 650, vitamin_a: 520, vitamin_c: 10, vitamin_d: 2.8, vitamin_e: 7.5, vitamin_k: 15, thiamin: 0.32, riboflavin: 0.42, niacin: 22.5, vitamin_b6: 0.85, folate: 58, vitamin_b12: 3.2, phosphorus: 445, magnesium: 78, zinc: 4.5, selenium: 42}, allergens: ['小麦', '卵', '乳', '大豆', '鶏肉'], is_vegetarian: false, is_vegan: false, is_gluten_free: false, available: true, seasonal: false, added_date: '2024-01-01', last_updated: '2024-12-01'},
+
+        // 魚系メイン定食
+        {id: 'yayoiken_saba_shioyaki', restaurant_id: 'yayoiken', name: 'サバの塩焼定食', category: '定食', description: '脂ののったサバの塩焼き定食', price: 690, size: 'レギュラー', image: 'https://www.yayoiken.com/files/menu_img/sp_558s.jpg', nutrition: {calories: 715, protein: 24.4, carbs: 63.6, fat: 30.4, fiber: 4.2, sodium: 2000, sugar: 6.8, saturated_fat: 8.5, trans_fat: 0.0, cholesterol: 75, calcium: 185, iron: 3.2, potassium: 680, vitamin_a: 420, vitamin_c: 12, vitamin_d: 12.5, vitamin_e: 5.8, vitamin_k: 8, thiamin: 0.18, riboflavin: 0.32, niacin: 12.8, vitamin_b6: 0.55, folate: 42, vitamin_b12: 12.5, phosphorus: 285, magnesium: 85, zinc: 2.5, selenium: 45}, allergens: ['魚'], is_vegetarian: false, is_vegan: false, is_gluten_free: true, available: true, seasonal: false, added_date: '2024-01-01', last_updated: '2024-12-01'},
+
+        {id: 'yayoiken_saba_miso', restaurant_id: 'yayoiken', name: 'サバの味噌煮定食', category: '定食', description: '味噌で煮込んだサバの定食', price: 690, size: 'レギュラー', image: 'https://www.yayoiken.com/files/menu_img/sp_559s.jpg', nutrition: {calories: 650, protein: 22.0, carbs: 72.3, fat: 18.2, fiber: 5.5, sodium: 3200, sugar: 15.2, saturated_fat: 5.2, trans_fat: 0.0, cholesterol: 65, calcium: 185, iron: 3.5, potassium: 680, vitamin_a: 380, vitamin_c: 12, vitamin_d: 8.5, vitamin_e: 4.8, vitamin_k: 8, thiamin: 0.15, riboflavin: 0.28, niacin: 8.5, vitamin_b6: 0.45, folate: 48, vitamin_b12: 8.5, phosphorus: 285, magnesium: 95, zinc: 2.2, selenium: 35}, allergens: ['魚', '大豆'], is_vegetarian: false, is_vegan: false, is_gluten_free: true, available: true, seasonal: false, added_date: '2024-01-01', last_updated: '2024-12-01'},
+
+        {id: 'yayoiken_hokke', restaurant_id: 'yayoiken', name: 'しまほっけ定食', category: '定食', description: 'しまほっけの焼き魚定食', price: 790, size: 'レギュラー', image: 'https://www.yayoiken.com/files/menu_img/sp_560s.jpg', nutrition: {calories: 660, protein: 38.6, carbs: 63.1, fat: 26.2, fiber: 4.2, sodium: 2500, sugar: 6.5, saturated_fat: 6.8, trans_fat: 0.0, cholesterol: 95, calcium: 125, iron: 2.8, potassium: 750, vitamin_a: 450, vitamin_c: 8, vitamin_d: 15.5, vitamin_e: 6.2, vitamin_k: 8, thiamin: 0.18, riboflavin: 0.25, niacin: 15.8, vitamin_b6: 0.65, folate: 35, vitamin_b12: 15.5, phosphorus: 385, magnesium: 85, zinc: 2.8, selenium: 55}, allergens: ['魚'], is_vegetarian: false, is_vegan: false, is_gluten_free: true, available: true, seasonal: false, added_date: '2024-01-01', last_updated: '2024-12-01'},
+
+        // ハンバーグ系定食
+        {id: 'yayoiken_oroshi_hamburg', restaurant_id: 'yayoiken', name: '和風おろしハンバーグ定食', category: '定食', description: '大根おろしでさっぱりとした和風ハンバーグ定食', price: 790, size: 'レギュラー', image: 'https://www.yayoiken.com/files/menu_img/sp_550s.jpg', nutrition: {calories: 878, protein: 31.9, carbs: 100.8, fat: 25.8, fiber: 6.2, sodium: 4800, sugar: 18.5, saturated_fat: 9.5, trans_fat: 0.0, cholesterol: 125, calcium: 125, iron: 4.2, potassium: 780, vitamin_a: 580, vitamin_c: 25, vitamin_d: 2.2, vitamin_e: 6.5, vitamin_k: 22, thiamin: 0.28, riboflavin: 0.35, niacin: 12.5, vitamin_b6: 0.58, folate: 68, vitamin_b12: 2.8, phosphorus: 345, magnesium: 95, zinc: 4.2, selenium: 28}, allergens: ['小麦', '卵', '乳', '牛肉', '大豆'], is_vegetarian: false, is_vegan: false, is_gluten_free: false, available: true, seasonal: false, added_date: '2024-01-01', last_updated: '2024-12-01'},
+
+        {id: 'yayoiken_demi_hamburg', restaurant_id: 'yayoiken', name: 'デミハンバーグ定食', category: '定食', description: 'デミグラスソースのハンバーグ定食', price: 790, size: 'レギュラー', image: 'https://www.yayoiken.com/files/menu_img/sp_551s.jpg', nutrition: {calories: 859, protein: 31.7, carbs: 94.1, fat: 26.9, fiber: 5.8, sodium: 3900, sugar: 22.5, saturated_fat: 10.2, trans_fat: 0.0, cholesterol: 125, calcium: 95, iron: 4.5, potassium: 680, vitamin_a: 520, vitamin_c: 18, vitamin_d: 2.2, vitamin_e: 5.8, vitamin_k: 15, thiamin: 0.25, riboflavin: 0.32, niacin: 12.8, vitamin_b6: 0.55, folate: 58, vitamin_b12: 2.8, phosphorus: 345, magnesium: 85, zinc: 4.2, selenium: 28}, allergens: ['小麦', '卵', '乳', '牛肉', '大豆', '豚肉'], is_vegetarian: false, is_vegan: false, is_gluten_free: false, available: true, seasonal: false, added_date: '2024-01-01', last_updated: '2024-12-01'},
+
+        // コンビネーション定食
+        {id: 'yayoiken_nanban_ebi_combo', restaurant_id: 'yayoiken', name: 'チキン南蛮とエビフライの定食', category: 'コンビ定食', description: 'チキン南蛮とエビフライの人気コンビ定食', price: 990, size: 'レギュラー', image: 'https://www.yayoiken.com/files/menu_img/sp_556s.jpg', nutrition: {calories: 1286, protein: 35.1, carbs: 114.3, fat: 72.8, fiber: 6.5, sodium: 6000, sugar: 18.5, saturated_fat: 18.5, trans_fat: 0.0, cholesterol: 245, calcium: 145, iron: 4.2, potassium: 650, vitamin_a: 720, vitamin_c: 15, vitamin_d: 3.5, vitamin_e: 12.5, vitamin_k: 18, thiamin: 0.28, riboflavin: 0.52, niacin: 18.5, vitamin_b6: 0.78, folate: 68, vitamin_b12: 3.5, phosphorus: 385, magnesium: 85, zinc: 4.2, selenium: 45}, allergens: ['小麦', '卵', '乳', 'えび', '大豆', '鶏肉'], is_vegetarian: false, is_vegan: false, is_gluten_free: false, available: true, seasonal: false, added_date: '2024-01-01', last_updated: '2024-12-01'},
+
+        // ベジタリアン対応メニュー
+        {id: 'yayoiken_soy_ginger', restaurant_id: 'yayoiken', name: '大豆ミートのしょうが焼定食', category: '植物性定食', description: '大豆ミートを使用したヘルシーなしょうが焼定食', price: 690, size: 'レギュラー', image: 'https://www.yayoiken.com/files/menu_img/sp_541s.jpg', nutrition: {calories: 601, protein: 18.0, carbs: 77.3, fat: 15.6, fiber: 8.5, sodium: 4700, sugar: 12.5, saturated_fat: 2.8, trans_fat: 0.0, cholesterol: 0, calcium: 185, iron: 4.2, potassium: 680, vitamin_a: 420, vitamin_c: 15, vitamin_d: 0, vitamin_e: 8.5, vitamin_k: 25, thiamin: 0.35, riboflavin: 0.22, niacin: 5.8, vitamin_b6: 0.45, folate: 95, vitamin_b12: 0.0, phosphorus: 285, magnesium: 125, zinc: 3.2, selenium: 12}, allergens: ['小麦', '大豆'], is_vegetarian: true, is_vegan: true, is_gluten_free: false, available: true, seasonal: false, added_date: '2024-01-01', last_updated: '2024-12-01'},
+
+        {id: 'yayoiken_soy_veggie_stir_fry', restaurant_id: 'yayoiken', name: '大豆ミートの野菜炒め定食', category: '植物性定食', description: '大豆ミートと野菜の炒め物定食', price: 630, size: 'レギュラー', image: 'https://www.yayoiken.com/files/menu_img/sp_542s.jpg', nutrition: {calories: 437, protein: 18.0, carbs: 74.6, fat: 6.0, fiber: 9.8, sodium: 5200, sugar: 15.5, saturated_fat: 1.2, trans_fat: 0.0, cholesterol: 0, calcium: 225, iron: 5.2, potassium: 950, vitamin_a: 1250, vitamin_c: 58, vitamin_d: 0, vitamin_e: 12.5, vitamin_k: 58, thiamin: 0.42, riboflavin: 0.28, niacin: 6.5, vitamin_b6: 0.68, folate: 125, vitamin_b12: 0.0, phosphorus: 285, magnesium: 145, zinc: 2.8, selenium: 8}, allergens: ['大豆'], is_vegetarian: true, is_vegan: true, is_gluten_free: true, available: true, seasonal: false, added_date: '2024-01-01', last_updated: '2024-12-01'}
+    ];
+
+    console.log('やよい軒メニューインポート開始:', yayoikenMenus.length, '件');
+
+    // レストランIDの確認とやよい軒レストラン追加（存在しない場合）
+    if (!restaurantsData.find(r => r.id === 'yayoiken')) {
+        const yayoikenRestaurant = {
+            id: 'yayoiken',
+            name: 'やよい軒',
+            category: '定食',
+            logo: 'https://images.unsplash.com/photo-1546793665-c74683f339c1?w=150&h=150&fit=crop',
+            description: '手作りの味にこだわった、バランスの取れた定食を提供するレストランチェーン'
+        };
+        restaurantsData.push(yayoikenRestaurant);
+        console.log('やよい軒レストラン追加完了');
+    }
+
+    // 既存のやよい軒メニューを削除
+    menusData = menusData.filter(menu => menu.restaurant_id !== 'yayoiken');
+
+    // 新しいやよい軒メニューを追加
+    menusData.push(...yayoikenMenus);
+
+    // データ保存
+    saveRestaurantDataToStorage();
+
+    // 表示更新
+    updateDisplaysAfterSave();
+
+    alert(`やよい軒メニュー ${yayoikenMenus.length} 件を正常にインポートしました！`);
+    console.log('やよい軒メニューインポート完了:', yayoikenMenus.length, '件');
+}
+
+// グローバル関数として登録
+window.importYayoikenMenus = importYayoikenMenus;
+
 console.log('🎯 ULTRATHINK SUCCESS: admin-simple-v2.js読み込み完了 - NUTRITION FIELD FIXED - menuCalories/menuProtein対応版');
